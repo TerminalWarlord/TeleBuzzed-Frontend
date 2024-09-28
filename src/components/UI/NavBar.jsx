@@ -18,6 +18,7 @@ export default function NavBar() {
     const [theme, setTheme] = useState();
     useEffect(() => {
         const currectTheme = localStorage.getItem('theme');
+        currectTheme === 'light' ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark');
         document.querySelector('html').setAttribute('data-theme', theme);
         setTheme(currectTheme);
     }, [theme]);

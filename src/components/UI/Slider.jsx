@@ -1,20 +1,14 @@
 import { Swiper } from "swiper/react";
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-// import required modules
 import { Pagination } from 'swiper/modules';
 
-
-
-
-
-const Slider = ({ defaultSlides = 1, smSlides = 1, mdSlides = 2, lgSlides = 3, xlSlides = 5, items }) => {
+const Slider = ({ defaultSlides = 1, smSlides = 1, mdSlides = 2, lgSlides = 3, xlSlides = 5, styles = "", spacing = 7, items }) => {
     return (
-        <div className="mx-5 lg:mx-[6rem] w-[80vw] h-20">
+        <div className={`${styles} w-full h-full`}>
             <Swiper
                 slidesPerView={defaultSlides}
-                spaceBetween={7}
+                spaceBetween={spacing}
                 pagination={{
                     clickable: true,
                 }}
@@ -38,11 +32,7 @@ const Slider = ({ defaultSlides = 1, smSlides = 1, mdSlides = 2, lgSlides = 3, x
                 {items}
             </Swiper>
         </div>
-    )
-}
+    );
+};
 
-export default Slider
-
-// <SwiperSlide key={index}>
-//                         <Card {...bot} />
-//                     </SwiperSlide>
+export default Slider;

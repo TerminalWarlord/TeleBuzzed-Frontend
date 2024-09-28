@@ -4,7 +4,7 @@ const Card = ({ title, description, reviews, image, url, category }) => {
     const [isHovering, setIsHovering] = useState(false);
 
     return (
-        <div className='p-2 border-2 border-base-300 sm:w-full h-full rounded-lg relative my-4'>
+        <div className='py-2 border-2 border-base-300 sm:w-full h-full rounded-lg relative my-4'>
             <div className='flex px-2 py-2'>
                 <div className='flex flex-col items-center'>
                     <div className='w-[100px] h-[100px] overflow-hidden rounded-full my-2'>
@@ -31,7 +31,7 @@ const Card = ({ title, description, reviews, image, url, category }) => {
                         {reviews}
                     </h3>
                     {isHovering && (
-                        <div className='absolute -left-5 mt-1 bg-slate-700 px-2 py-1 text-white rounded-md text-xs'>
+                        <div className='absolute left-0 mt-1 bg-slate-700 px-2 py-1 text-white rounded-md text-xs'>
                             Total votes 130
                         </div>
                     )}
