@@ -1,4 +1,17 @@
+import { Form, useNavigate } from "react-router-dom"
+import { authActions } from "../../store/authStore";
+import { useDispatch } from "react-redux";
+
 export default function SignIn() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    async function handleSubmit(e) {
+        e.preventDefault();
+        localStorage.setItem('token', '123');
+        dispatch(authActions.login({ userId: 1 }));
+        navigate('/');
+    }
+
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -13,7 +26,7 @@ export default function SignIn() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form action="#" method="POST" className="space-y-6">
+                <Form onSubmit={handleSubmit} method="POST" className="space-y-6">
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-base-content">
                             Email address
@@ -54,7 +67,7 @@ export default function SignIn() {
                             Sign in
                         </button>
                     </div>
-                </form>
+                </Form>
 
                 <p className="mt-10 text-center text-sm text-gray-500">
                     Not a member?{' '}
@@ -66,3 +79,16 @@ export default function SignIn() {
         </div>
     )
 }
+
+
+
+
+// export async function SigninAction() {
+//     // const data = await request.formData();
+//     localStorage.setItem('token', 'abc');
+//     authActions.login({
+//         userId: 1
+//     })
+//     return redirect('/');
+
+// }

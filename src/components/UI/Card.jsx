@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const Card = ({ title, description, reviews, image, url, category, classes = "" }) => {
+const Card = ({ id, title, description, reviews, image, url, category, classes = "" }) => {
     const [isHovering, setIsHovering] = useState(false);
 
     return (
@@ -8,16 +9,16 @@ const Card = ({ title, description, reviews, image, url, category, classes = "" 
             <div className='flex px-2 py-2'>
                 <div className='flex flex-col items-center'>
                     <div className='w-[80px] h-[80px] overflow-hidden rounded-full my-2'>
-                        <img
+                        <Link to={'/bot/' + id}><img
                             src={image}
                             alt=""
                             className='w-full h-full object-cover'
-                        />
+                        /></Link>
                     </div>
                     <a href="#" className='text-xs'>{category}</a>
                 </div>
                 <div className='ml-4'>
-                    <h1 className='font-semibold'>{title}</h1>
+                    <Link to={'/bot/' + id}><h1 className='font-semibold'>{title}</h1></Link>
                     <h2 className='text-xs'>{description}</h2>
                 </div>
             </div>
@@ -37,13 +38,13 @@ const Card = ({ title, description, reviews, image, url, category, classes = "" 
                     )}
                 </div>
                 <div className="my-2 py-1.5 px-4 border-2 border-blue-500 dark:border-base-300 w-fit rounded-lg">
-                    <a href={url}>
+                    <Link to={'/bot/' + id}>
                         <img
                             src="https://www.svgrepo.com/show/343522/telegram-communication-chat-interaction-network-connection.svg"
                             alt=""
                             className="w-[18px]"
                         />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
