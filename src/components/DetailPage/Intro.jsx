@@ -12,7 +12,7 @@ const Intro = () => {
                     <h3 className="text-md font-medium">Bot</h3>
                 </div>
             </div>
-            <div className="h-[1.5px] w-full bg-base-200 my-4 mx-2"></div>
+            <div className="h-[1.5px] w-full bg-base-200 my-4 md:mx-2"></div>
         </>
     )
 }

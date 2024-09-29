@@ -1,7 +1,7 @@
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import LineBreak from "../UI/LineBreak"
-import ReviewStars from "./LeftSidebar/RightSidebar/ReviewStars"
-import PostReviewButton from "./LeftSidebar/RightSidebar/PostReviewButton"
+import ReviewStars from "./RightSidebar/ReviewStars"
+import PostReviewButton from "./RightSidebar/PostReviewButton"
 
 const NewReview = () => {
     return (

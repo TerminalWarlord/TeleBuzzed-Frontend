@@ -3,7 +3,7 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 const ReviewItem = () => {
     return (
-        <div className="flex w-11/12 items-center">
+        <div className="flex w-11/12 items-center justify-center my-5">
             <div className="rounded-xl mr-4 w-14 h-16">
                 <img src="https://telegramic.org/static/assets/img/avatar/default.png" alt="" className="rounded-xl" />
             </div>
