@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Card = ({ id, title, description, reviews, image, url, category, classes = "" }) => {
+const Card = ({ id, title, description, reviews, image, category, classes = "" }) => {
     const [isHovering, setIsHovering] = useState(false);
 
     return (
@@ -18,7 +18,7 @@ const Card = ({ id, title, description, reviews, image, url, category, classes =
                     <a href="#" className='text-xs'>{category}</a>
                 </div>
                 <div className='ml-4'>
-                    <Link to={'/bot/' + id}><h1 className='font-semibold'>{title}</h1></Link>
+                    <Link to={'/bot/' + id}><h1 className='font-semibold text-sm md:text-md'>{title}</h1></Link>
                     <h2 className='text-xs'>{description}</h2>
                 </div>
             </div>

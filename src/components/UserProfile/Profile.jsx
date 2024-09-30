@@ -6,6 +6,8 @@ import { POPULARBOTS } from "../../data/dummyData";
 import Card from "../UI/Card";
 import AllReviews from "../DetailPage/AllReviews";
 import LineBreak from "../UI/LineBreak";
+import Logs from "./Logs";
+import Pagination from "../UI/Pagination";
 
 const Profile = () => {
     const item = {
@@ -29,6 +31,9 @@ const Profile = () => {
                         return <Card key={bot.id} {...bot} classes='max-h-60' />
                     })}
                 </div>
+                <div className="w-full">
+                    <Pagination currentPage={1} totalPages={4} onPageChange={() => { }} />
+                </div>
             </div>,
             checked: true,
         },
@@ -36,6 +41,13 @@ const Profile = () => {
             tabName: 'Reviews',
             content: <div className="w-full flex flex-col justify-center items-center">
                 <AllReviews />
+            </div>,
+            checked: false
+        },
+        {
+            tabName: 'Logs',
+            content: <div className="w-full flex flex-col justify-center items-center">
+                <Logs />
             </div>,
             checked: false
         }
