@@ -1,4 +1,21 @@
+import { Form, Link, useNavigate } from "react-router-dom";
+
 export default function Register() {
+
+    const navigate = useNavigate();
+
+    async function handleSignup(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        const formDataObject = {};
+        data.forEach((value, key) => {
+            formDataObject[key] = value;
+        });
+        console.log(formDataObject);
+        console.log(navigate)
+    }
+
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -13,7 +30,7 @@ export default function Register() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form action="#" method="POST" className="space-y-6">
+                <Form method="POST" className="space-y-6" onSubmit={handleSignup}>
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-base-content">
                             Email address
@@ -68,7 +85,7 @@ export default function Register() {
                         </label>
                         <div className="mt-2">
                             <select
-                                className="select w-full bg-white border-1 border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded-md"
+                                className="select px-3 block w-full rounded-md border-1 border-blue-200  py-1.5 text-base-content shadow-sm ring-1  placeholder:text-base-content  focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6  focus:outline-none"
                                 name="gender"
                                 id="gender"
                             >
@@ -108,6 +125,11 @@ export default function Register() {
                             />
                         </div>
                     </div>
+                    {/* <div>
+                        <div className="mt-2">
+                            <input type="file" name="image" id="image" className="file-input file-input-bordered w-full " />
+                        </div>
+                    </div> */}
 
                     <div>
                         <button
@@ -117,13 +139,13 @@ export default function Register() {
                             Sign up
                         </button>
                     </div>
-                </form>
+                </Form>
 
                 <p className="mt-10 text-center text-sm text-gray-500">
                     Already a member?{' '}
-                    <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                    <Link to="/auth/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                         Sign in
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>

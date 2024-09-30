@@ -1,4 +1,4 @@
-import { Form, useNavigate } from "react-router-dom"
+import { Form, Link, useNavigate } from "react-router-dom"
 import { authActions } from "../../store/authStore";
 import { useDispatch } from "react-redux";
 
@@ -71,9 +71,9 @@ export default function SignIn() {
 
                 <p className="mt-10 text-center text-sm text-gray-500">
                     Not a member?{' '}
-                    <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                    <Link to="/auth/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                         Register
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>

@@ -3,13 +3,13 @@ import NavBar from './components/UI/NavBar'
 import Feeds from './components/Homepage/Feeds'
 import MainDetailPage from './components/DetailPage/MainDetailPage'
 import Register from './components/Authentication/SignUp'
-import SignIn from './components/Authentication/Signin'
+import SignIn from './components/Authentication/SignIn'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Profile from './components/UserProfile/Profile'
-
+import Dashboard from './components/Admin/Dashboard';
 
 import Lists from './components/List/Lists'
-import AllReviews from './components/DetailPage/AllReviews'
+import authLoader from './utils/authLoader'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +24,10 @@ const router = createBrowserRouter([
 
       },
       {
+        path: '/admin', element: <Dashboard />,
+
+      },
+      {
         path: '/channels', element: <Lists dirType='channels' />,
 
       },
@@ -33,7 +37,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: '/profile', element: <Profile />,
+        path: '/profile', element: <Profile />, loader: authLoader
 
       },
       {
