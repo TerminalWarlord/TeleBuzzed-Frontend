@@ -6,9 +6,9 @@ const Card = ({ id, title, description, reviews, image, url, category, classes =
 
     return (
         <div className={`py-2 border-2 border-base-300 sm:w-full rounded-lg relative my-4 ${classes}`}>
-            <div className='flex px-2 py-2'>
+            <div className='flex px-6 md:px-4 py-2'>
                 <div className='flex flex-col items-center'>
-                    <div className='w-[80px] h-[80px] overflow-hidden rounded-full my-2'>
+                    <div className='w-[50px] sm:w-[60px] md:w-[70px] aspect-square overflow-hidden rounded-full my-2'>
                         <Link to={'/bot/' + id}><img
                             src={image}
                             alt=""
@@ -23,7 +23,7 @@ const Card = ({ id, title, description, reviews, image, url, category, classes =
                 </div>
             </div>
             <div className='mt-4 h-0.5 w-full bg-base-200'></div>
-            <div className='flex justify-between items-center px-2 '>
+            <div className='flex justify-between items-center  px-6 md:px-4 '>
                 <div>
                     <h3
                         onMouseEnter={() => setIsHovering(true)}

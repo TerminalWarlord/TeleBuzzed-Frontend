@@ -6,7 +6,7 @@ import Pagination from "../UI/Pagination"
 const AllReviews = () => {
     return (
         <>
-            <div className="w-11/12">
+            <div className="w-full flex items-center flex-col">
                 <LineBreak icon={faSquarePollVertical} text={'Reviews'} />
                 <ReviewItem />
                 <ReviewItem />
@@ -14,8 +14,9 @@ const AllReviews = () => {
                 <ReviewItem />
                 <ReviewItem />
                 <ReviewItem />
-                <Pagination currentPage={1} onPageChange={() => { }} totalPages={4} />
-
+                <div className="w-11/12">
+                    <Pagination currentPage={1} onPageChange={() => { }} totalPages={4} />
+                </div>
             </div>
         </>
     )

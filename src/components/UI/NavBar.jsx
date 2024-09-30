@@ -2,17 +2,17 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import ThemeController from './ThemeController'
 import { useEffect, useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import Footer from './Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import { isLoggedIn } from '../../utils/auth'
 import { authActions } from '../../store/authStore'
 
 const navigation = [
-    { name: 'Home', href: '#', current: true },
-    { name: 'Bots', href: '#', current: false },
-    { name: 'Channels', href: '#', current: false },
-    { name: 'Groups', href: '#', current: false },
+    { name: 'Home', to: '/', current: true },
+    { name: 'Bots', to: '/bots', current: false },
+    { name: 'Channels', to: '/channels', current: false },
+    { name: 'Groups', to: '/groups', current: false },
 ]
 
 function classNames(...classes) {
@@ -21,6 +21,9 @@ function classNames(...classes) {
 
 export default function NavBar() {
     const [theme, setTheme] = useState();
+    const { pathname } = useLocation();
+    const currentPath = pathname.split('/')[1]
+
     const dispatcher = useDispatch();
     const [user, setUser] = useState();
     let isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -70,26 +73,28 @@ export default function NavBar() {
                         </div>
                         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                             <div className="flex flex-shrink-0 items-center">
-                                <img
-                                    alt="Your Company"
-                                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                    className="h-8 w-auto"
-                                />
+                                <Link to={'/'}>
+                                    <img
+                                        alt="TeleBuzzed"
+                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                        className="h-8 w-auto"
+                                    />
+                                </Link>
                             </div>
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4 items-center">
                                     {navigation.map((item) => (
-                                        <a
+                                        <Link
                                             key={item.name}
-                                            href={item.href}
-                                            aria-current={item.current ? 'page' : undefined}
+                                            to={item.to}
+                                            aria-current={item.to.split('/')[1] == currentPath ? 'page' : undefined}
                                             className={classNames(
-                                                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                item.to.split('/')[1] == currentPath ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                                 'rounded-md px-3 py-2 text-sm font-medium',
                                             )}
                                         >
                                             {item.name}
-                                        </a>
+                                        </Link>
                                     ))}
                                     <ThemeController onToggleTheme={toggleTheme} />
                                 </div>
@@ -125,9 +130,9 @@ export default function NavBar() {
                                     className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                                 >
                                     <MenuItem>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                                        <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
                                             Your Profile
-                                        </a>
+                                        </Link>
                                     </MenuItem>
                                     <MenuItem>
                                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
@@ -135,9 +140,9 @@ export default function NavBar() {
                                         </a>
                                     </MenuItem>
                                     <MenuItem>
-                                        <a onClick={handleLogout} className="cursor-pointer block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                                        <Link onClick={handleLogout} className="cursor-pointer block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
                                             Sign out
-                                        </a>
+                                        </Link>
                                     </MenuItem>
                                 </MenuItems>
                             </Menu>

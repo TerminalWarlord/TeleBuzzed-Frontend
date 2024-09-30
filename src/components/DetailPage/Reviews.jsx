@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 const Reviews = () => {
     return (
         <div className="w-full flex items-center flex-col">
-            <LineBreak icon={faSquarePollVertical} text={'All Reviews'} classes="my-5 text-center" />
+            <LineBreak icon={faSquarePollVertical} text={'Reviews'} classes="my-5 text-center" />
             <ReviewItem />
             <ReviewItem />
             <ReviewItem />
