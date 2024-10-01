@@ -1,4 +1,4 @@
-import { faArrowTrendUp, faCalendar, faCircleInfo, faFlag, faLanguage, faList, faMars, faPaperPlane, faRobot, faStar, faUsersBetweenLines } from "@fortawesome/free-solid-svg-icons"
+import { faArrowTrendUp, faCalendar, faCircleInfo, faFlag, faLanguage, faList, faMars, faPaperPlane, faRobot, faStar, faUserGroup } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import LineBreak from "../../UI/LineBreak"
 import ProfilePicture from "./ProfilePicture"
@@ -32,7 +32,7 @@ const InfoCard = ({ item }) => {
             <InfoItem icon={faStar} fieldName={'Reviews'} fieldValue={item.reviews} />
             <InfoItem icon={faRobot} fieldName={'Bots Added'} fieldValue={item.bots_added} />
             <InfoItem icon={faCalendar} fieldName={'Channels Added'} fieldValue={item.channels_added} />
-            <InfoItem icon={faUsersBetweenLines} fieldName={'Groups Added'} fieldValue={item.groups_added} />
+            <InfoItem icon={faUserGroup} fieldName={'Groups Added'} fieldValue={item.groups_added} />
             <InfoItem icon={faMars} fieldName={'Gender'} fieldValue={item.gender} />
             <InfoItem icon={faCalendar} fieldName={'Joined'} fieldValue={item.joined} />
             <div className="my-2"></div>

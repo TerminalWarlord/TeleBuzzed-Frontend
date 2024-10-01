@@ -2,7 +2,7 @@ import Slider from '../UI/Slider'
 import Card from '../UI/Card'
 import { SwiperSlide } from 'swiper/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBullhorn, faRobot, faUsersBetweenLines } from '@fortawesome/free-solid-svg-icons'
+import { faBullhorn, faRobot, faUserGroup } from '@fortawesome/free-solid-svg-icons'
 import Featured from './FeaturedPostSlider/Featured'
 import { POPULARBOTS } from '../../data/dummyData';
 
@@ -52,7 +52,7 @@ const Feeds = () => {
                         <div className="relative w-full my-4">
                             <div className="h-[1.5px] bg-base-200 rounded-lg" />
                             <h2 className="absolute left-1/2 transform -translate-x-1/2 -bottom-3 bg-base-100 px-4 text-center uppercase font-semibold">
-                                <FontAwesomeIcon icon={faUsersBetweenLines} className="mr-2" />
+                                <FontAwesomeIcon icon={faUserGroup} className="mr-2" />
                                 Popular Groups
                             </h2>
                         </div>

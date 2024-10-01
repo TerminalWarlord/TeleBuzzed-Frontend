@@ -10,6 +10,7 @@ import Dashboard from './components/Admin/Dashboard';
 
 import Lists from './components/List/Lists'
 import authLoader from './utils/authLoader'
+import AddItem from './components/AddItems/AddItem'
 
 const router = createBrowserRouter([
   {
@@ -44,7 +45,18 @@ const router = createBrowserRouter([
         path: '/bot/:botId', element: <MainDetailPage />
       },
 
-
+      {
+        path: '/add',
+        loader: authLoader,
+        children: [
+          {
+            index: true, element: <AddItem />,
+          },
+          {
+            path: ':type', element: <AddItem />,
+          }
+        ]
+      },
       {
         path: 'auth',
         children: [

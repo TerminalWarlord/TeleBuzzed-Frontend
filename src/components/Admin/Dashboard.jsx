@@ -14,7 +14,7 @@ const REQUESTS = [
         description: `This bot can search and download your favourite Animes.
                                                 ⚙ Developer : @JayBeeDev
                                                 A project of @JayBeeBots`,
-        category: 'Media',
+        category: 'media',
         image: img,
         added_by: 'Joy Biswas',
         user_id: 'jaybeedev',
@@ -30,7 +30,7 @@ const REQUESTS = [
         image: img,
         added_by: 'Joy Biswas',
         user_id: 'jaybeedev',
-        category: 'Programming',
+        category: 'programming',
         subscribers: 61000,
         members: null,
     },
@@ -43,7 +43,7 @@ const REQUESTS = [
         image: img,
         added_by: 'Joy Biswas',
         user_id: 'jaybeedev',
-        category: 'Programming',
+        category: 'programming',
         subscribers: 61000,
         members: null,
     },
@@ -56,7 +56,7 @@ const REQUESTS = [
         image: img,
         added_by: 'Joy Biswas',
         user_id: 'jaybeedev',
-        category: 'Programming',
+        category: 'programming',
         subscribers: 61000,
         members: null,
     }
@@ -86,9 +86,9 @@ const Dashboard = () => {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th className="p-1">User</th>
-                            <th className="p-1">Content Added</th>
-                            <th className="p-1">Action</th>
+                            <th className="p-1 text-center">User</th>
+                            <th className="p-1 text-center">Content Added</th>
+                            <th className="p-1 w-[8rem] md:w-[10rem] text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +103,7 @@ const Dashboard = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td className="p-1 w-6 sm:w-[30rem] xl:w-[70rem]">
+                                <td className="p-1 w-6 sm:w-[30rem] xl:w-[65rem] 2xl:w-[75rem]">
                                     <div className="flex">
                                         <div className="hidden  md:flex avatar">
                                             <div className="mask mask-squircle h-12 w-12 mr-4">
@@ -122,12 +122,12 @@ const Dashboard = () => {
                                 <th className="p-1">
                                     <Form className="flex flex-col items-center justify-center space-y-2" onSubmit={handleSubmit}>
                                         <input type="hidden" name="request_id" value={request.id} />
-                                        <select name="category" id="category" className="select text-xs md:text-sm select-sm  px-2 border-1 border-base-200">
-                                            <option disabled selected>Category</option>
-                                            <option value="Entertainment">Entertainment</option>
-                                            <option value="Utilities">Utilities</option>
-                                            <option value="Media">Media</option>
-                                            <option value="News">News</option>
+                                        <select name="category" id="category" className="select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full" required value={request.category}>
+                                            <option value="entertainment">Entertainment</option>
+                                            <option value="utilities">Utilities</option>
+                                            <option value="media">Media</option>
+                                            <option value="news">News</option>
+                                            <option value="programming">Programming</option>
                                         </select>
                                         <select name="action" id="action" className="select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full">
                                             <option value="approve" selected>Approve</option>
