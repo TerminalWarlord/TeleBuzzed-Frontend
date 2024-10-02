@@ -11,6 +11,10 @@ TeleIgnite is a React-based web application that serves as a comprehensive direc
 - **Responsive Design**: Optimized for both desktop and mobile devices.
 - **Community-Driven**: Contribute to the directory by adding your own Telegram resources.
 
+## UI Flow (Under Development)
+
+![image](docs/telebuzzed_frontend.png)
+
 ## Installation
 
 To run the project locally, follow these steps:
