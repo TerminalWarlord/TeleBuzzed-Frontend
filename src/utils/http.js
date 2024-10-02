@@ -49,9 +49,16 @@ export async function getMe() {
         })
     });
     if (!res.ok) {
+        console.log("failed")
         throw new Error('Failed to fetch user data!');
     }
-    const data = await res.json();
-    console.log(data)
-    return data;
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+
+    }
+    catch (err) {
+        throw new Error(err.message || 'Failed to fetch user data!');
+    }
 }

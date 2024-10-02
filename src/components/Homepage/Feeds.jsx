@@ -6,17 +6,13 @@ import { faBullhorn, faRobot, faUserGroup } from '@fortawesome/free-solid-svg-ic
 import Featured from './FeaturedPostSlider/Featured'
 import useFetch from '../../hooks/useFetch'
 import { fetchItems } from '../../utils/http'
-import { POPULARBOTS } from '../../data/dummyData'
+import { dummyData } from '../../data/dummySkeletonCards'
 
 const Feeds = () => {
     const { data: bots, isFetching: isBotsFetching, error: botsFetchingError } = useFetch(fetchItems, []);
     const { data: channels, isFetching: isChannelsFetching, error: channelsFetchingError } = useFetch(fetchItems, []);
     const { data: groups, isFetching: isGroupsFetching, error: groupsFetchingError } = useFetch(fetchItems, []);
-    const dummyData = POPULARBOTS.map((bot, index) => (
-        <SwiperSlide key={index}>
-            <Card {...bot} isFetching />
-        </SwiperSlide>
-    ));
+
     const popularBots = bots.map((bot, index) => (
         <SwiperSlide key={index}>
             <Card {...bot} />

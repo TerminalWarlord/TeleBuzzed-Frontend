@@ -6,15 +6,18 @@ import InfoItem from "./InfoItem"
 import LikeState from "./LikeState"
 import { useRef } from "react"
 import Modal from "../../UI/Modal"
+import InfoSkeleton from "./InfoSkeleton"
 
-const InfoCard = ({ item }) => {
+const InfoCard = ({ item, isFetching = false, error = null }) => {
     const modal = useRef();
     let info;
     function openModal() {
         modal.current.showModal();
     }
     if (!item.isUser) {
-        info = <><InfoItem icon={faLanguage} fieldName={'Language'} fieldValue={item.languages} />
+        info = <>
+            <InfoItem icon={faPaperPlane} fieldName={'Username'} fieldValue={item.username} />
+            <InfoItem icon={faLanguage} fieldName={'Language'} fieldValue={item.languages} />
             <InfoItem icon={faList} fieldName={'Category'} fieldValue={item.category} />
             <InfoItem icon={faCalendar} fieldName={'Added'} fieldValue={item.added} />
             <InfoItem icon={faArrowTrendUp} fieldName={'Popularity'} fieldValue={item.popularity} />
@@ -29,6 +32,7 @@ const InfoCard = ({ item }) => {
     }
     else {
         info = <>
+            <InfoItem icon={faPaperPlane} fieldName={'Username'} fieldValue={item.username} />
             <InfoItem icon={faStar} fieldName={'Reviews'} fieldValue={item.reviews} />
             <InfoItem icon={faRobot} fieldName={'Bots Added'} fieldValue={item.bots_added} />
             <InfoItem icon={faCalendar} fieldName={'Channels Added'} fieldValue={item.channels_added} />
@@ -38,9 +42,10 @@ const InfoCard = ({ item }) => {
             <div className="my-2"></div>
         </>
     }
+
     return (
         <div className="rounded-md mx-2 w-11/12 md:w-[300px] flex flex-col shadow-md" >
-            <ProfilePicture />
+            <ProfilePicture image={item.image} isFetching={isFetching} error={error} />
             {!item.isUser && <LikeState />}
             <div className="my-3 flex justify-center">
                 <a href="#" className="px-4 py-2 bg-[#2AABEE] text-base-200 rounded-md font-bold text-xs">Open <FontAwesomeIcon icon={faPaperPlane} color="white" className="ml-2 text-sm font-normal" /></a>
@@ -48,8 +53,10 @@ const InfoCard = ({ item }) => {
             <div className="w-full flex justify-center my-3 item">
                 <LineBreak icon={faCircleInfo} text={'Details'} />
             </div>
-            <InfoItem icon={faPaperPlane} fieldName={'Username'} fieldValue={item.username} />
-            {info}
+
+            {error?.message && <h1 className="text-center text-red-400 italic mb-4">Failed to fetch data!</h1>}
+            {!error && (isFetching ? <InfoSkeleton /> : <>{info}</>)}
+
         </div>
     )
 }
