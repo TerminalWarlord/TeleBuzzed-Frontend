@@ -4,11 +4,30 @@ import { SwiperSlide } from 'swiper/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBullhorn, faRobot, faUserGroup } from '@fortawesome/free-solid-svg-icons'
 import Featured from './FeaturedPostSlider/Featured'
-import { POPULARBOTS } from '../../data/dummyData';
-
+import useFetch from '../../hooks/useFetch'
+import { fetchItems } from '../../utils/http'
+import { POPULARBOTS } from '../../data/dummyData'
 
 const Feeds = () => {
-    const popularBots = POPULARBOTS.map((bot, index) => (
+    const { data: bots, isFetching: isBotsFetching, error: botsFetchingError } = useFetch(fetchItems, []);
+    const { data: channels, isFetching: isChannelsFetching, error: channelsFetchingError } = useFetch(fetchItems, []);
+    const { data: groups, isFetching: isGroupsFetching, error: groupsFetchingError } = useFetch(fetchItems, []);
+    const dummyData = POPULARBOTS.map((bot, index) => (
+        <SwiperSlide key={index}>
+            <Card {...bot} isFetching />
+        </SwiperSlide>
+    ));
+    const popularBots = bots.map((bot, index) => (
+        <SwiperSlide key={index}>
+            <Card {...bot} />
+        </SwiperSlide>
+    ));
+    const popularChannels = channels.map((bot, index) => (
+        <SwiperSlide key={index}>
+            <Card {...bot} />
+        </SwiperSlide>
+    ));
+    const popularGroups = groups.map((bot, index) => (
         <SwiperSlide key={index}>
             <Card {...bot} />
         </SwiperSlide>
@@ -29,8 +48,9 @@ const Feeds = () => {
                             </h2>
                         </div>
                     </div>
-
-                    <Slider items={popularBots} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />
+                    {botsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>}
+                    {(!botsFetchingError && isBotsFetching) && <Slider items={dummyData} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
+                    {(!botsFetchingError && !isBotsFetching) && <Slider items={popularBots} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
                 </div>
 
                 <div className='my-8'>
@@ -44,7 +64,9 @@ const Feeds = () => {
                         </div>
                     </div>
 
-                    <Slider items={popularBots} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={4} spacing={20} />
+                    {channelsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>}
+                    {(!channelsFetchingError && isChannelsFetching) && <Slider items={dummyData} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
+                    {(!channelsFetchingError && !isChannelsFetching) && <Slider items={popularChannels} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
                 </div>
 
                 <div className='my-8'>
@@ -57,8 +79,9 @@ const Feeds = () => {
                             </h2>
                         </div>
                     </div>
-
-                    <Slider items={popularBots} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={4} spacing={20} />
+                    {groupsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>}
+                    {(!groupsFetchingError && isGroupsFetching) && <Slider items={dummyData} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
+                    {(!groupsFetchingError && !isGroupsFetching) && <Slider items={popularGroups} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
                 </div>
             </div>
         </div>

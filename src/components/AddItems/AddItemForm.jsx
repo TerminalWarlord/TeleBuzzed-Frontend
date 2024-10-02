@@ -7,7 +7,6 @@ import { Form, Link, useParams } from 'react-router-dom'
 
 const AddItemForm = () => {
     const params = useParams();
-    console.log(params.type)
     const type = params.type || 'bot';
     const contentType = type === 'bot' ? 'Bot' : (type === 'channel' ? 'Channel' : 'Group');
     async function handleSubmit(e) {
