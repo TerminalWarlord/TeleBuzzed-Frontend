@@ -5,7 +5,7 @@ const ProfilePicture = ({ image, isFetching = false, error = null }) => {
         <div className="w-full mb-1">
             <div
                 className="rounded-md bg-contain bg-center aspect-square flex justify-center items-center"
-                style={{ backgroundImage: isFetching || error ? "url('https://telegramic.org/static/assets/img/avatar/shattered-island.jpg')" : "none" }}
+                style={{ backgroundImage: "url('https://telegramic.org/static/assets/img/avatar/shattered-island.jpg')" }}
             >
                 {error?.message && (
                     <div className="bg-base-100 flex justify-center items-center aspect-square w-[170px] sm:w-[280px] md:w-[170px] rounded-full">

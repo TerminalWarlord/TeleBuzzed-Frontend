@@ -62,3 +62,55 @@ export async function getMe() {
         throw new Error(err.message || 'Failed to fetch user data!');
     }
 }
+
+
+
+
+
+export async function getReviews(reviewer, username, offset = 1) {
+    const path = reviewer === null ? '/reviews/' : '/user-reviews/';
+    console.log(path, reviewer, username)
+    const res = await fetch(base + path, {
+        method: 'POST',
+        body: JSON.stringify({
+            reviewer: reviewer,
+            username: username,
+            offset: offset
+        })
+    });
+    if (!res.ok) {
+        throw new Error('Failed to fetch data!');
+    }
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+    }
+    catch (err) {
+        throw new Error(err.message || 'Failed to fetch data!');
+    }
+}
+
+
+
+
+export async function getItemDetails(username) {
+    const res = await fetch(base + '/details/', {
+        method: 'POST',
+        body: JSON.stringify({
+            username: username,
+        })
+    });
+    if (!res.ok) {
+        throw new Error('Failed to fetch data!');
+    }
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+    }
+    catch (err) {
+        throw new Error(err.message || 'Failed to fetch data!');
+    }
+}
+

@@ -15,6 +15,9 @@ import { useState } from "react";
 const Profile = () => {
     const { data, isFetching, error } = useFetch(getMe, {});
     const [currentPage, setCurrentPage] = useState(1);
+    const loadingData = Array(10).fill({
+        id: undefined
+    });
     const {
         data: botsData,
         isFetching: isFetchingBots,
@@ -22,7 +25,7 @@ const Profile = () => {
         setIsFetching: setIsFetchingBots,
         setError: setBotsError,
         setData: setBotsData,
-    } = useFetch(fetchItems, dummyData);
+    } = useFetch(fetchItems, loadingData);
 
     async function handleNext(pageNo) {
         setCurrentPage(pageNo);
@@ -49,10 +52,16 @@ const Profile = () => {
                 <div className='grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-2 2xl:grid-cols-3  sm:gap-x-2 md:gap-x-5'>
                     {botsError?.message && <h4 className="text-center text-red-300 text-lg">Failed to load data!</h4>}
                     {!botsError && <>
-                        {botsData.map(bot => {
-                            return <Card key={bot.id} {...bot} classes='max-h-60' isFetching={isFetchingBots} />
+                        {botsData.map((bot) => {
+                            return <Card
+                                key={bot.id}
+                                {...bot}
+                                isFetching={isFetchingBots}
+                                classes='max-h-60'
+                            />
                         }
                         )}
+
                     </>
                     }
                 </div>
@@ -65,7 +74,7 @@ const Profile = () => {
         {
             tabName: 'Reviews',
             content: <div className="w-full flex flex-col justify-center items-center">
-                <AllReviews />
+                <AllReviews username={data?.username} reviewer={"jaybeedev"} />
             </div>,
             checked: false
         },
@@ -78,7 +87,7 @@ const Profile = () => {
         }
     ]
     return (
-        <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center">
+        <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center overflow-hidden">
             <Intro title="JayBee" type="Profile" icon={faUser} />
             <div className="flex flex-col items-center md:flex-row md:items-start w-full my-4">
                 <InfoCard item={{ isUser: true, ...data }} isFetching={isFetching} error={error} />

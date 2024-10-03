@@ -1,26 +1,40 @@
 import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons"
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-const ReviewItem = () => {
+
+
+
+const ReviewItem = ({ data, isFetching = false, reviewer }) => {
+    console.log(reviewer, data.content_image)
+    const stars = data?.stars || 0;
+    const fullStars = Math.floor(stars);
+    const hasHalfStar = stars % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
     return (
         <div className="flex w-11/12 items-start justify-start my-5">
-            <img src="https://telegramic.org/static/assets/img/avatar/default.png" alt="" className="rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5" />
+            {isFetching ? <div className="skeleton min-w-[40px] rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square"></div> : <img src={reviewer === null ? data.reviewer_image : data.content_image} alt="Reviewers Image" className="rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square" />}
             <div className="flex flex-col">
                 <div>
-                    <h6 className="text-sm md:text-base lg:text-md font-bold">Joy Biswas</h6>
+                    {isFetching ? <div className="skeleton h-4 w-24 my-1.5"></div> : <h6 className="text-sm md:text-base lg:text-md font-bold">{reviewer === null ? data.reviewer_name : data.content_title}</h6>}
                 </div>
                 <div className="text-xs">
-                    <FontAwesomeIcon icon={faStar} className="text-orange-400" />
-                    <FontAwesomeIcon icon={faStar} className="text-orange-400" />
-                    <FontAwesomeIcon icon={faStar} className="text-orange-400" />
-                    <FontAwesomeIcon icon={faStarHalfStroke} className="text-orange-400" />
-                    <FontAwesomeIcon icon={farStar} className="text-orange-400" />
+                    {isFetching ? <div className="skeleton h-4 w-16 mb-1.5"></div> :
+                        <>
+                            {Array(fullStars).fill(undefined).map((_, index) => (
+                                <FontAwesomeIcon key={index} icon={faStar} className="text-orange-400" />
+                            ))}
+                            {hasHalfStar && <FontAwesomeIcon icon={faStarHalfStroke} className="text-orange-400" />}
+                            {Array(emptyStars).fill(undefined).map((_, index) => (
+                                <FontAwesomeIcon key={index} icon={farStar} className="text-orange-400" />
+                            ))}
+                        </>}
                 </div>
                 <div className="leading-5 text-xs md:text-sm lg:text-base">
-                    <span>Nice and easy reminder, its a nice value added to everyday life, its a nice value added to everyday life, its a nice value added to everyday life</span>
+                    {isFetching ? <div className="skeleton h-16 w-[10rem] sm:w-[14rem] md:w-[18rem] lg:w-[24rem] xl:w-[30rem]"></div> : <span>{data.review}</span>}
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

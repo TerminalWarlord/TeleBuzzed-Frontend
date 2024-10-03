@@ -1,11 +1,18 @@
 import { faThumbtack } from "@fortawesome/free-solid-svg-icons"
 import LineBreak from "../UI/LineBreak"
 
-const About = () => {
+const About = ({ description, isFetching = false, error = null }) => {
     return (
         <main className="w-full flex items-center flex-col min-h-[10rem]">
             <LineBreak icon={faThumbtack} text={'About'} classes="my-4 md:my-3" />
-            <p className="text-left w-11/12">Skeddy is a simple yet powerful reminder tool that can help you create and manage your reminders.</p>
+            {error && <h4 className="text-center text-red-400 my-4">Failed to fetch!</h4>}
+            {!error && <>
+                {isFetching
+                    ?
+                    <div className="skeleton w-11/12 h-20 my-4"></div>
+                    :
+                    <p className="text-left w-11/12">{description}</p>}
+            </>}
         </main>
     )
 }

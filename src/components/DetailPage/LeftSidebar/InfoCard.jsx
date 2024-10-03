@@ -44,9 +44,9 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
     }
 
     return (
-        <div className="rounded-md mx-2 w-11/12 md:w-[300px] flex flex-col shadow-md" >
+        <div className="rounded-md w-11/12 md:w-[200px] lg:w-[300px] flex flex-col shadow-md" >
             <ProfilePicture image={item.image} isFetching={isFetching} error={error} />
-            {!item.isUser && <LikeState />}
+            {!item.isUser && <LikeState data={item} isFetching={isFetching} error={error} />}
             <div className="my-3 flex justify-center">
                 <a href="#" className="px-4 py-2 bg-[#2AABEE] text-base-200 rounded-md font-bold text-xs">Open <FontAwesomeIcon icon={faPaperPlane} color="white" className="ml-2 text-sm font-normal" /></a>
             </div>

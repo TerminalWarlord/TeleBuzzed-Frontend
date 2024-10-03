@@ -1,5 +1,5 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import ThemeController from './ThemeController'
 import { useEffect, useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
@@ -80,14 +80,14 @@ export default function NavBar() {
                                 <Link to={'/'}>
                                     <img
                                         alt="TeleBuzzed"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
                                         className="h-8 w-auto"
                                     />
                                 </Link>
 
                             </div>
-                            <div className="hidden sm:ml-6 sm:block">
-                                <div className="flex space-x-4 items-center">
+                            <div className="hidden sm:ml-1 md:ml-6  sm:block">
+                                <div className="flex space-x-1 lg:space-x-4 items-center">
                                     {navigation.map((item) => (
                                         <Link
                                             key={item.name}
@@ -109,7 +109,7 @@ export default function NavBar() {
                                         <li><Link to="/add/group"><FontAwesomeIcon icon={faUserGroup} /> Add a group</Link></li>
                                     </ul> */}
                                     <div className="dropdown dropdown-hover">
-                                        <div tabIndex={0} role="button" className="px-1 py-1 md:px-3 md:py-2 rounded-md bg-neutral-content text-black text-sm md:text-base min-w-12">+ Add</div>
+                                        <div tabIndex={0} role="button" className="px-1 py-1 md:px-2 lg:px-3 rounded-md bg-neutral-content text-black text-sm md:text-base min-w-12">+ Add</div>
                                         <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[2] w-52 p-2 shadow">
                                             <li><Link to="/add"><FontAwesomeIcon icon={faRobot} /> Add a bot</Link></li>
                                             <li><Link to="/add/channel"><FontAwesomeIcon icon={faBullhorn} /> Add a channel</Link></li>
