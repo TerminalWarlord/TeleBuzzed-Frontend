@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         index: true, element: <Feeds />
       },
       {
-        path: '/bots', element: <Lists dirType="bots" />,
+        path: '/bots', element: <Lists dirType="bot" />,
 
       },
       {
@@ -29,11 +29,11 @@ const router = createBrowserRouter([
 
       },
       {
-        path: '/channels', element: <Lists dirType='channels' />,
+        path: '/channels', element: <Lists dirType='channel' />,
 
       },
       {
-        path: '/groups', element: <Lists dirType='groups' />,
+        path: '/groups', element: <Lists dirType='group' />,
 
       },
 

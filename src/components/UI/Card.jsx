@@ -1,8 +1,20 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Card = ({ id, title, description, reviews, image, category, classes = "", isFetching = false }) => {
+const Card = ({ id, title, description, reviews, image, category, classes = "", isFetching = false, error = null }) => {
     const [isHovering, setIsHovering] = useState(false);
+
+
+    if (error) {
+        return (
+            <div className={`py-2 border-2 border-base-200 sm:w-full rounded-lg relative my-4 ${classes}`}>
+                <div className='flex flex-col items-center justify-center py-6'>
+                    <h1 className='text-red-500 font-semibold'>Error</h1>
+                    <p className='text-red-400'>{error.message}</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={`py-2 border-2 border-base-300 sm:w-full rounded-lg relative my-4 ${classes}`}>

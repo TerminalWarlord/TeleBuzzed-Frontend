@@ -11,13 +11,14 @@ import { fetchItems, getMe } from "../../utils/http";
 import useFetch from "../../hooks/useFetch";
 import { dummyData } from "../../data/dummySkeletonCards";
 import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 const Profile = () => {
     const { data, isFetching, error } = useFetch(getMe, {});
     const [currentPage, setCurrentPage] = useState(1);
-    const loadingData = Array(10).fill({
-        id: undefined
-    });
+    // const loadingData = Array(10).fill({
+    //     id: undefined
+    // });
     const {
         data: botsData,
         isFetching: isFetchingBots,
@@ -25,7 +26,11 @@ const Profile = () => {
         setIsFetching: setIsFetchingBots,
         setError: setBotsError,
         setData: setBotsData,
-    } = useFetch(fetchItems, loadingData);
+    } = useFetch(fetchItems, {
+        result: Array(5).fill(null).map(() => ({
+            id: uuidv4()
+        }))
+    });
 
     async function handleNext(pageNo) {
         setCurrentPage(pageNo);
@@ -52,7 +57,7 @@ const Profile = () => {
                 <div className='grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-2 2xl:grid-cols-3  sm:gap-x-2 md:gap-x-5'>
                     {botsError?.message && <h4 className="text-center text-red-300 text-lg">Failed to load data!</h4>}
                     {!botsError && <>
-                        {botsData.map((bot) => {
+                        {botsData?.result?.map((bot) => {
                             return <Card
                                 key={bot.id}
                                 {...bot}

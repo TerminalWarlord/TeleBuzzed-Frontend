@@ -2,26 +2,38 @@ const base = 'http://localhost:3000';
 
 // popular, added
 
-const paths = {
-    bot: 'bots',
-    channel: 'channels',
-    group: 'groups'
-};
-// /bots?offset=1&limit=20&filter=popular
-export async function fetchItems(offset = 1, limit = 20, filter = null, itemType = 'bot') {
-    const path = paths[itemType] || 'bots';
-    const url = new URL(`${base}/${path}`);
-    url.searchParams.append('offset', offset);
-    url.searchParams.append('limit', limit);
-    if (filter) {
-        url.searchParams.append('filter', filter);
-    }
+// const paths = {
+//     bot: 'bots',
+//     channel: 'channels',
+//     group: 'groups'
+// };
+export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'bot', searchTerm = null) {
+    // const path = paths[itemType] || 'bots';
+    // const url = new URL(`${base}/lists`);
+    // url.searchParams.append('offset', offset);
+    // url.searchParams.append('limit', limit);
+    // if (filter) {
+    //     url.searchParams.append('filter', filter);
+    // }
+    // if (searhTerm) {
+    //     url.searchParams.append('search', searhTerm);
+    // }
 
-    const res = await fetch(url);
+    const res = await fetch(`${base}/lists`, {
+        method: 'POST',
+        body: JSON.stringify({
+            offset,
+            filter,
+            type: itemType,
+            limit,
+            searchTerm,
+        })
+    });
     if (!res.ok) {
         throw new Error('Failed to fetch bots');
     }
     const data = await res.json();
+    console.log(data)
     return data;
 }
 

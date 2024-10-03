@@ -9,7 +9,6 @@ import AllReviews from "./AllReviews"
 import Tabs from "../UI/Tabs"
 import useFetch from "../../hooks/useFetch"
 import { getItemDetails } from "../../utils/http"
-import { data } from "autoprefixer"
 
 
 const MainDetailPage = () => {
@@ -37,7 +36,7 @@ const MainDetailPage = () => {
         {
             tabName: 'Reviews',
             content: <div className="w-full flex flex-col justify-center items-center">
-                {!isFetching && !error && <AllReviews username={data?.result?.username} reviewer={null} />}
+                {!isFetching && !error && <AllReviews username={botData?.result?.username} reviewer={null} />}
             </div>,
             checked: false
         }

@@ -9,21 +9,27 @@ import { fetchItems } from '../../utils/http'
 import { dummyData } from '../../data/dummySkeletonCards'
 
 const Feeds = () => {
-    const { data: bots, isFetching: isBotsFetching, error: botsFetchingError } = useFetch(fetchItems, []);
-    const { data: channels, isFetching: isChannelsFetching, error: channelsFetchingError } = useFetch(fetchItems, []);
-    const { data: groups, isFetching: isGroupsFetching, error: groupsFetchingError } = useFetch(fetchItems, []);
+    const { data: bots, isFetching: isBotsFetching, error: botsFetchingError } = useFetch(fetchItems, {
+        result: []
+    });
+    const { data: channels, isFetching: isChannelsFetching, error: channelsFetchingError } = useFetch(fetchItems, {
+        result: []
+    });
+    const { data: groups, isFetching: isGroupsFetching, error: groupsFetchingError } = useFetch(fetchItems, {
+        result: []
+    });
 
-    const popularBots = bots.map((bot, index) => (
+    const popularBots = bots?.result?.map((bot, index) => (
         <SwiperSlide key={index}>
             <Card {...bot} />
         </SwiperSlide>
     ));
-    const popularChannels = channels.map((bot, index) => (
+    const popularChannels = channels?.result?.map((bot, index) => (
         <SwiperSlide key={index}>
             <Card {...bot} />
         </SwiperSlide>
     ));
-    const popularGroups = groups.map((bot, index) => (
+    const popularGroups = groups?.result?.map((bot, index) => (
         <SwiperSlide key={index}>
             <Card {...bot} />
         </SwiperSlide>
