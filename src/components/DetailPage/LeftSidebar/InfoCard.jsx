@@ -27,7 +27,16 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
                     <FontAwesomeIcon icon={faFlag} /> Think twice before trusting or using a content. If it infringes your copyright or should be removed from our directory, please click here to report it.
                 </span>
             </div>
-            <Modal ref={modal} />
+            <Modal ref={modal} >
+                <h3 className="font-bold text-lg">Report</h3>
+                <form method="dialog" className="flex flex-col w-full items-center justify-center modal-backdrop">
+                    <textarea className="textarea w-full mb-4 border-1 border-base-300 focus:outline-none text-base-content" placeholder="Please briefly explain your issue with this content... "></textarea>
+                    <div className="flex space-x-2">
+                        <button className="btn" onClick={openModal}>Close</button>
+                        <button className="btn">Submit</button>
+                    </div>
+                </form>
+            </Modal>
         </>
     }
     else {

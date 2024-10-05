@@ -126,3 +126,41 @@ export async function getItemDetails(username) {
     }
 }
 
+
+export async function postSubmitContent(data) {
+    const formData = new FormData(data);
+
+    const res = await fetch(base + '/request/', {
+        method: 'POST',
+        body: formData
+    });
+    if (!res.ok) {
+        throw new Error('Failed to submit data!');
+    }
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+    }
+    catch (err) {
+        throw new Error(err.message || 'Failed to submit data!');
+    }
+}
+
+
+
+export async function getUserRequests() {
+    // send token
+    const res = await fetch(base + '/requests/');
+    if (!res.ok) {
+        throw new Error('Failed to fetch data!');
+    }
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+    }
+    catch (err) {
+        throw new Error(err.message || 'Failed to fetch data!');
+    }
+}

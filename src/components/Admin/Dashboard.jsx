@@ -1,8 +1,7 @@
-
-// REQUEST
-// -------------------------------
-
 import { Form } from "react-router-dom"
+import useFetch from '../../hooks/useFetch';
+import { getUserRequests } from "../../utils/http";
+
 
 const img = "https://cdn5.cdn-telegram.org/file/GgladjDAJ3-wUtT0iL7VEX27a_poswmUG6WRLYsJf6wn8drCbsvFj7w0ZCJ1MMBonyL3ArMtUP8lylfujqY_usAZI26gaxR_fk8EDNG-GEV-JVUiFCbYKhYFSP-RRVsnqytjlVYZWY90qEkQQXTZNscTtzIx78Ta5k4iGuckMbduOBJQtpjqDgcgypVyplQG3VNyPDPVfFK7NpaTZm621cewYo2bJ3hD3Nqf5dd944oMYKQ_dG7W7E8IiJ9jvi-v-R0McgZUfjqE7G7KAjGEt7UdVFWcR6QYbokSfzVCSCjteSRxBKuss2Z5nJDE93D4filUsE3U4op9dxXYwygxGA.jpg"
 const REQUESTS = [
@@ -63,6 +62,11 @@ const REQUESTS = [
 ]
 
 const Dashboard = () => {
+    const { data, error, isFetching } = useFetch(getUserRequests, {
+        result: []
+    })
+
+
     async function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
@@ -92,7 +96,8 @@ const Dashboard = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {REQUESTS.map(request => {
+                        {error && <h2 className="text-center text-red-300">Failed to fetch!</h2>}
+                        {data?.result?.map(request => {
                             return <tr key={request.key}>
                                 <td className="p-1">
                                     <div className="flex items-center">
@@ -113,7 +118,7 @@ const Dashboard = () => {
                                             </div>
                                         </div>
                                         <div>
-                                            <a href="https://t.me/JayBeeAnimeDLBot" className="font-bold text-sm md:text-base">{request.username}</a>
+                                            <a href={`https://t.me/${request.username}`} className="font-bold text-sm md:text-base">{request.username}</a>
                                             <br />
                                             <div className=" text-xs md:text-xs"><span>{request.description}</span></div>
                                         </div>

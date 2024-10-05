@@ -1,27 +1,61 @@
-import InputField from './InputField'
+import { useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAward } from '@fortawesome/free-solid-svg-icons'
+import { faAward, faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import { Form, Link, useParams } from 'react-router-dom'
+import InputField from './InputField'
+import Modal from '../UI/Modal'
+import { postSubmitContent } from '../../utils/http'
+import { useSelector } from 'react-redux'
 
 
 
 const AddItemForm = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    let user = useSelector(state => state.auth.user);
+    console.log(user)
+    const [error, setError] = useState(false);
+    const modalRef = useRef();
+    const formRef = useRef();
     const params = useParams();
     const type = params.type || 'bot';
     const contentType = type === 'bot' ? 'Bot' : (type === 'channel' ? 'Channel' : 'Group');
-    async function handleSubmit(e) {
-        e.preventDefault();
-        const form = e.target;
-        const data = new FormData(form);
-        // eslint-disable-next-line no-unused-vars
-        const res = await fetch('http://localhost:3000/add', {
-            method: 'POST',
-            body: data
-        })
-        // TO DO
+    async function handleSubmit(event) {
+        event.preventDefault();
+        setIsSubmitting(true);
+        try {
+            await postSubmitContent(formRef.current);
+            modalRef.current.showModal();
+            setError(null);
+            formRef.current.reset();
+        }
+        catch (error) {
+            console.log(error)
+            setError({
+                message: error.message || "Failed to submit data!"
+            })
+            modalRef.current.showModal();
+        }
+        setIsSubmitting(false);
     }
+
+    function closeModal() {
+        modalRef.current.close();
+    }
+
     return (
-        <Form className="border-2 border-base-300  rounded-md" onSubmit={handleSubmit}>
+        <Form className="border-2 border-base-300  rounded-md" onSubmit={handleSubmit} ref={formRef} method='POST'>
+            <Modal ref={modalRef}>
+                <div className='flex flex-col justify-center items-center space-y-3  mb-4'>
+                    <FontAwesomeIcon icon={error?.message ? faCircleXmark : faCircleCheck} color={error ? 'red' : 'green'} className='text-5xl' />
+                    <h3 className="font-bold text-xl my-2">{error ? 'Failed!' : 'Successful!'}</h3>
+                </div>
+                <h2 className='text-md mb-4'> {error?.message ? <>{error?.message}</> : <>
+                    {`Thank you for your contribution! The ${contentType} has been added, however it will be manually reviewed by our team.`}
+                </>} </h2>
+                <div className="flex flex-col w-full items-center justify-center modal-backdrop">
+                    <button className="btn" onClick={closeModal}>Close</button>
+                </div>
+            </Modal>
             <input type="hidden" name="type" value={type} />
             <div className="flex items-center space-x-3 w-full bg-base-200 p-3">
                 <FontAwesomeIcon icon={faAward} className="text-4xl md:text-5xl" />
@@ -30,6 +64,7 @@ const AddItemForm = () => {
                     <p className="text-xs md:text-sm">Please make sure you read <Link to="#guidelines">the rules</Link>. If we like this content and the information you provided is correct, we can publish it on our Telegram channels.</p>
                 </div>
             </div>
+            <input value={user?.userId || ''} name='userId' type='hidden' />
             <InputField label={`${contentType} Username`} inputId='username' className="mx-4 text-xs md:text-base">
                 <input
                     id="username"
@@ -80,7 +115,7 @@ const AddItemForm = () => {
             <div className="mx-5 flex items-center my-5 text-xs md:text-base">
                 <input type="checkbox" className="toggle mr-2" name='is_nsfw' /><span>is NSFW?</span>
             </div>
-            <button className="btn mx-5 mb-5 bg-green-500 bg-opacity-60 hover:bg-green-500 hover:bg-opacity-45">Submit</button>
+            <button className="btn mx-5 mb-5 bg-green-500 bg-opacity-60 hover:bg-green-500 hover:bg-opacity-45" disabled={isSubmitting}>Submit</button>
         </Form>
     )
 }

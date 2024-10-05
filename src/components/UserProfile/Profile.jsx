@@ -9,7 +9,6 @@ import Logs from "./Logs";
 import Pagination from "../UI/Pagination";
 import { fetchItems, getMe } from "../../utils/http";
 import useFetch from "../../hooks/useFetch";
-import { dummyData } from "../../data/dummySkeletonCards";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
