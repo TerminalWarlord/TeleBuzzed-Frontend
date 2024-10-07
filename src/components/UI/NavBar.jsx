@@ -22,7 +22,6 @@ function classNames(...classes) {
 }
 
 export default function NavBar() {
-    const [theme, setTheme] = useState();
     const { pathname } = useLocation();
     const currentPath = pathname.split('/')[1]
 
@@ -43,21 +42,8 @@ export default function NavBar() {
             })
         }
     }, [dispatcher]);
-    useEffect(() => {
-        const currectTheme = localStorage.getItem('theme');
-        currectTheme === 'light' ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark');
-        document.querySelector('html').setAttribute('data-theme', theme);
-        setTheme(currectTheme);
-    }, [theme]);
 
-    function toggleTheme() {
-        setTheme(prevState => {
-            prevState === 'light' ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark');
-            const newTheme = prevState === 'light' ? 'dark' : 'light';
-            localStorage.setItem('theme', newTheme);
-            return newTheme;
-        })
-    }
+
 
     return (
         <>
@@ -116,7 +102,7 @@ export default function NavBar() {
                                             <li><Link to="/add/group"><FontAwesomeIcon icon={faUserGroup} /> Add a group</Link></li>
                                         </ul>
                                     </div>
-                                    <ThemeController onToggleTheme={toggleTheme} />
+                                    <ThemeController />
                                 </div>
                             </div>
                         </div>

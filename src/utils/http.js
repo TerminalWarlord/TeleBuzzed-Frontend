@@ -1,3 +1,5 @@
+import { getToken } from "./auth";
+
 const base = 'http://localhost:3000';
 
 // popular, added
@@ -130,9 +132,13 @@ export async function getItemDetails(username) {
 export async function postSubmitContent(data) {
     const formData = new FormData(data);
 
-    const res = await fetch(base + '/request/', {
+    const res = await fetch(base + '/user/request/', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+            "Authorization": getToken(),
+
+        }
     });
     if (!res.ok) {
         throw new Error('Failed to submit data!');
@@ -151,7 +157,14 @@ export async function postSubmitContent(data) {
 
 export async function getUserRequests() {
     // send token
-    const res = await fetch(base + '/requests/');
+    const res = await fetch(base + '/admin/requests/',
+        {
+            headers: {
+                "Authorization": getToken(),
+
+            }
+        }
+    );
     if (!res.ok) {
         throw new Error('Failed to fetch data!');
     }

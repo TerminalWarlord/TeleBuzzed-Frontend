@@ -8,6 +8,13 @@ import { useRef } from "react"
 import Modal from "../../UI/Modal"
 import InfoSkeleton from "./InfoSkeleton"
 
+
+
+// TODO: add submit on report
+
+
+
+
 const InfoCard = ({ item, isFetching = false, error = null }) => {
     const modal = useRef();
     let info;

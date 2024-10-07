@@ -1,13 +1,32 @@
-const ThemeController = ({ onToggleTheme }) => {
+import { useEffect, useState } from "react";
+
+const ThemeController = () => {
+    const [theme, setTheme] = useState(() => {
+        return localStorage.getItem('theme') || 'light';
+    });
+
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        document.querySelector('html').setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    function toggleTheme() {
+        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    }
+
     return (
         <label className="flex items-center cursor-pointer gap-2 md:gap-4 p-2">
-
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-5 h-5 md:w-6 md:h-6"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="white"
+                stroke="gray"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round">
@@ -17,16 +36,16 @@ const ThemeController = ({ onToggleTheme }) => {
             </svg>
             <input
                 type="checkbox"
-                value="synthwave"
                 className="toggle theme-controller scale-75 md:scale-100"
-                onClick={onToggleTheme}
+                onChange={toggleTheme}
+                checked={theme === 'dark'}
             />
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-5 h-5 md:w-6 md:h-6"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="white"
+                stroke="gray"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round">

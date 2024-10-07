@@ -5,3 +5,8 @@ export function isLoggedIn() {
     if (!token) return false;
     else return true;
 }
+
+
+export function getToken() {
+    return localStorage.getItem('token');
+}
