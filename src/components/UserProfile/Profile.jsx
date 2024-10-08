@@ -9,11 +9,14 @@ import Logs from "./Logs";
 import Pagination from "../UI/Pagination";
 import { fetchItems, getMe } from "../../utils/http";
 import useFetch from "../../hooks/useFetch";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 const Profile = () => {
-    const { data, isFetching, error } = useFetch(getMe, {});
+    const fetchFn = useCallback(async () => {
+        return await getMe();
+    }, [])
+    const { data, isFetching, error } = useFetch(fetchFn, {});
     const [currentPage, setCurrentPage] = useState(1);
     // const loadingData = Array(10).fill({
     //     id: undefined
@@ -90,11 +93,12 @@ const Profile = () => {
             checked: false
         }
     ]
+    console.log(data?.result)
     return (
         <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center overflow-hidden">
-            <Intro title="JayBee" type="Profile" icon={faUser} />
+            <Intro title={`${data?.result?.first_name} ${data?.result?.last_name}`} type="Profile" icon={faUser} isFetching={isFetching} />
             <div className="flex flex-col items-center md:flex-row md:items-start w-full my-4">
-                <InfoCard item={{ isUser: true, ...data }} isFetching={isFetching} error={error} />
+                <InfoCard item={{ isUser: true, ...data.result }} isFetching={isFetching} error={error} />
                 <div className="flex flex-col items-center w-11/12 mt-4 md:w-3/4 md:mt-0">
                     <Tabs tabContent={tabContent} />
                 </div>

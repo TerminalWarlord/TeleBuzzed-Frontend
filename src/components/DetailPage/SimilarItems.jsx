@@ -3,14 +3,24 @@ import { faEquals } from '@fortawesome/free-solid-svg-icons';
 
 import Card from '../UI/Card'
 import Slider from '../UI/Slider';
-import { POPULARBOTS } from "../../data/dummyData";
 import LineBreak from '../UI/LineBreak';
+import useFetch from '../../hooks/useFetch';
+import { fetchItems } from '../../utils/http';
+import { useCallback } from 'react';
 
 
-// TODO : Implement similar items fetch
 
-const SimilarItems = ({ category }) => {
-    const popularBots = POPULARBOTS.map((bot, index) => (
+const SimilarItems = ({ category, itemType, currentItemUsername }) => {
+    const fetchFn = useCallback(async () => {
+        return await fetchItems(1, 10, null, itemType, null, category)
+    }, [category, itemType])
+    const { data } = useFetch(fetchFn, {
+        result: []
+    })
+    const results = data?.result?.filter(res => {
+        return res.username !== currentItemUsername;
+    })
+    const popularBots = results.map((bot, index) => (
         <SwiperSlide key={index}>
             <Card {...bot} />
         </SwiperSlide>

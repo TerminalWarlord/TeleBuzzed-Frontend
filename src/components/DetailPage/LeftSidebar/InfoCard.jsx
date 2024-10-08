@@ -55,11 +55,11 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
             <InfoItem icon={faCalendar} fieldName={'Channels Added'} fieldValue={item.channels_added} />
             <InfoItem icon={faUserGroup} fieldName={'Groups Added'} fieldValue={item.groups_added} />
             <InfoItem icon={faMars} fieldName={'Gender'} fieldValue={item.gender} />
-            <InfoItem icon={faCalendar} fieldName={'Joined'} fieldValue={item.registered_on} />
+            <InfoItem icon={faCalendar} fieldName={'Joined'} fieldValue={getYearMonthDifference(item.registered_on)} />
             <div className="my-2"></div>
         </>
     }
-
+    console.log(item);
     return (
         <div className="rounded-md w-11/12 md:w-[200px] lg:w-[300px] flex flex-col shadow-md" >
             <ProfilePicture image={item.avatar} isFetching={isFetching} error={error} />

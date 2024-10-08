@@ -39,7 +39,7 @@ const base = 'http://localhost:3000';
 //     return data;
 // }
 
-export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'bot', searchTerm = null) {
+export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'bot', searchTerm = null, category = null) {
     const url = new URL(`${base}/list`);
 
     // Append query parameters to the URL
@@ -52,6 +52,10 @@ export async function fetchItems(offset = 1, limit = 20, filter = 'popular', ite
     if (searchTerm) {
         url.searchParams.append('searchTerm', searchTerm);
     }
+    if (category) {
+        url.searchParams.append('category', category);
+    }
+
 
     const res = await fetch(url, {
         method: 'GET',  // Set the method to GET
@@ -82,11 +86,10 @@ export async function login(body) {
 
 export async function getMe() {
     const userId = localStorage.getItem("token");
-    const res = await fetch(base + '/user/me', {
-        method: 'POST',
-        body: JSON.stringify({
-            userId
-        })
+    const res = await fetch(base + '/auth/me', {
+        headers: {
+            'Authorization': userId
+        }
     });
     if (!res.ok) {
         console.log("failed")
