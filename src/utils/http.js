@@ -165,6 +165,7 @@ export async function getUserRequests() {
             }
         }
     );
+    // throw new Error('Failed to fetch data!');
     if (!res.ok) {
         throw new Error('Failed to fetch data!');
     }

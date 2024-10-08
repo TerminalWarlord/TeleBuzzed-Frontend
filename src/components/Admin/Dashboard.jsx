@@ -2,15 +2,18 @@ import { Form } from "react-router-dom"
 import useFetch from '../../hooks/useFetch';
 import { getUserRequests } from "../../utils/http";
 import { getToken } from "../../utils/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBug } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 
 // TODO : Add skeleton
 // TODO : handle case where there's no pending requests 
-// 
+// TODO : handle case after approving or rejecting
 
 
 
 const Dashboard = () => {
-    const { data, error, isFetching } = useFetch(getUserRequests, {
+    const { data, error, isFetching, fetchData } = useFetch(getUserRequests, {
         result: []
     })
     console.log(isFetching)
@@ -31,9 +34,20 @@ const Dashboard = () => {
             const resData = await res.json();
             console.log(resData)
         }
-
+        fetchData();
     }
-
+    if (error) {
+        return <div className="w-full flex flex-col items-center justify-center my-8 space-y-4">
+            <FontAwesomeIcon icon={faBug} className="text-5xl sm:text-8xl text-red-400" />
+            <h2 className="text-center text-red-400 text-xl">Failed to fetch!</h2>
+        </div>
+    }
+    if (!error && data?.result.length == 0) {
+        return <div className="w-full flex flex-col items-center justify-center my-8 space-y-4">
+            <FontAwesomeIcon icon={faCheckCircle} className="text-5xl sm:text-8xl text-green-400" />
+            <h2 className="text-center text-xl">No pending requests!</h2>
+        </div>
+    }
 
     return (
         <div className="flex justify-center w-full">
@@ -48,7 +62,6 @@ const Dashboard = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {error && <h2 className="text-center text-red-300">Failed to fetch!</h2>}
                         {data?.result?.map(request => {
                             return <tr key={request._id}>
                                 <td className="p-1">

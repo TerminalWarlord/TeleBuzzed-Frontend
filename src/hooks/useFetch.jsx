@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function useFetch(fetchFn, initialValue) {
     const [isFetching, setIsFetching] = useState(false);
@@ -7,29 +7,20 @@ export default function useFetch(fetchFn, initialValue) {
     console.log(data);
 
 
-    useEffect(() => {
-        let isMounted = true; // Track component mount status
-        async function fetchData() {
-            setIsFetching(true);
-            try {
-                const res = await fetchFn();
-                if (isMounted) {
-                    setData(res);
-                }
-            } catch (err) {
-                if (isMounted) {
-                    setError({ message: err.message || 'Failed to fetch data!' });
-                }
-            }
-            setIsFetching(false);
+    const fetchData = useCallback(async () => {
+        setIsFetching(true);
+        try {
+            const res = await fetchFn();
+            setData(res);
+        } catch (err) {
+            setError({ message: err.message || 'Failed to fetch data!' });
         }
-
-        fetchData();
-
-        return () => {
-            isMounted = false; // Cleanup on unmount
-        };
+        setIsFetching(false);
     }, [fetchFn]);
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 
     async function handlePagination(paginationFn) {
         setIsFetching(true);
@@ -49,6 +40,7 @@ export default function useFetch(fetchFn, initialValue) {
         setIsFetching,
         setError,
         setData,
-        handlePagination
+        handlePagination,
+        fetchData,
     };
 }
