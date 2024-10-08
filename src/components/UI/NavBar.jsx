@@ -9,6 +9,7 @@ import { isLoggedIn } from '../../utils/auth'
 import { authActions } from '../../store/authStore'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBullhorn, faRobot, faUserGroup } from '@fortawesome/free-solid-svg-icons'
+import { getMe } from '../../utils/http'
 
 const navigation = [
     { name: 'Home', to: '/', current: true },
@@ -34,13 +35,23 @@ export default function NavBar() {
         localStorage.removeItem('token');
         setUser({});
     }
+
+
     useEffect(() => {
-        if (isLoggedIn()) {
-            dispatcher(authActions.login({ userId: 1 }));
-            setUser({
-                userId: 1
-            })
-        }
+        const fetchUserDetails = async () => {
+            if (isLoggedIn()) {
+                try {
+                    const userDetails = await getMe();
+                    dispatcher(authActions.login(userDetails));
+                    setUser(userDetails);
+                } catch (error) {
+                    console.error("Failed to fetch user details:", error);
+                    // Fallback to default user object if API call fails
+                    dispatcher(authActions.login({ userId: 1 }));
+                }
+            }
+        };
+        fetchUserDetails();
     }, [dispatcher]);
 
 
@@ -127,7 +138,7 @@ export default function NavBar() {
                                         <span className="sr-only">Open user menu</span>
                                         <img
                                             alt=""
-                                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                            src={user?.result?.avatar}
                                             className="h-8 w-8 rounded-full"
                                         />
                                     </MenuButton>

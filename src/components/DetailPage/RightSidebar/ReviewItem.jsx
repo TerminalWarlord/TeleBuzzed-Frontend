@@ -10,13 +10,13 @@ const ReviewItem = ({ data, isFetching = false, reviewer }) => {
     const fullStars = Math.floor(stars);
     const hasHalfStar = stars % 1 >= 0.5;
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-
+    console.log(data);
     return (
         <div className="flex w-11/12 items-start justify-start my-5">
-            {isFetching ? <div className="skeleton min-w-[40px] rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square"></div> : <img src={reviewer === null ? data.reviewer_image : data.content_image} alt="Reviewers Image" className="rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square" />}
+            {isFetching ? <div className="skeleton min-w-[40px] rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square"></div> : <img src={reviewer === null ? data.user_id.avatar : data.content_id.avatar} alt="Reviewers Image" className="rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square border-2 border-base-200" />}
             <div className="flex flex-col">
                 <div>
-                    {isFetching ? <div className="skeleton h-4 w-24 my-1.5"></div> : <h6 className="text-sm md:text-base lg:text-md font-bold">{reviewer === null ? data.reviewer_name : data.content_title}</h6>}
+                    {isFetching ? <div className="skeleton h-4 w-24 my-1.5"></div> : <h6 className="text-sm md:text-base lg:text-md font-bold">{reviewer === null ? (data.user_id.first_name + " " + data.user_id.last_name) : data.content_id.name}</h6>}
                 </div>
                 <div className="text-xs">
                     {isFetching ? <div className="skeleton h-4 w-16 mb-1.5"></div> :

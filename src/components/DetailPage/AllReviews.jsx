@@ -1,10 +1,11 @@
 import LineBreak from "../UI/LineBreak"
-import { faSquarePollVertical } from "@fortawesome/free-solid-svg-icons"
+import { faFaceFrown, faSquarePollVertical } from "@fortawesome/free-solid-svg-icons"
 import ReviewItem from "./RightSidebar/ReviewItem"
 import Pagination from "../UI/Pagination"
 import useFetch from "../../hooks/useFetch"
 import { getReviews } from "../../utils/http"
 import { useCallback, useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
 
@@ -33,6 +34,10 @@ const AllReviews = ({ reviewer = null, username }) => {
             <div className="w-full flex items-center flex-col">
                 <LineBreak icon={faSquarePollVertical} text={'Reviews'} />
                 {error?.message && <h4 className="text-center text-red-300 my-4"> Failed to fetch!</h4>}
+                {!error && !isFetching && reviews?.length < 1 && <div className="flex flex-col my-8">
+                    <FontAwesomeIcon icon={faFaceFrown} className="text-5xl" />
+                    <h2 className="text-lg">No reviews yet!</h2>
+                </div>}
                 {!error && <>
                     {isFetching ? <>
                         {Array(3).fill().map((_, index) => (

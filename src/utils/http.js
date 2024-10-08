@@ -108,19 +108,22 @@ export async function getMe() {
 
 
 
+export async function getReviews(reviewer, username = null, offset = 1, limit = 10) {
+    const url = new URL(`${base}/reviews`);
+    await sleep(3000)
+    // Append query parameters to the URL
+    url.searchParams.append('offset', offset);
+    url.searchParams.append('limit', limit);
+    if (username) {
+        url.searchParams.append('username', username);
+    }
+    if (reviewer) {
+        url.searchParams.append('reviewer', reviewer);
+    }
 
 
-export async function getReviews(reviewer, username, offset = 1) {
-    const path = reviewer === null ? '/reviews/' : '/user-reviews/';
-    console.log(path, reviewer, username)
-    const res = await fetch(base + path, {
-        method: 'POST',
-        body: JSON.stringify({
-            reviewer: reviewer,
-            username: username,
-            offset: offset
-        })
-    });
+    const res = await fetch(url);
+
     if (!res.ok) {
         throw new Error('Failed to fetch data!');
     }
@@ -200,5 +203,31 @@ export async function getUserRequests() {
     }
     catch (err) {
         throw new Error(err.message || 'Failed to fetch data!');
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export async function postReview(data) {
+    const formData = new FormData(data);
+    const res = await fetch('http://localhost:3000/user/review', {
+        method: 'POST',
+        headers: {
+            'Authorization': getToken()
+        },
+        body: formData
+    });
+    if (!res.ok) {
+        throw new Error('Failed to submit review!');
+    }
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+    }
+    catch (err) {
+        throw new Error(err.message || 'Failed to submit review!');
     }
 }

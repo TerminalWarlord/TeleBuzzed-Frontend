@@ -11,11 +11,14 @@ import { fetchItems, getMe } from "../../utils/http";
 import useFetch from "../../hooks/useFetch";
 import { useCallback, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from "react-redux";
 
 const Profile = () => {
     const fetchFn = useCallback(async () => {
         return await getMe();
     }, [])
+    let user = useSelector(state => state.auth.user);
+    console.log(user)
     const { data, isFetching, error } = useFetch(fetchFn, {});
     const [currentPage, setCurrentPage] = useState(1);
     // const loadingData = Array(10).fill({
@@ -81,7 +84,7 @@ const Profile = () => {
         {
             tabName: 'Reviews',
             content: <div className="w-full flex flex-col justify-center items-center">
-                <AllReviews username={data?.username} reviewer={"jaybeedev"} />
+                <AllReviews reviewer={user?.result?.username} />
             </div>,
             checked: false
         },
