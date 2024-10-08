@@ -9,36 +9,62 @@ const base = 'http://localhost:3000';
 //     channel: 'channels',
 //     group: 'groups'
 // };
-export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'bot', searchTerm = null) {
-    // const path = paths[itemType] || 'bots';
-    // const url = new URL(`${base}/lists`);
-    // url.searchParams.append('offset', offset);
-    // url.searchParams.append('limit', limit);
-    // if (filter) {
-    //     url.searchParams.append('filter', filter);
-    // }
-    // if (searhTerm) {
-    //     url.searchParams.append('search', searhTerm);
-    // }
+// export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'bot', searchTerm = null) {
+//     // const path = paths[itemType] || 'bots';
+//     // const url = new URL(`${base}/lists`);
+//     // url.searchParams.append('offset', offset);
+//     // url.searchParams.append('limit', limit);
+//     // if (filter) {
+//     //     url.searchParams.append('filter', filter);
+//     // }
+//     // if (searhTerm) {
+//     //     url.searchParams.append('search', searhTerm);
+//     // }
 
-    const res = await fetch(`${base}/lists`, {
-        method: 'POST',
-        body: JSON.stringify({
-            offset,
-            filter,
-            type: itemType,
-            limit,
-            searchTerm,
-        })
-    });
-    if (!res.ok) {
-        throw new Error('Failed to fetch bots');
+//     const res = await fetch(`${base}/lists`, {
+//         method: 'POST',
+//         body: JSON.stringify({
+//             offset,
+//             filter,
+//             type: itemType,
+//             limit,
+//             searchTerm,
+//         })
+//     });
+//     if (!res.ok) {
+//         throw new Error('Failed to fetch bots');
+//     }
+//     const data = await res.json();
+//     console.log(data)
+//     return data;
+// }
+
+export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'bot', searchTerm = null) {
+    const url = new URL(`${base}/list`);
+
+    // Append query parameters to the URL
+    url.searchParams.append('offset', offset);
+    url.searchParams.append('limit', limit);
+    url.searchParams.append('filter', filter);
+    url.searchParams.append('type', itemType);
+
+    // Conditionally add searchTerm if provided
+    if (searchTerm) {
+        url.searchParams.append('searchTerm', searchTerm);
     }
+
+    const res = await fetch(url, {
+        method: 'GET',  // Set the method to GET
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch items');
+    }
+
     const data = await res.json();
-    console.log(data)
+    console.log(data);
     return data;
 }
-
 
 export async function login(body) {
     const res = await fetch(base + '/login', {

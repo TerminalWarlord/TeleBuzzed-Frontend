@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Card = ({ id, title, description, reviews, image, category, classes = "", isFetching = false, error = null }) => {
+const Card = ({ username: id, name: title, description, reviews, avatar: image, category, classes = "", isFetching = false, error = null }) => {
     const [isHovering, setIsHovering] = useState(false);
-
-
     if (error) {
         return (
             <div className={`py-2 border-2 border-base-200 sm:w-full rounded-lg relative my-4 ${classes}`}>
@@ -29,9 +27,9 @@ const Card = ({ id, title, description, reviews, image, category, classes = "", 
                     </div>
                     {isFetching ? <div className="skeleton h-4 w-20"></div> : <Link to="#" className='text-xs'>{category}</Link>}
                 </div>
-                <div className='ml-4'>
+                <div className='ml-4 h-[5rem]'>
                     {isFetching ? <div className="skeleton h-4 w-20 my-2"></div> : <Link to={'/bot/' + id}><h1 className='font-semibold text-sm md:text-md'>{title}</h1></Link>}
-                    {isFetching ? <div className="skeleton h-20 w-[8rem] lg:w-[6rem] xl:w-[8rem] 2xl:w-[8rem]"></div> : <h2 className='text-xs'>{description}</h2>}
+                    {isFetching ? <div className="skeleton h-20 w-[8rem] lg:w-[6rem] xl:w-[8rem] 2xl:w-[8rem] text-wrap"></div> : <h2 className='text-xs overflow-hidden text-ellipsis line-clamp-5'>{description}</h2>}
                 </div>
             </div>
             <div className='mt-4 h-0.5 w-full bg-base-200'></div>

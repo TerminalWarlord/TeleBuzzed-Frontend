@@ -7,18 +7,30 @@ import Featured from './FeaturedPostSlider/Featured'
 import useFetch from '../../hooks/useFetch'
 import { fetchItems } from '../../utils/http'
 import { dummyData } from '../../data/dummySkeletonCards'
+import { useCallback } from 'react'
 
 const Feeds = () => {
     const { data: bots, isFetching: isBotsFetching, error: botsFetchingError } = useFetch(fetchItems, {
         result: []
     });
-    const { data: channels, isFetching: isChannelsFetching, error: channelsFetchingError } = useFetch(fetchItems, {
-        result: []
-    });
-    const { data: groups, isFetching: isGroupsFetching, error: groupsFetchingError } = useFetch(fetchItems, {
+
+
+    const fetchChannels = useCallback(async () => {
+        const res = await fetchItems(1, 20, 'popular', 'channel');
+        return res;
+    }, [])
+    const { data: channels, isFetching: isChannelsFetching, error: channelsFetchingError } = useFetch(fetchChannels, {
         result: []
     });
 
+    const fetchGroups = useCallback(async () => {
+        const res = await fetchItems(1, 20, 'popular', 'group');
+        return res;
+    }, [])
+    const { data: groups, isFetching: isGroupsFetching, error: groupsFetchingError } = useFetch(fetchGroups, {
+        result: []
+    });
+    console.log(channels);
     const popularBots = bots?.result?.map((bot, index) => (
         <SwiperSlide key={index}>
             <Card {...bot} />
