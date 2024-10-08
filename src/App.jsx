@@ -44,6 +44,12 @@ const router = createBrowserRouter([
       {
         path: '/bot/:username', element: <MainDetailPage />
       },
+      {
+        path: '/channel/:username', element: <MainDetailPage />
+      },
+      {
+        path: '/group/:username', element: <MainDetailPage />
+      },
 
       {
         path: '/add',

@@ -9,44 +9,17 @@ const ReviewStars = () => {
 
     return (
         <div className="rating rating-sm">
-            <input
-                type="radio"
-                name="rating"
-                value="1"
-                className="mask mask-star-2 bg-orange-400"
-                onChange={handleRatingChange}
-            />
-            <input
-                type="radio"
-                name="rating"
-                value="2"
-                className="mask mask-star-2 bg-orange-400"
-                onChange={handleRatingChange}
-                defaultChecked={rating === 2}
-                checked
-
-            />
-            <input
-                type="radio"
-                name="rating"
-                value="3"
-                className="mask mask-star-2 bg-orange-400"
-                onChange={handleRatingChange}
-            />
-            <input
-                type="radio"
-                name="rating"
-                value="4"
-                className="mask mask-star-2 bg-orange-400"
-                onChange={handleRatingChange}
-            />
-            <input
-                type="radio"
-                name="rating"
-                value="5"
-                className="mask mask-star-2 bg-orange-400"
-                onChange={handleRatingChange}
-            />
+            {[1, 2, 3, 4, 5].map((value) => (
+                <input
+                    key={value}
+                    type="radio"
+                    name="rating"
+                    value={value}
+                    className="mask mask-star-2 bg-orange-400"
+                    onChange={handleRatingChange}
+                    checked={rating === value}
+                />
+            ))}
         </div>
     );
 };

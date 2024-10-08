@@ -62,9 +62,9 @@ const Feeds = () => {
                             </h2>
                         </div>
                     </div>
-                    {botsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>}
+                    {/* {botsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>} */}
                     {(!botsFetchingError && isBotsFetching) && <Slider items={dummyData} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
-                    {(!botsFetchingError && !isBotsFetching) && <Slider items={popularBots} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
+                    {!isBotsFetching && <Slider items={popularBots} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
                 </div>
 
                 <div className='my-8'>
@@ -78,9 +78,9 @@ const Feeds = () => {
                         </div>
                     </div>
 
-                    {channelsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>}
+                    {/* {channelsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>} */}
                     {(!channelsFetchingError && isChannelsFetching) && <Slider items={dummyData} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
-                    {(!channelsFetchingError && !isChannelsFetching) && <Slider items={popularChannels} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
+                    {!isChannelsFetching && <Slider items={popularChannels} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
                 </div>
 
                 <div className='my-8'>
@@ -93,9 +93,8 @@ const Feeds = () => {
                             </h2>
                         </div>
                     </div>
-                    {groupsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>}
                     {(!groupsFetchingError && isGroupsFetching) && <Slider items={dummyData} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
-                    {(!groupsFetchingError && !isGroupsFetching) && <Slider items={popularGroups} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
+                    {!isGroupsFetching && <Slider items={popularGroups} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
                 </div>
             </div>
         </div>

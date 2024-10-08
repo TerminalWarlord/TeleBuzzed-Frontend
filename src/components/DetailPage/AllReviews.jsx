@@ -44,7 +44,7 @@ const AllReviews = ({ reviewer = null, username }) => {
                             <ReviewItem key={index} data={{}} isFetching={isFetching} reviewer={reviewer} />
                         ))}
                     </> : <>{reviews.map(review => {
-                        return <ReviewItem key={review.id} data={review} isFetching={isFetching} reviewer={reviewer} />
+                        return <ReviewItem key={review._id} data={review} isFetching={isFetching} reviewer={reviewer} />
                     })
                     }</>}
                 </>}

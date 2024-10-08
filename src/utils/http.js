@@ -231,3 +231,30 @@ export async function postReview(data) {
         throw new Error(err.message || 'Failed to submit review!');
     }
 }
+
+
+
+export async function getPendingRequests() {
+    // send token
+    const res = await fetch(base + '/pending-requests/',
+        {
+            headers: {
+                "Authorization": getToken(),
+
+            }
+        }
+    );
+    // throw new Error('Failed to fetch data!');
+    if (!res.ok) {
+        throw new Error('Failed to fetch data!');
+    }
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+    }
+    catch (err) {
+        throw new Error(err.message || 'Failed to fetch data!');
+    }
+
+}

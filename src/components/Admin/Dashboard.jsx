@@ -3,8 +3,10 @@ import useFetch from '../../hooks/useFetch';
 import { getUserRequests } from "../../utils/http";
 import { getToken } from "../../utils/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBug } from "@fortawesome/free-solid-svg-icons";
+import { faBug, faCircleCheck, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import Modal from "../UI/Modal";
+import { useRef } from "react";
 
 // TODO : Add skeleton
 // TODO : handle case where there's no pending requests 
@@ -13,6 +15,7 @@ import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 
 
 const Dashboard = () => {
+    const modalRef = useRef();
     const { data, error, isFetching, fetchData } = useFetch(getUserRequests, {
         result: []
     })
@@ -47,6 +50,10 @@ const Dashboard = () => {
             <FontAwesomeIcon icon={faCheckCircle} className="text-5xl sm:text-8xl text-green-400" />
             <h2 className="text-center text-xl">No pending requests!</h2>
         </div>
+    }
+
+    function handleModal() {
+        modalRef.current.showModal();
     }
 
     return (
@@ -90,7 +97,30 @@ const Dashboard = () => {
                                     </div>
                                 </td>
                                 <th className="p-1">
-                                    <Form className="flex flex-col items-center justify-center space-y-2" onSubmit={handleSubmit}>
+                                    <button className="w-full px-2 py-1.5 bg-green-200 rounded-md" onClick={() => {
+                                        handleModal(request._id)
+                                    }}>Action</button>
+                                    <Modal ref={modalRef}>
+                                        <Form className="flex flex-col items-center justify-center space-y-2" onSubmit={handleSubmit}>
+                                            <input type="hidden" name="request_id" value={request._id} />
+                                            <select name="category" id="category" className="select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full" required defaultValue={request.category}>
+                                                <option value="entertainment">Entertainment</option>
+                                                <option value="utilities">Utilities</option>
+                                                <option value="media">Media</option>
+                                                <option value="news">News</option>
+                                                <option value="programming">Programming</option>
+                                            </select>
+                                            <select name="action" id="action" className="select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full" defaultValue="approve">
+                                                <option value="approve">Approve</option>
+                                                <option value="reject">Reject</option>
+                                            </select>
+                                            <button type="submit" className="w-full px-2 py-1.5 bg-green-200 rounded-md">Submit</button>
+                                        </Form>
+                                        <form method="dialog">
+                                            <button>close</button>
+                                        </form>
+                                    </Modal>
+                                    {/* <Form className="flex flex-col items-center justify-center space-y-2" onSubmit={handleSubmit}>
                                         <input type="hidden" name="request_id" value={request._id} />
                                         <select name="category" id="category" className="select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full" required defaultValue={request.category}>
                                             <option value="entertainment">Entertainment</option>
@@ -104,7 +134,7 @@ const Dashboard = () => {
                                             <option value="reject">Reject</option>
                                         </select>
                                         <button type="submit" className="w-full px-2 py-1.5 bg-green-200 rounded-md">Submit</button>
-                                    </Form>
+                                    </Form> */}
                                 </th>
                             </tr>
                         })}

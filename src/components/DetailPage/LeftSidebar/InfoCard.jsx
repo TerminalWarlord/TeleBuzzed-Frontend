@@ -65,7 +65,7 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
             <ProfilePicture image={item.avatar} isFetching={isFetching} error={error} />
             {!item.isUser && <LikeState data={item} isFetching={isFetching} error={error} />}
             <div className="my-3 flex justify-center">
-                <a href="#" className="px-4 py-2 bg-[#2AABEE] text-base-200 rounded-md font-bold text-xs">Open <FontAwesomeIcon icon={faPaperPlane} color="white" className="ml-2 text-sm font-normal" /></a>
+                <a href={`https://t.me/${item.username}`} className="px-4 py-2 bg-[#2AABEE] text-base-200 rounded-md font-bold text-xs">Open <FontAwesomeIcon icon={faPaperPlane} color="white" className="ml-2 text-sm font-normal" /></a>
             </div>
             <div className="w-full flex justify-center my-3 item">
                 <LineBreak icon={faCircleInfo} text={'Details'} />
