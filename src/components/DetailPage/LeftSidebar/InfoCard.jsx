@@ -7,6 +7,7 @@ import LikeState from "./LikeState"
 import { useRef } from "react"
 import Modal from "../../UI/Modal"
 import InfoSkeleton from "./InfoSkeleton"
+import { getYearMonthDifference } from "../../../utils/helper"
 
 
 
@@ -24,9 +25,9 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
     if (!item.isUser) {
         info = <>
             <InfoItem icon={faPaperPlane} fieldName={'Username'} fieldValue={item.username} />
-            <InfoItem icon={faLanguage} fieldName={'Language'} fieldValue={item.languages} />
+            <InfoItem icon={faLanguage} fieldName={'Language'} fieldValue={item.language} />
             <InfoItem icon={faList} fieldName={'Category'} fieldValue={item.category} />
-            <InfoItem icon={faCalendar} fieldName={'Added'} fieldValue={item.added} />
+            <InfoItem icon={faCalendar} fieldName={'Added'} fieldValue={getYearMonthDifference(item.added_on)} />
             <InfoItem icon={faArrowTrendUp} fieldName={'Popularity'} fieldValue={item.popularity} />
             <InfoItem icon={faStar} fieldName={'Reviews'} fieldValue={item.reviews} />
             <div className="text-center align-middle p-3 bg-base-200 leading-4 mt-4 cursor-pointer" onClick={openModal}>
@@ -61,7 +62,7 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
 
     return (
         <div className="rounded-md w-11/12 md:w-[200px] lg:w-[300px] flex flex-col shadow-md" >
-            <ProfilePicture image={item.image} isFetching={isFetching} error={error} />
+            <ProfilePicture image={item.avatar} isFetching={isFetching} error={error} />
             {!item.isUser && <LikeState data={item} isFetching={isFetching} error={error} />}
             <div className="my-3 flex justify-center">
                 <a href="#" className="px-4 py-2 bg-[#2AABEE] text-base-200 rounded-md font-bold text-xs">Open <FontAwesomeIcon icon={faPaperPlane} color="white" className="ml-2 text-sm font-normal" /></a>

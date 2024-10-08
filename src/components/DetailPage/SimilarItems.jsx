@@ -6,7 +6,10 @@ import Slider from '../UI/Slider';
 import { POPULARBOTS } from "../../data/dummyData";
 import LineBreak from '../UI/LineBreak';
 
-const SimilarItems = () => {
+
+// TODO : Implement similar items fetch
+
+const SimilarItems = ({ category }) => {
     const popularBots = POPULARBOTS.map((bot, index) => (
         <SwiperSlide key={index}>
             <Card {...bot} />

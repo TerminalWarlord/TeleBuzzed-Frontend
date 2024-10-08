@@ -135,12 +135,7 @@ export async function getReviews(reviewer, username, offset = 1) {
 
 
 export async function getItemDetails(username) {
-    const res = await fetch(base + '/details/', {
-        method: 'POST',
-        body: JSON.stringify({
-            username: username,
-        })
-    });
+    const res = await fetch(base + '/details/' + username,);
     if (!res.ok) {
         throw new Error('Failed to fetch data!');
     }

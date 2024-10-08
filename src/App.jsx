@@ -42,7 +42,7 @@ const router = createBrowserRouter([
 
       },
       {
-        path: '/bot/:botId', element: <MainDetailPage />
+        path: '/bot/:username', element: <MainDetailPage />
       },
 
       {

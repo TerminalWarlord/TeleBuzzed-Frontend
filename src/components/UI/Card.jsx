@@ -13,7 +13,6 @@ const Card = ({ username: id, name: title, description, reviews, avatar: image, 
             </div>
         );
     }
-
     return (
         <div className={`py-2 border-2 border-base-300 sm:w-full rounded-lg relative my-4 ${classes}`}>
             <div className='flex px-6 md:px-4 py-2'>
