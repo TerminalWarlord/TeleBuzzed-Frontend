@@ -3,14 +3,12 @@ import useFetch from '../../hooks/useFetch';
 import { getUserRequests } from "../../utils/http";
 import { getToken } from "../../utils/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBug, faCircleCheck, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import Modal from "../UI/Modal";
 import { useRef } from "react";
 
 // TODO : Add skeleton
-// TODO : handle case where there's no pending requests 
-// TODO : handle case after approving or rejecting
 
 
 
@@ -54,6 +52,10 @@ const Dashboard = () => {
 
     function handleModal() {
         modalRef.current.showModal();
+    }
+
+    function closeModal() {
+        modalRef.current.close();
     }
 
     return (
@@ -101,23 +103,39 @@ const Dashboard = () => {
                                         handleModal(request._id)
                                     }}>Action</button>
                                     <Modal ref={modalRef}>
+                                        <div className="flex w-full items-center justify-center">
+                                            <div className="mask mask-squircle h-16 w-16">
+                                                <img
+                                                    src={request.avatar}
+                                                    alt="Avatar Tailwind CSS Component" />
+                                            </div>
+                                        </div>
+
+                                        <div className="mb-6">
+                                            <a href={`https://t.me/${request.username}`} className="font-bold text-sm md:text-base">{request.username}</a>
+                                            <br />
+                                            <div className=" text-xs md:text-xs"><span>{request.description}</span></div>
+                                        </div>
                                         <Form className="flex flex-col items-center justify-center space-y-2" onSubmit={handleSubmit}>
                                             <input type="hidden" name="request_id" value={request._id} />
-                                            <select name="category" id="category" className="select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full" required defaultValue={request.category}>
+                                            <select name="category" id="category" className="my-2 select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full" required defaultValue={request.category} >
                                                 <option value="entertainment">Entertainment</option>
                                                 <option value="utilities">Utilities</option>
                                                 <option value="media">Media</option>
                                                 <option value="news">News</option>
                                                 <option value="programming">Programming</option>
                                             </select>
+
                                             <select name="action" id="action" className="select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full" defaultValue="approve">
                                                 <option value="approve">Approve</option>
                                                 <option value="reject">Reject</option>
                                             </select>
-                                            <button type="submit" className="w-full px-2 py-1.5 bg-green-200 rounded-md">Submit</button>
+
+                                            <textarea className="textarea w-full mb-4 border-1 border-base-300 focus:outline-none text-base-content" placeholder="Write a reason..." name="reason"></textarea>
+                                            <button type="submit" className="px-4 py-2.5 bg-green-200 rounded-md my-4" onClick={closeModal}>Submit</button>
                                         </Form>
                                         <form method="dialog">
-                                            <button>close</button>
+                                            <button className="px-4 py-2.5 bg-red-200 rounded-md my-1">Close</button>
                                         </form>
                                     </Modal>
                                     {/* <Form className="flex flex-col items-center justify-center space-y-2" onSubmit={handleSubmit}>

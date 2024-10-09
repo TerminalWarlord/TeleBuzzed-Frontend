@@ -28,3 +28,16 @@ export function getYearMonthDifference(dateString) {
 
     return result || '0 months';  // Return "0 months" if both are zero
 }
+
+
+export function calculatePopularity(views) {
+    const basePopularity = 60;
+    const multiplier = 30;
+    const logViewsPlus1 = Math.log(views + 1);
+    const logViewsPlus10 = Math.log(views + 10);
+
+    const popularity = basePopularity + multiplier * (logViewsPlus1 / logViewsPlus10);
+
+    // Round the result to the nearest integer
+    return Math.round(popularity);
+}

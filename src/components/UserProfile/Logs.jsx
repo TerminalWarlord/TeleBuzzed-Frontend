@@ -28,7 +28,7 @@ const Logs = () => {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case "inprogress":
+            case "pending":
                 return "text-yellow-500";
             case "unpublished":
                 return " text-red-500";
@@ -49,12 +49,12 @@ const Logs = () => {
                         <tr className="bg-base-200 text-base-content uppercase text-xs lg:text-sm leading-normal">
                             <th className="py-3 rounded-tl-lg">Status</th>
                             <th className="py-3">Name</th>
-                            {/* <th className="py-3 rounded-tr-lg">Reason</th> */}
+                            <th className="py-3 rounded-tr-lg">Reason</th>
                         </tr>
                     </thead>
                     <tbody className="text-base-content text-sm font-light">
-                        {data?.result?.map((item, index) => (
-                            <tr key={index} className={`border-b border-base-200 ${getStatusColor(item.status)}`}>
+                        {data?.result?.map((item) => (
+                            <tr key={item._id} className={`border-b border-base-200 ${getStatusColor(item.status)}`}>
                                 <td className="">
                                     <FontAwesomeIcon
                                         icon={
@@ -71,7 +71,7 @@ const Logs = () => {
                                         {item.name}
                                     </Link>
                                 </td>
-                                {/* <td className="py-3 text-base-content">{item.reason || "-"}</td> */}
+                                <td className="py-3 text-base-content">{item.reason || "-"}</td>
                             </tr>
                         ))}
                     </tbody>

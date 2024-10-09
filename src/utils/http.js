@@ -39,7 +39,7 @@ const base = 'http://localhost:3000';
 //     return data;
 // }
 
-export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'bot', searchTerm = null, category = null) {
+export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'all', searchTerm = null, category = null) {
     const url = new URL(`${base}/list`);
 
     // Append query parameters to the URL

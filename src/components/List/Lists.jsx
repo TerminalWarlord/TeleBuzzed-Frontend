@@ -12,14 +12,14 @@ const Lists = ({ dirType }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const page = parseInt(searchParams.get('page') || '1', 10);
     const [currentPage, setCurrentPage] = useState(page);
-
+    const limit = 3;
     // searchTerm and Select value
     const [searchTerm, setSearchTerm] = useState();
     const [sortBy, setSortBy] = useState("popular");
 
     // fetch data
     const fetchFn = useCallback(async () => {
-        const result = await fetchItems(page, 20, sortBy, dirType, searchTerm);
+        const result = await fetchItems(page, limit, sortBy, dirType, searchTerm);
         return result;
     }, [page, sortBy, searchTerm, dirType])
 
@@ -55,7 +55,7 @@ const Lists = ({ dirType }) => {
                 })}
             </div>
             <div className='mx-5'>
-                <Pagination currentPage={currentPage} totalPages={data?.result?.length > 2 ? currentPage + 1 : currentPage} onPageChange={handlePageChange} />
+                <Pagination currentPage={currentPage} totalPages={data?.hasNextPage ? currentPage + 1 : currentPage} onPageChange={handlePageChange} />
             </div>
 
         </section>

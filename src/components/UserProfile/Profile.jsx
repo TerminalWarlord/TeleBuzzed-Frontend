@@ -74,7 +74,7 @@ const Profile = () => {
                     }
                 </div>
                 <div className="w-full">
-                    <Pagination currentPage={currentPage} totalPages={4} onPageChange={handleNext} />
+                    <Pagination currentPage={currentPage} totalPages={botsData?.hasNextPage ? currentPage + 1 : currentPage} onPageChange={handleNext} />
                 </div>
             </div>,
             checked: true,
