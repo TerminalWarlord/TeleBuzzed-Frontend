@@ -1,12 +1,12 @@
 import { Form } from "react-router-dom"
 import useFetch from '../../hooks/useFetch';
-import { getUserRequests } from "../../utils/http";
+import { getCategories, getUserRequests } from "../../utils/http";
 import { getToken } from "../../utils/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import Modal from "../UI/Modal";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 
 // TODO : Add skeleton
 
@@ -19,6 +19,12 @@ const Dashboard = () => {
     })
     console.log(isFetching)
 
+    const fetchFn = useCallback(async () => {
+        return await getCategories();
+    }, []);
+    const { data: categories } = useFetch(fetchFn, {
+        result: []
+    })
     async function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
@@ -118,12 +124,10 @@ const Dashboard = () => {
                                         </div>
                                         <Form className="flex flex-col items-center justify-center space-y-2" onSubmit={handleSubmit}>
                                             <input type="hidden" name="request_id" value={request._id} />
-                                            <select name="category" id="category" className="my-2 select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full" required defaultValue={request.category} >
-                                                <option value="entertainment">Entertainment</option>
-                                                <option value="utilities">Utilities</option>
-                                                <option value="media">Media</option>
-                                                <option value="news">News</option>
-                                                <option value="programming">Programming</option>
+                                            <select name="category_id" id="category" className="my-2 select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full" required defaultValue={request.category_id} >
+                                                {categories?.result?.map(category => {
+                                                    return <option key={category._id} value={category._id}>{category.name}</option>
+                                                })}
                                             </select>
 
                                             <select name="action" id="action" className="select text-xs md:text-sm select-sm  px-2 border-1 border-base-200 w-full" defaultValue="approve">

@@ -10,7 +10,12 @@ import { dummyData } from '../../data/dummySkeletonCards'
 import { useCallback } from 'react'
 
 const Feeds = () => {
-    const { data: bots, isFetching: isBotsFetching, error: botsFetchingError } = useFetch(fetchItems, {
+
+    const fetchBots = useCallback(async () => {
+        const res = await fetchItems(1, 20, 'popular', 'bot');
+        return res;
+    }, [])
+    const { data: bots, isFetching: isBotsFetching, error: botsFetchingError } = useFetch(fetchBots, {
         result: []
     });
 

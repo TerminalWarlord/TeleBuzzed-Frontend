@@ -258,3 +258,27 @@ export async function getPendingRequests() {
     }
 
 }
+
+
+
+
+export async function getCategories() {
+    const res = await fetch(base + '/categories', {
+        headers: {
+            'Authorization': getToken()
+        }
+    });
+    if (!res.ok) {
+        console.log("failed")
+        throw new Error('Failed to fetch user data!');
+    }
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+
+    }
+    catch (err) {
+        throw new Error(err.message || 'Failed to fetch user data!');
+    }
+}

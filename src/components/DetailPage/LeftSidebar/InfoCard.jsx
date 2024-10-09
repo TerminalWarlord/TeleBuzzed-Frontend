@@ -8,7 +8,7 @@ import { useRef } from "react"
 import Modal from "../../UI/Modal"
 import InfoSkeleton from "./InfoSkeleton"
 import { calculatePopularity, getYearMonthDifference } from "../../../utils/helper"
-
+import Stars from '../../UI/Stars';
 
 
 // TODO: add submit on report
@@ -26,11 +26,11 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
         info = <>
             <InfoItem icon={faPaperPlane} fieldName={'Username'} fieldValue={item.username} />
             <InfoItem icon={faLanguage} fieldName={'Language'} fieldValue={item.language} />
-            <InfoItem icon={faList} fieldName={'Category'} fieldValue={item.category} />
+            <InfoItem icon={faList} fieldName={'Category'} fieldValue={item.category.name} />
             <InfoItem icon={faUserGroup} fieldName={item.type === 'channel' ? 'Subscribers' : 'Members'} fieldValue={item.type === 'channel' ? item.subscribers : item.members} />
-            <InfoItem icon={faCalendar} fieldName={'Added'} fieldValue={getYearMonthDifference(item.added_on)} />
+            <InfoItem icon={faCalendar} fieldName={'Added'} fieldValue={`${getYearMonthDifference(item.added_on)} ago`} />
             <InfoItem icon={faArrowTrendUp} fieldName={'Popularity'} fieldValue={`${calculatePopularity(item.views)}%`} />
-            <InfoItem icon={faStar} fieldName={'Reviews'} fieldValue={item.averageRating} />
+            <InfoItem icon={faStar} fieldName={'Reviews'} fieldValue={<><Stars data={item.averageRating} /> ({item.totalReviews})</>} />
             <div className="text-center align-middle p-3 bg-base-200 leading-4 mt-4 cursor-pointer" onClick={openModal}>
                 <span className="text-xs">
                     <FontAwesomeIcon icon={faFlag} /> Think twice before trusting or using a content. If it infringes your copyright or should be removed from our directory, please click here to report it.
