@@ -138,7 +138,7 @@ export default function NavBar() {
                                         <span className="sr-only">Open user menu</span>
                                         <img
                                             alt=""
-                                            src={user?.result?.avatar}
+                                            src={`http://localhost:3000/image/${user?.result?.avatar}`}
                                             className="h-8 w-8 rounded-full"
                                         />
                                     </MenuButton>

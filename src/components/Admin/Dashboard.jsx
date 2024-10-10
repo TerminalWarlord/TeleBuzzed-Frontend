@@ -18,7 +18,7 @@ const Dashboard = () => {
     const { data, error, isFetching, fetchData } = useFetch(getUserRequests, {
         result: []
     });
-
+    console.log(isFetching);
     const fetchFn = useCallback(async () => {
         return await getCategories();
     }, []);
@@ -87,8 +87,8 @@ const Dashboard = () => {
     return (
         <div className="w-full">
             <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-base-100">
+                    <thead className="bg-base-300">
                         <tr>
                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 User
@@ -104,13 +104,13 @@ const Dashboard = () => {
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-base-100 divide-y divide-gray-200">
                         {data?.result?.map(request => (
                             <tr key={request._id}>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex items-center">
                                         <div className="ml-4">
-                                            <div className="text-sm font-medium text-gray-900">
+                                            <div className="text-sm font-medium text-base-content">
                                                 {`${request.added_by.first_name} ${request.added_by.last_name}`}
                                             </div>
                                             <div className="text-sm text-gray-500">
@@ -125,13 +125,13 @@ const Dashboard = () => {
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
+                                    <div className="text-sm text-base-content">
                                         <a href={`https://t.me/${request.username}`} className="font-medium">{request.name}</a>
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <button
-                                        className="px-4 py-2 bg-green-200 rounded-md text-black hover:bg-green-300"
+                                        className="px-4 py-1.5 bg-black mt-2 rounded-lg text-white text-sm font-bold"
                                         onClick={() => handleModal(request)}
                                     >
                                         Action
@@ -201,7 +201,7 @@ const Dashboard = () => {
                             ></textarea>
                             <button
                                 type="submit"
-                                className="px-4 py-2.5 bg-green-500 text-white rounded-md my-4 hover:bg-green-600 transition duration-300"
+                                className="px-4 py-2 bg-black mt-2 rounded-lg text-white text-sm font-bold transition duration-300"
                             >
                                 Submit
                             </button>
@@ -209,7 +209,7 @@ const Dashboard = () => {
                     </>
                 )}
                 <form method="dialog">
-                    <button className="px-4 py-2.5 bg-red-500 text-white rounded-md my-1 hover:bg-red-600 transition duration-300" onClick={closeModal}>
+                    <button className="px-4 py-2 bg-black mt-2 rounded-lg text-white text-sm font-bold transition duration-300" onClick={closeModal}>
                         Close
                     </button>
                 </form>

@@ -13,7 +13,7 @@ const ReviewItem = ({ data, isFetching = false, reviewer }) => {
     console.log(data);
     return (
         <div className="flex w-11/12 items-start justify-start my-5">
-            {isFetching ? <div className="skeleton min-w-[40px] rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square"></div> : <img src={reviewer === null ? data.user_id.avatar : data.content_id.avatar} alt="Reviewers Image" className="rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square border-2 border-base-200" />}
+            {isFetching ? <div className="skeleton min-w-[40px] rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square"></div> : <img src={`http://localhost:3000/image/${reviewer === null ? data.user_id.avatar : data.content_id.avatar}`} alt="Reviewers Image" className="rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square border-2 border-base-200" />}
             <div className="flex flex-col">
                 <div>
                     {isFetching ? <div className="skeleton h-4 w-24 my-1.5"></div> : <h6 className="text-sm md:text-base lg:text-md font-bold">{reviewer === null ? (data.user_id.first_name + " " + data.user_id.last_name) : data.content_id.name}</h6>}
@@ -30,9 +30,14 @@ const ReviewItem = ({ data, isFetching = false, reviewer }) => {
                             ))}
                         </>}
                 </div>
-                <div className="leading-5 text-xs md:text-sm lg:text-base">
-                    {isFetching ? <div className="skeleton h-16 w-[10rem] sm:w-[14rem] md:w-[18rem] lg:w-[24rem] xl:w-[30rem]"></div> : <span>{data.review}</span>}
+                <div className="leading-5 text-xs lg:text-sm xl:text-base w-[20rem] md:w-[20rem]  lg:w-[25rem]  xl:w-[35rem]  2xl:w-[45rem] pr-2 md:pr-4">
+                    {isFetching ? (
+                        <div className="skeleton h-16 w-[10rem] sm:w-[14rem] md:w-[18rem] lg:w-[24rem] xl:w-[30rem]"></div>
+                    ) : (
+                        <p className="break-words">{data.review}</p>
+                    )}
                 </div>
+
             </div>
         </div >
     )
