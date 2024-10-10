@@ -152,11 +152,13 @@ export default function NavBar() {
                                             Your Profile
                                         </Link>
                                     </MenuItem>
-                                    <MenuItem>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                                            Settings
-                                        </a>
-                                    </MenuItem>
+                                    {user && <>
+                                        <MenuItem>
+                                            <Link to="/dashboard" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                                                Dashboard
+                                            </Link>
+                                        </MenuItem>
+                                    </>}
                                     <MenuItem>
                                         <Link onClick={handleLogout} className="cursor-pointer block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
                                             Sign out

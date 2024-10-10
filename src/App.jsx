@@ -21,11 +21,13 @@ const router = createBrowserRouter([
         index: true, element: <Feeds />
       },
       {
-        path: '/bots', element: <Lists dirType="bot" />,
-
+        path: 'bots', children: [
+          { index: true, element: <Lists dirType="bot" /> },
+          { path: ':categorySlug', element: <Lists dirType="bot" /> },
+        ],
       },
       {
-        path: '/admin', element: <Dashboard />,
+        path: '/dashboard', element: <Dashboard />,
 
       },
       {
@@ -33,8 +35,10 @@ const router = createBrowserRouter([
 
       },
       {
-        path: '/groups', element: <Lists dirType='group' />,
-
+        path: 'groups', children: [
+          { index: true, element: <Lists dirType="group" /> },
+          { path: ':categorySlug', element: <Lists dirType="group" /> },
+        ],
       },
 
       {

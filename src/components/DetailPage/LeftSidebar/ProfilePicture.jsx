@@ -5,7 +5,7 @@ const ProfilePicture = ({ image, isFetching = false, error = null }) => {
         <div className="w-full mb-1">
             <div
                 className="rounded-md bg-contain bg-center aspect-square flex justify-center items-center"
-                style={{ backgroundImage: "url('https://telegramic.org/static/assets/img/avatar/shattered-island.jpg')" }}
+                style={{ backgroundImage: "url('https://res.cloudinary.com/djsn4u5ea/image/upload/b_rgb:333B4C/v1728542928/gray-line-drawings-organic-shapes-background_crotsl.png')" }}
             >
                 {error?.message && (
                     <div className="bg-base-100 flex justify-center items-center aspect-square w-[170px] sm:w-[280px] md:w-[170px] rounded-full">

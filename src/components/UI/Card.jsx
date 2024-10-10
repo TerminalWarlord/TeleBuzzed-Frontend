@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Stars from './Stars';
 
@@ -44,7 +44,7 @@ const Card = ({
                     {isFetching ? (
                         <div className="skeleton h-4 w-full"></div>
                     ) : (
-                        <Link to="#" className='text-xs block text-center truncate'>{category}</Link>
+                        <Link to={`/${type}s/${category?.slug}`} className='text-xs block text-center truncate'>{category?.name}</Link>
                     )}
                 </div>
                 <div className='ml-4 flex-grow min-w-0'>

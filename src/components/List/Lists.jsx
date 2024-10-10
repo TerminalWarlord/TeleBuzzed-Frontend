@@ -3,33 +3,45 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Card from '../UI/Card';
 import Pagination from '../UI/Pagination';
-import { useSearchParams } from 'react-router-dom';
-import { useCallback, useState } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { fetchItems } from '../../utils/http';
 
 const Lists = ({ dirType }) => {
     const [searchParams, setSearchParams] = useSearchParams();
+    const params = useParams();
     const page = parseInt(searchParams.get('page') || '1', 10);
     const [currentPage, setCurrentPage] = useState(page);
     const limit = 3;
     // searchTerm and Select value
     const [searchTerm, setSearchTerm] = useState();
+    const [category, setCategory] = useState();
+
     const [sortBy, setSortBy] = useState("popular");
 
     // fetch data
     const fetchFn = useCallback(async () => {
-        const result = await fetchItems(page, limit, sortBy, dirType, searchTerm);
+        const result = await fetchItems(page, limit, sortBy, dirType, searchTerm, category);
         return result;
-    }, [page, sortBy, searchTerm, dirType])
+    }, [page, sortBy, searchTerm, dirType, category])
+
+
+    useEffect(() => {
+        setCategory(params.category);
+    }, [params.category]);
 
     const { data, isFetching, error } = useFetch(fetchFn, {
         result: Array(5).fill(null).map(() => ({
-            id: uuidv4()
+            _id: uuidv4()
         }))
     });
 
     // console.log(data)
+
+    function selectCategory(value) {
+        setCategory(value);
+    }
 
     async function handlePageChange(pageNo) {
         setCurrentPage(pageNo);
@@ -47,11 +59,12 @@ const Lists = ({ dirType }) => {
             <Header
                 dirType={dirType}
                 onSearch={handleSearch}
-                onSelectOption={selectSorting}
+                onSelectSort={selectSorting}
+                onSelectCategory={selectCategory}
             />
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-5 sm:gap-x-4 md:gap-x-5'>
                 {data?.result?.map(bot => {
-                    return <Card key={bot.id} {...bot} classes='max-h-60' isFetching={isFetching} error={error} />
+                    return <Card key={bot._id} {...bot} classes='max-h-60' isFetching={isFetching} error={error} />
                 })}
             </div>
             <div className='mx-5'>

@@ -1,10 +1,15 @@
+import { useParams } from "react-router-dom"
 
-const SelectOptions = ({ options, onSelectOption }) => {
+const SelectOptions = ({ name, options, onSelectOption }) => {
+    const params = useParams();
+
     return (
-        <select className="select select-bordered select-sm" name="sort_by" onChange={(e) => {
+        <select className="select select-bordered select-sm" name={name} defaultValue={params.categorySlug} onChange={(e) => {
             onSelectOption(e.target.value)
-        }}>
-            {options.map(item => <option key={item} value={item}>{item.charAt(0).toUpperCase() + item.slice(1)}</option>)}
+
+        }}
+        >
+            {options.map(item => <option key={item._id} value={item._id}>{item.name}</option>)}
         </select>
     )
 }
