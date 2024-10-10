@@ -7,6 +7,7 @@ import SignIn from './components/Authentication/SignIn'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Profile from './components/UserProfile/Profile'
 import Dashboard from './components/Admin/Dashboard';
+import Menu from './components/Admin/Menu';
 
 import Lists from './components/List/Lists'
 import authLoader from './utils/authLoader'
@@ -27,7 +28,10 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/dashboard', element: <Dashboard />,
+        path: 'dashboard', children: [
+          { index: true, element: <Menu />, },
+          { path: ':menu', element: <Menu />, },
+        ]
 
       },
       {
