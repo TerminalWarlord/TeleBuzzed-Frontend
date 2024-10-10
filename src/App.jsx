@@ -31,8 +31,10 @@ const router = createBrowserRouter([
 
       },
       {
-        path: '/channels', element: <Lists dirType='channel' />,
-
+        path: 'channels', children: [
+          { index: true, element: <Lists dirType="channel" /> },
+          { path: ':categorySlug', element: <Lists dirType="channel" /> },
+        ],
       },
       {
         path: 'groups', children: [

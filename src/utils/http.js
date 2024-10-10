@@ -53,7 +53,7 @@ export async function fetchItems(offset = 1, limit = 20, filter = 'popular', ite
         url.searchParams.append('searchTerm', searchTerm);
     }
     if (category) {
-        url.searchParams.append('category_id', category);
+        url.searchParams.append('category_slug', category);
     }
 
 

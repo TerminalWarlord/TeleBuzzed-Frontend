@@ -1,3 +1,6 @@
+
+// TODO: update host
+
 const ProfilePicture = ({ image, isFetching = false, error = null }) => {
     console.log(error);
 
@@ -5,7 +8,7 @@ const ProfilePicture = ({ image, isFetching = false, error = null }) => {
         <div className="w-full mb-1">
             <div
                 className="rounded-md bg-contain bg-center aspect-square flex justify-center items-center"
-                style={{ backgroundImage: "url('https://res.cloudinary.com/djsn4u5ea/image/upload/b_rgb:333B4C/v1728542928/gray-line-drawings-organic-shapes-background_crotsl.png')" }}
+                style={{ backgroundImage: "url('http://localhost:3000/image/bg_avatar.png')" }}
             >
                 {error?.message && (
                     <div className="bg-base-100 flex justify-center items-center aspect-square w-[170px] sm:w-[280px] md:w-[170px] rounded-full">
@@ -17,7 +20,7 @@ const ProfilePicture = ({ image, isFetching = false, error = null }) => {
                 )}
                 {!error && !isFetching && image && (
                     <img
-                        src={image}
+                        src={`http://localhost:3000/image/${image}`}
                         alt="Bot"
                         className="border-[5.5px] border-base-200 w-[170px] sm:w-[280px] md:w-[170px] rounded-full"
                         onError={(e) => {

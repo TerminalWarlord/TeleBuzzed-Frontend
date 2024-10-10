@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Stars from './Stars';
 
+// TODO: update host
+
+
 const Card = ({
     username: id,
     type,
@@ -37,7 +40,7 @@ const Card = ({
                             <div className="skeleton h-full w-full"></div>
                         ) : (
                             <Link to={`/${type}/${id}`}>
-                                <img src={image} alt="" className='w-full h-full object-cover' />
+                                <img src={`http://localhost:3000/image/${image}`} alt="" className='w-full h-full object-cover' />
                             </Link>
                         )}
                     </div>

@@ -9,15 +9,18 @@ import { getCategories } from '../../utils/http';
 const SORTFILTERS = [
     {
         _id: 'popular',
-        name: 'Popular'
+        name: 'Popular',
+        slug: 'popular'
     },
     {
         _id: 'recent',
-        name: 'Recent'
+        name: 'Recent',
+        slug: 'recent'
     },
     {
         _id: 'liked',
-        name: 'Most Liked'
+        name: 'Most Liked',
+        slug: 'most-liked'
     },
 ]
 
@@ -55,7 +58,7 @@ const Header = ({ dirType, onSelectSort, onSelectCategory, onSearch, searchValue
                     <div className='flex justify-center items-center'>
                         <FontAwesomeIcon icon={faFilter} className='text-md mx-1' />
                         <h2 className=' text-xs md:text-sm lg:text-base mr-2'>Category</h2>
-                        <SelectOptions name={'category_id'} options={data?.result} onSelectOption={onSelectCategory} />
+                        <SelectOptions name={'category_slug'} options={data?.result} onSelectOption={onSelectCategory} />
                     </div>
 
                 </div>
