@@ -22,7 +22,7 @@ const AllReviews = ({ reviewer = null, username }) => {
 
     async function handlePageChange(pageNo) {
         console.log(pageNo, isFetching)
-        handlePagination(pageNo, async () => {
+        handlePagination(async () => {
             await getReviews(reviewer, username, pageNo);
         });
         console.log(pageNo, isFetching)

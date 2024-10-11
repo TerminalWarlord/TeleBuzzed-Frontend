@@ -1,50 +1,47 @@
-import { useState, useEffect, useRef } from 'react';
-import Quill from 'quill';
+import { useState, useEffect, } from 'react';
 import 'quill/dist/quill.snow.css';
 import { getToken } from '../../utils/auth';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getPostDetails } from '../../utils/http';
+import { useQuill } from '../../hooks/useQuill';
 
 const PostEditor = () => {
     const params = useParams();
+    const navigate = useNavigate();
     const [postContent, setPostContent] = useState('');
-    useEffect(() => {
-        if (!params.postId) {
-            // 
-        }
-    }, [params.postId]);
     const [title, setTitle] = useState('');
     const [file, setFile] = useState(null);
     const [isPost, setIsPost] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [imagePreview, setImagePreview] = useState('');
     const [error, setError] = useState(null);
-    const editorRef = useRef(null);
-    const quillRef = useRef(null);
+
+    const postSlug = params.postSlug;
+
+    const { quill, quillRef } = useQuill(postContent);
 
     useEffect(() => {
-        if (editorRef.current && !quillRef.current) {
-            quillRef.current = new Quill(editorRef.current, {
-                theme: 'snow',
-                modules: {
-                    toolbar: [
-                        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        [{ list: 'ordered' }, { list: 'bullet' }],
-                    ]
-                }
-            });
-
-            // Set initial content if provided
-            if (postContent) {
-                quillRef.current.root.innerHTML = postContent;
+        async function fetchFn() {
+            try {
+                const res = await getPostDetails(postSlug);
+                setTitle(res.result.title);
+                setIsPost(res.result.is_post);
+                setPostContent(res.result.content);
+                setImagePreview('http://localhost:3000/image/' + res.result.featured_image);
+            } catch (err) {
+                console.error(err);
             }
         }
+        if (postSlug) {
+            fetchFn();
+        }
+    }, [postSlug]);
 
-        return () => {
-            if (quillRef.current) {
-                quillRef.current = null;
-            }
-        };
-    }, [postContent]);
+    useEffect(() => {
+        if (quill && postContent) {
+            quill.root.innerHTML = postContent;
+        }
+    }, [quill, postContent]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -52,11 +49,11 @@ const PostEditor = () => {
         setError(null);
 
         try {
-            if (!quillRef.current) throw new Error("Editor not initialized");
+            if (!quill) throw new Error("Editor not initialized");
             if (!title.trim()) throw new Error("Title is required");
-            if (!file && !postId) throw new Error("Featured image is required for new posts");
+            if (!file && !postSlug && !imagePreview) throw new Error("Featured image is required for new posts");
 
-            const content = quillRef.current.root.innerHTML;
+            const content = quill.root.innerHTML;
 
             const formData = new FormData();
             formData.append('title', title);
@@ -64,11 +61,11 @@ const PostEditor = () => {
             if (file) formData.append('file', file);
             formData.append('isPost', isPost.toString());
 
-            const url = postId
-                ? `http://localhost:3000/admin/post/${postId}`
-                : 'http://localhost:3000/admin/post';
+            const url = postSlug
+                ? `http://localhost:3000/post/edit/${postSlug}`
+                : 'http://localhost:3000/post';
 
-            const method = postId ? 'PUT' : 'POST';
+            const method = postSlug ? 'PUT' : 'POST';
 
             const response = await fetch(url, {
                 method: method,
@@ -82,7 +79,8 @@ const PostEditor = () => {
                 throw new Error('Failed to submit post');
             }
 
-            alert(postId ? "Post updated successfully!" : "Post created successfully!");
+            // alert(postSlug ? "Post updated successfully!" : "Post created successfully!");
+            navigate('/dashboard/posts');
             // Reset form or redirect here if needed
         } catch (err) {
             setError(err.message);
@@ -94,6 +92,9 @@ const PostEditor = () => {
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
         setFile(selectedFile);
+        if (selectedFile) {
+            setImagePreview(URL.createObjectURL(selectedFile));
+        }
     };
 
     return (
@@ -110,17 +111,24 @@ const PostEditor = () => {
                 />
             </div>
             <div>
-                <div id="content" ref={editorRef} className="bg-base-100 border-gray-300 rounded-lg" style={{ height: '300px' }} />
+                <div ref={quillRef} className="bg-base-100 border-gray-300 rounded-lg" style={{ height: '300px' }} />
             </div>
+
             <div className='my-4'>
+                {imagePreview && (
+                    <img
+                        src={imagePreview}
+                        alt="Preview"
+                        className="max-w-xs max-h-48 object-contain mb-2"
+                    />
+                )}
                 <input
                     type="file"
                     className="file-input file-input-bordered file-input-sm w-full max-w-xs"
                     name='featured_image'
                     onChange={handleFileChange}
-                    required={!postId}
+                    required={!postSlug && !imagePreview}
                 />
-                {featuredImage && <p>Current image: {featuredImage}</p>}
             </div>
             <div className='flex space-x-1.5 items-center my-4'>
                 <input
@@ -139,7 +147,7 @@ const PostEditor = () => {
                 className='px-4 py-1.5 bg-black mt-2 rounded-lg text-white text-sm font-bold'
                 disabled={isSubmitting}
             >
-                {isSubmitting ? 'Submitting...' : (postId ? 'Update' : 'Create')}
+                {isSubmitting ? 'Submitting...' : (postSlug ? 'Update' : 'Create')}
             </button>
         </form>
     );

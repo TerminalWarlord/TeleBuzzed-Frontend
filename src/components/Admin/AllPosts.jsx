@@ -6,34 +6,29 @@ import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import Pagination from '../UI/Pagination';
 import PostEditor from './PostEditor';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const AllPost = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedItem, setSelectedItem] = useState();
+    const [limit, setLimit] = useState(5);
+    const params = useParams();
+
     const fetchFn = useCallback(async () => {
-        return await getAllPosts();
-    }, [])
-    const { data: allPosts, error, isFetching, fetchData } = useFetch(fetchFn, {
+        return await getAllPosts(limit, currentPage);
+    }, [limit, currentPage,])
+    const { data: allPosts, error, isFetching, handlePagination } = useFetch(fetchFn, {
         result: []
     });
 
     console.log(allPosts?.result);
 
-    function handleEdit(item) {
-        console.log(item);
-        setSelectedItem(item);
-    }
-    if (selectedItem?.title) {
-        console.log(selectedItem.title)
-        return <PostEditor
-            postTitle={selectedItem.title}
-            postType={selectedItem.isPost}
-            postId={selectedItem._id}
-            postContent={selectedItem.content}
-        />
+
+    if (params.postSlug) {
+        return <PostEditor />
     }
 
     if (error) {
+        console.log(error)
         return (
             <div className="w-full h-full flex flex-col items-center justify-center my-8 space-y-4">
                 <FontAwesomeIcon icon={faBug} className="text-5xl sm:text-8xl text-red-400" />
@@ -50,7 +45,14 @@ const AllPost = () => {
             </div>
         );
     }
-
+    async function handlePageChange(pageNo) {
+        console.log(pageNo, isFetching)
+        handlePagination(async () => {
+            await getAllPosts(limit, pageNo);
+        });
+        console.log(pageNo, isFetching)
+        setCurrentPage(pageNo);
+    }
 
 
     return (
@@ -100,17 +102,17 @@ const AllPost = () => {
                                     </div>
                                 </td>
                                 <td className="px-2 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                    <button
+                                    <Link
+                                        to={'/dashboard/edit/' + post.slug}
                                         className="px-4 py-1.5 bg-black mt-2 rounded-lg text-white text-sm font-bold"
-                                        onClick={() => handleEdit(post)}
                                     >
                                         Edit
-                                    </button>
-                                    <button
+                                    </Link>
+                                    <Link
                                         className="px-4 py-1.5 bg-black mt-2 rounded-lg text-white text-sm font-bold"
                                     >
                                         Delete
-                                    </button>
+                                    </Link>
                                 </td>
                             </tr>
                         ))}
@@ -118,7 +120,7 @@ const AllPost = () => {
                 </table>
             </div>
             <div className='w-full flex items-center justify-center'>
-                <Pagination currentPage={currentPage} totalPages={allPosts?.hasNextPage ? currentPage + 1 : currentPage} onPageChange={() => { }} />
+                <Pagination currentPage={currentPage} totalPages={allPosts?.hasNextPage ? currentPage + 1 : currentPage} onPageChange={handlePageChange} />
 
             </div>
         </div>
