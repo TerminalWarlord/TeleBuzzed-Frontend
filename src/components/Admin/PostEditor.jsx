@@ -2,8 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import { getToken } from '../../utils/auth';
+import { useParams } from 'react-router-dom';
 
-const NewPost = () => {
+const PostEditor = () => {
+    const params = useParams();
+    const [postContent, setPostContent] = useState('');
+    useEffect(() => {
+        if (!params.postId) {
+            // 
+        }
+    }, [params.postId]);
     const [title, setTitle] = useState('');
     const [file, setFile] = useState(null);
     const [isPost, setIsPost] = useState(true);
@@ -24,6 +32,11 @@ const NewPost = () => {
                     ]
                 }
             });
+
+            // Set initial content if provided
+            if (postContent) {
+                quillRef.current.root.innerHTML = postContent;
+            }
         }
 
         return () => {
@@ -31,7 +44,7 @@ const NewPost = () => {
                 quillRef.current = null;
             }
         };
-    }, []);
+    }, [postContent]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,37 +54,36 @@ const NewPost = () => {
         try {
             if (!quillRef.current) throw new Error("Editor not initialized");
             if (!title.trim()) throw new Error("Title is required");
-            if (!file) throw new Error("Featured image is required");
+            if (!file && !postId) throw new Error("Featured image is required for new posts");
 
             const content = quillRef.current.root.innerHTML;
 
-            // Here you would typically send this data to your backend
-            // For demonstration, we're just logging it
-            console.log({
-                title,
-                content,
-                file,
-                isPost
-            });
-
-            // Simulating an API call
-            // await new Promise(resolve => setTimeout(resolve, 1000));
             const formData = new FormData();
             formData.append('title', title);
             formData.append('content', content);
-            formData.append('file', file);
+            if (file) formData.append('file', file);
             formData.append('isPost', isPost.toString());
 
-            const res = await fetch('http://localhost:3000/admin/post', {
-                method: 'POST',
+            const url = postId
+                ? `http://localhost:3000/admin/post/${postId}`
+                : 'http://localhost:3000/admin/post';
+
+            const method = postId ? 'PUT' : 'POST';
+
+            const response = await fetch(url, {
+                method: method,
                 headers: {
                     'Authorization': getToken()
                 },
                 body: formData
-            })
+            });
 
-            alert("Post submitted successfully!");
-            // Reset form here if needed
+            if (!response.ok) {
+                throw new Error('Failed to submit post');
+            }
+
+            alert(postId ? "Post updated successfully!" : "Post created successfully!");
+            // Reset form or redirect here if needed
         } catch (err) {
             setError(err.message);
         } finally {
@@ -105,9 +117,10 @@ const NewPost = () => {
                     type="file"
                     className="file-input file-input-bordered file-input-sm w-full max-w-xs"
                     name='featured_image'
-                    required
                     onChange={handleFileChange}
+                    required={!postId}
                 />
+                {featuredImage && <p>Current image: {featuredImage}</p>}
             </div>
             <div className='flex space-x-1.5 items-center my-4'>
                 <input
@@ -126,10 +139,10 @@ const NewPost = () => {
                 className='px-4 py-1.5 bg-black mt-2 rounded-lg text-white text-sm font-bold'
                 disabled={isSubmitting}
             >
-                {isSubmitting ? 'Submitting...' : 'Post'}
+                {isSubmitting ? 'Submitting...' : (postId ? 'Update' : 'Create')}
             </button>
         </form>
     );
 };
 
-export default NewPost;
+export default PostEditor;

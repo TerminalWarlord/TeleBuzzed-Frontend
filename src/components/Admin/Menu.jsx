@@ -1,8 +1,9 @@
 import { Link, useParams } from "react-router-dom"
 import Dashboard from "./Dashboard"
-import NewPost from "./NewPost";
+import PostEditor from "./PostEditor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlag, faHourglassHalf, faNewspaper, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import AllPost from "./AllPosts";
 
 const Menu = () => {
     const params = useParams();
@@ -31,8 +32,9 @@ const Menu = () => {
 
                 </div>
                 <div className="bg-base-200 rounded-lg w-full pb-4 shadow-md border-2 border-base-300 min-h-96">
+                    {menu === 'posts' && <AllPost />}
                     {menu === 'pending-requests' && <Dashboard />}
-                    {menu === 'new-post' && <NewPost />}
+                    {menu === 'new-post' && <PostEditor />}
 
                 </div>
             </div>

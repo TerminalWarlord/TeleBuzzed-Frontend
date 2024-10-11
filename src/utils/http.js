@@ -110,7 +110,7 @@ export async function getMe() {
 
 export async function getReviews(reviewer, username = null, offset = 1, limit = 10) {
     const url = new URL(`${base}/reviews`);
-    await sleep(3000)
+    await sleep(1000)
     // Append query parameters to the URL
     url.searchParams.append('offset', offset);
     url.searchParams.append('limit', limit);
@@ -282,3 +282,25 @@ export async function getCategories() {
         throw new Error(err.message || 'Failed to fetch user data!');
     }
 }
+
+
+
+export async function getAllPosts(limit = 20, offset = 1) {
+    const url = new URL(`${base}/admin/all_posts`);
+    // Append query parameters to the URL
+    url.searchParams.append('offset', offset);
+    url.searchParams.append('limit', limit);
+    try {
+        const res = await fetch(url, {
+            headers: {
+                'Authorization': getToken()
+            }
+        });
+        const resData = await res.json();
+        return resData;
+    }
+    catch (err) {
+        console.log(err);
+        throw new Error(err.message || 'Failed to fetch posts!');
+    }
+} 
