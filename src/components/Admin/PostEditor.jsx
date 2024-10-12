@@ -1,4 +1,4 @@
-import { useState, useEffect, } from 'react';
+import { useState, useEffect } from 'react';
 import 'quill/dist/quill.snow.css';
 import { getToken } from '../../utils/auth';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -79,9 +79,7 @@ const PostEditor = () => {
                 throw new Error('Failed to submit post');
             }
 
-            // alert(postSlug ? "Post updated successfully!" : "Post created successfully!");
-            navigate('/dashboard/posts');
-            // Reset form or redirect here if needed
+            navigate('/dashboard/posts', { state: { postUpdated: true } });
         } catch (err) {
             setError(err.message);
         } finally {

@@ -316,4 +316,22 @@ export async function getPostDetails(postSlug) {
         console.log(err);
         throw new Error(err.message || 'Failed to fetch posts!');
     }
-} 
+}
+
+
+export async function deletePost(postSlug) {
+    try {
+        const res = await fetch(base + '/post/delete/' + postSlug, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': getToken()
+            }
+        });
+        const resData = await res.json();
+        return resData;
+    }
+    catch (err) {
+        console.log(err);
+        throw new Error(err.message || 'Failed to delete post!');
+    }
+}

@@ -31,6 +31,7 @@ const router = createBrowserRouter([
         path: 'dashboard', children: [
           { index: true, element: <Menu />, },
           { path: ':menu', element: <Menu />, },
+          { path: 'posts/:pageNo', element: <Menu />, },
           { path: 'edit/:postSlug', element: <Menu />, },
         ]
 
