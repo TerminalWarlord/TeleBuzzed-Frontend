@@ -1,19 +1,31 @@
 import { Form, Link, useNavigate } from "react-router-dom";
+import { signup } from "../../utils/http";
+import { useState } from "react";
 
 export default function Register() {
-
+    const [errors, setErrors] = useState();
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
 
     async function handleSignup(e) {
         e.preventDefault();
         const form = e.target;
         const data = new FormData(form);
-        const formDataObject = {};
-        data.forEach((value, key) => {
-            formDataObject[key] = value;
-        });
-        console.log(formDataObject);
-        console.log(navigate)
+        const formDataObj = Object.fromEntries(data.entries());
+        console.log(formDataObj)
+        setIsSubmitting(true);
+        try {
+            await signup(formDataObj);
+            setErrors(null);
+            navigate('/auth/login')
+        }
+        catch (err) {
+            console.log(err);
+            setErrors({
+                message: err.message || 'Failed to create an account!'
+            })
+        }
+        setIsSubmitting(false);
     }
 
     return (
@@ -41,7 +53,7 @@ export default function Register() {
                                 name="email"
                                 type="email"
                                 required
-                                autoComplete="email"
+                                autoComplete="username"
                                 className="px-3 block w-full rounded-md border-1 border-blue-200  py-1.5 text-base-content shadow-sm ring-1  placeholder:text-base-content  focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6  focus:outline-none"
                             />
                         </div>
@@ -135,10 +147,12 @@ export default function Register() {
                         <button
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            disabled={isSubmitting}
                         >
                             Sign up
                         </button>
                     </div>
+                    {errors?.message && <h3 className="text-center text-red-400">{errors?.message}</h3>}
                 </Form>
 
                 <p className="mt-10 text-center text-sm text-gray-500">

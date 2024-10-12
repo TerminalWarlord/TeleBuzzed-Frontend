@@ -37,6 +37,11 @@ const Profile = () => {
     });
     const [currentPage, setCurrentPage] = useState(1);
 
+
+    const fetchUserContributions = useCallback(async () => {
+        return await fetchItems(1, 15, 'popular', 'all', null, null, username);
+    }, [username])
+
     const {
         data: botsData,
         isFetching: isFetchingBots,
@@ -44,7 +49,7 @@ const Profile = () => {
         setIsFetching: setIsFetchingBots,
         setError: setBotsError,
         setData: setBotsData,
-    } = useFetch(fetchItems, {
+    } = useFetch(fetchUserContributions, {
         result: Array(5).fill(null).map(() => ({
             id: uuidv4()
         }))

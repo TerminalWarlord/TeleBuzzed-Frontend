@@ -1,9 +1,14 @@
+import { getMe } from "./http";
 
 
-export function isLoggedIn() {
-    const token = localStorage.getItem('token');
-    if (!token) return false;
-    else return true;
+export async function isLoggedIn() {
+    try {
+        const res = await getMe();
+        if (res) return true;
+    } catch (err) {
+        console.log(err);
+    }
+    return false;
 }
 
 

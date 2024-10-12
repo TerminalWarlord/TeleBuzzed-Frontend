@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import Footer from './Footer'
 import { useDispatch, useSelector } from 'react-redux'
-import { isLoggedIn } from '../../utils/auth'
 import { authActions } from '../../store/authStore'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBullhorn, faRobot, faUserGroup } from '@fortawesome/free-solid-svg-icons'
 import { getMe } from '../../utils/http'
+import { isLoggedIn } from '../../utils/auth'
 
 const navigation = [
     { name: 'Home', to: '/', current: true },
@@ -52,6 +52,14 @@ export default function NavBar() {
                     dispatcher(authActions.login({ userId: 1 }));
                 }
                 setLoading(false);
+            }
+            else {
+                const isAuthed = await isLoggedIn();
+                if (isAuthed) {
+                    const userDetails = await getMe();
+                    dispatcher(authActions.login(userDetails));
+                    setUser(userDetails);
+                }
             }
         };
         fetchUserDetails();

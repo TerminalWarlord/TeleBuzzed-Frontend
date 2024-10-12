@@ -6,7 +6,6 @@ import Register from './components/Authentication/SignUp'
 import SignIn from './components/Authentication/SignIn'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Profile from './components/UserProfile/Profile'
-import Dashboard from './components/Admin/Dashboard';
 import Menu from './components/Admin/Menu';
 
 import Lists from './components/List/Lists'
@@ -19,7 +18,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <NavBar />,
-    // errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true, element: <Feeds />
@@ -86,13 +85,9 @@ const router = createBrowserRouter([
       {
         path: 'auth',
         children: [
-          {
-            path: 'login',
-            element: <SignIn />,
-          },
-          {
-            path: 'register', element: <Register />
-          },
+          { index: true, element: <SignIn /> },
+          { path: 'login', element: <SignIn /> },
+          { path: 'register', element: <Register /> },
         ]
       },
 

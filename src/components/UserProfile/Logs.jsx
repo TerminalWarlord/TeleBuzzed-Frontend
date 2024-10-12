@@ -9,7 +9,7 @@ import { getPendingRequests } from "../../utils/http";
 const Logs = ({ username }) => {
     const fetchFn = useCallback(async () => {
         return getPendingRequests(username);
-    }, [])
+    }, [username])
     const { data, isFetching, error } = useFetch(fetchFn, {
         result: []
     })

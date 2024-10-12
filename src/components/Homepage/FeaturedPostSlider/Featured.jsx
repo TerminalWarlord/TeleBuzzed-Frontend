@@ -11,12 +11,12 @@ import useFetch from '../../../hooks/useFetch';
 import { useCallback } from "react";
 
 
-
+// TODO: HANDLE ERRORS
 const Featured = () => {
     const fetchFn = useCallback(async () => {
         return await getAllPosts(20, 1, 'post');
     }, [])
-    const { data: allPosts, isFetching, error } = useFetch(fetchFn, {
+    const { data: allPosts, isFetching } = useFetch(fetchFn, {
         result: []
     })
     const featuredPosts = allPosts?.result?.map(post => (

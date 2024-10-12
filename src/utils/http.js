@@ -2,71 +2,20 @@ import { getToken } from "./auth";
 
 const base = 'http://localhost:3000';
 
-// popular, added
 
-// const paths = {
-//     bot: 'bots',
-//     channel: 'channels',
-//     group: 'groups'
-// };
-// export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'bot', searchTerm = null) {
-//     // const path = paths[itemType] || 'bots';
-//     // const url = new URL(`${base}/lists`);
-//     // url.searchParams.append('offset', offset);
-//     // url.searchParams.append('limit', limit);
-//     // if (filter) {
-//     //     url.searchParams.append('filter', filter);
-//     // }
-//     // if (searhTerm) {
-//     //     url.searchParams.append('search', searhTerm);
-//     // }
-
-//     const res = await fetch(`${base}/lists`, {
-//         method: 'POST',
-//         body: JSON.stringify({
-//             offset,
-//             filter,
-//             type: itemType,
-//             limit,
-//             searchTerm,
-//         })
-//     });
-//     if (!res.ok) {
-//         throw new Error('Failed to fetch bots');
-//     }
-//     const data = await res.json();
-//     console.log(data)
-//     return data;
-// }
-
-export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'all', searchTerm = null, category = null) {
-    const url = new URL(`${base}/list`);
-
-    // Append query parameters to the URL
-    url.searchParams.append('offset', offset);
-    url.searchParams.append('limit', limit);
-    url.searchParams.append('filter', filter);
-    url.searchParams.append('type', itemType);
-
-    // Conditionally add searchTerm if provided
-    if (searchTerm) {
-        url.searchParams.append('searchTerm', searchTerm);
-    }
-    if (category) {
-        url.searchParams.append('category_slug', category);
-    }
-
-
-    const res = await fetch(url, {
-        method: 'GET',  // Set the method to GET
+export async function signup(body) {
+    const res = await fetch(base + '/auth/signup', {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
-
     if (!res.ok) {
-        throw new Error('Failed to fetch items');
+        const resData = await res.json();
+        throw new Error(resData?.result?.message || 'Failed to register!');
     }
-
     const data = await res.json();
-    console.log(data);
     return data;
 }
 
@@ -107,6 +56,42 @@ export async function getMe() {
     catch (err) {
         throw new Error(err.message || 'Failed to fetch user data!');
     }
+}
+
+
+
+export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'all', searchTerm = null, category = null, username = null) {
+    const url = new URL(`${base}/list`);
+
+    // Append query parameters to the URL
+    url.searchParams.append('offset', offset);
+    url.searchParams.append('limit', limit);
+    url.searchParams.append('filter', filter);
+    url.searchParams.append('type', itemType);
+
+    // Conditionally add searchTerm if provided
+    if (searchTerm) {
+        url.searchParams.append('searchTerm', searchTerm);
+    }
+    if (username) {
+        url.searchParams.append('username', username);
+    }
+    if (category) {
+        url.searchParams.append('category_slug', category);
+    }
+
+
+    const res = await fetch(url, {
+        method: 'GET',  // Set the method to GET
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch items');
+    }
+
+    const data = await res.json();
+    console.log(data);
+    return data;
 }
 
 
