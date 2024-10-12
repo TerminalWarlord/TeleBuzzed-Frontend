@@ -41,3 +41,13 @@ export function calculatePopularity(views) {
     // Round the result to the nearest integer
     return Math.round(popularity);
 }
+
+
+export function formatDate(data) {
+    const date = new Date(data);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    return formattedDate;
+}
+
+

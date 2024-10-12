@@ -12,6 +12,7 @@ import Menu from './components/Admin/Menu';
 import Lists from './components/List/Lists'
 import authLoader from './utils/authLoader'
 import AddItem from './components/AddItems/AddItem'
+import ArticleDetails from './components/Article/ArticleDetails'
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,9 @@ const router = createBrowserRouter([
           { path: 'posts/:pageNo', element: <Menu />, },
           { path: 'edit/:postSlug', element: <Menu />, },
         ]
-
+      },
+      {
+        path: 'article/:postSlug', element: <ArticleDetails />
       },
       {
         path: 'channels', children: [

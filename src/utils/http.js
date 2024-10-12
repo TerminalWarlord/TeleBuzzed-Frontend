@@ -308,6 +308,7 @@ export async function getAllPosts(limit = 5, offset = 1, type = 'all') {
 
 
 export async function getPostDetails(postSlug) {
+    throw new Error('error')
     try {
         const res = await fetch(`${base}/post?postSlug=${postSlug}`);
         const resData = await res.json();

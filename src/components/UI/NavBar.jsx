@@ -106,7 +106,7 @@ export default function NavBar() {
                                         <li><Link to="/add/group"><FontAwesomeIcon icon={faUserGroup} /> Add a group</Link></li>
                                     </ul> */}
                                     <div className="dropdown dropdown-hover">
-                                        <div tabIndex={0} role="button" className="px-1 py-1 md:px-2 lg:px-3 rounded-md bg-neutral-content text-black text-sm md:text-base min-w-12">+ Add</div>
+                                        <div tabIndex={0} role="button" className="px-1 py-1.5 md:px-2 lg:px-3 rounded-md bg-black text-white text-sm  min-w-12">+ Add</div>
                                         <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[2] w-52 p-2 shadow">
                                             <li><Link to="/add"><FontAwesomeIcon icon={faRobot} /> Add a bot</Link></li>
                                             <li><Link to="/add/channel"><FontAwesomeIcon icon={faBullhorn} /> Add a channel</Link></li>
