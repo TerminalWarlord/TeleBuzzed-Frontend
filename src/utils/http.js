@@ -285,11 +285,12 @@ export async function getCategories() {
 
 
 
-export async function getAllPosts(limit = 5, offset = 1) {
+export async function getAllPosts(limit = 5, offset = 1, type = 'all') {
     const url = new URL(`${base}/all_posts`);
     // Append query parameters to the URL
     url.searchParams.append('offset', offset);
     url.searchParams.append('limit', limit);
+    url.searchParams.append('type', type);
     try {
         const res = await fetch(url, {
             headers: {

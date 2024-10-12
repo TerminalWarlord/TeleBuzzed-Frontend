@@ -6,69 +6,32 @@ import 'swiper/css/pagination';
 
 import FeaturedCard from './FeaturedCard'
 import Slider from "../../UI/Slider";
+import { getAllPosts } from "../../../utils/http";
+import useFetch from '../../../hooks/useFetch';
+import { useCallback } from "react";
 
 
-
-const POPULARBOTS = [
-    {
-        title: "MEGA Uploader X⚡",
-        description: "Remotely uploads files to MEGA.nz",
-        category: "Utilities",
-        image: "https://telegramic.org/media/avatars/bots/1824117532.jpg",
-        url: "https://t.me/",
-        reviews: "4/5"
-    },
-    {
-        title: "MEGA Uploader X⚡",
-        description: "Remotely uploads files to MEGA.nz",
-        category: "Utilities",
-        image: "https://telegramic.org/media/avatars/bots/1824117532.jpg",
-        url: "https://t.me/",
-        reviews: "4/5"
-    },
-    {
-        title: "MEGA Uploader X⚡",
-        description: "Remotely uploads files to MEGA.nz",
-        category: "Utilities",
-        image: "https://telegramic.org/media/avatars/bots/1824117532.jpg",
-        url: "https://t.me/",
-        reviews: "4/5"
-    },
-    {
-        title: "MEGA Uploader X⚡",
-        description: "Remotely uploads files to MEGA.nz",
-        category: "Utilities",
-        image: "https://telegramic.org/media/avatars/bots/1824117532.jpg",
-        url: "https://t.me/",
-        reviews: "4/5"
-    },
-    {
-        title: "MEGA Uploader X⚡",
-        description: "Remotely uploads files to MEGA.nz",
-        category: "Utilities",
-        image: "https://telegramic.org/media/avatars/bots/1824117532.jpg",
-        url: "https://t.me/",
-        reviews: "4/5"
-    },
-    {
-        title: "MEGA Uploader X⚡",
-        description: "Remotely uploads files to MEGA.nz",
-        category: "Utilities",
-        image: "https://telegramic.org/media/avatars/bots/1824117532.jpg",
-        url: "https://t.me/",
-        reviews: "4/5"
-    },
-]
 
 const Featured = () => {
-    const popularBots = POPULARBOTS.map((bot, index) => (
-        <SwiperSlide key={index}>
-            <FeaturedCard />
+    const fetchFn = useCallback(async () => {
+        return await getAllPosts(20, 1, 'post');
+    }, [])
+    const { data: allPosts, isFetching, error } = useFetch(fetchFn, {
+        result: []
+    })
+    const featuredPosts = allPosts?.result?.map(post => (
+        <SwiperSlide key={post._id}>
+            <FeaturedCard
+                title={post.title}
+                longDescription={post.content}
+                image={post.featured_image}
+                postSlug={post.slug}
+            />
         </SwiperSlide>
     ));
     return (
         <div className="flex items-center px-8">
-            <Slider items={popularBots} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} />
+            <Slider items={featuredPosts} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} isFetching={isFetching} />
         </div>
     )
 }
