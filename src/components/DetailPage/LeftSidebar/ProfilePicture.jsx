@@ -1,3 +1,4 @@
+import { ImageViewer } from '../../UI/Image';
 
 // TODO: update host
 
@@ -19,14 +20,22 @@ const ProfilePicture = ({ image, isFetching = false, error = null }) => {
                     <div className="skeleton aspect-square w-[170px] sm:w-[280px] md:w-[170px] rounded-full"></div>
                 )}
                 {!error && !isFetching && image && (
-                    <img
-                        src={`http://localhost:3000/image/${image}`}
-                        alt="Bot"
-                        className="border-[5.5px] border-base-200 w-[170px] sm:w-[280px] md:w-[170px] rounded-full"
+                    <ImageViewer
+                        imageUrl={`http://localhost:3000/image/${image}`}
+                        caption='Profile Picture'
+                        classes="border-[5.5px] border-base-200 w-[170px] sm:w-[280px] md:w-[170px] rounded-full"
                         onError={(e) => {
                             e.target.style.display = 'none'; // Hide image if it fails to load
                         }}
                     />
+                    // <img
+                    //     src=
+                    //     alt="Bot"
+                    //     className="border-[5.5px] border-base-200 w-[170px] sm:w-[280px] md:w-[170px] rounded-full"
+                    //     onError={(e) => {
+                    //         e.target.style.display = 'none'; // Hide image if it fails to load
+                    //     }}
+                    // />
                 )}
             </div>
         </div>

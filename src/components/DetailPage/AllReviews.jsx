@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
 const AllReviews = ({ reviewer = null, username }) => {
-    console.log(reviewer, username)
     // const fetchReviews = useCallback(() => getReviews(reviewer, username), [reviewer, username]);
     const [currentPage, setCurrentPage] = useState(1);
     const fetchReviews = useCallback(() => getReviews(reviewer, username, currentPage), [reviewer, username, currentPage]);
@@ -21,14 +20,11 @@ const AllReviews = ({ reviewer = null, username }) => {
     const reviews = data?.result || [];
 
     async function handlePageChange(pageNo) {
-        console.log(pageNo, isFetching)
         handlePagination(async () => {
             await getReviews(reviewer, username, pageNo);
         });
-        console.log(pageNo, isFetching)
         setCurrentPage(pageNo);
     }
-    console.log(reviews, isFetching);
     return (
         <>
             <div className="w-full flex items-center flex-col">

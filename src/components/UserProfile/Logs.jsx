@@ -6,26 +6,14 @@ import useFetch from "../../hooks/useFetch";
 import { useCallback } from "react";
 import { getPendingRequests } from "../../utils/http";
 
-const Logs = () => {
-    // const data = [
-    //     { status: "inprogress", name: "Twitter Downloader Bot", reason: "" },
-    //     { status: "inprogress", name: "Facebook Downloader Bot", reason: "" },
-    //     { status: "inprogress", name: "TeraBox Downloader Bot", reason: "" },
-    //     { status: "unpublished", name: "Youtube Downloader Bot", reason: "no response from the bot" },
-    //     { status: "published", name: "JayBee Ebook Downloader", reason: "" },
-    //     { status: "published", name: "Instagram Download Bot", reason: "" },
-    //     { status: "published", name: "TikTok Downloader", reason: "" },
-    //     { status: "published", name: "CP Reminder Bot", reason: "" },
-    //     { status: "published", name: "Anime Stash", reason: "" },
-    //     { status: "published", name: "Anime Downloader Bot", reason: "" },
-    // ];
+const Logs = ({ username }) => {
     const fetchFn = useCallback(async () => {
-        return getPendingRequests();
+        return getPendingRequests(username);
     }, [])
     const { data, isFetching, error } = useFetch(fetchFn, {
         result: []
     })
-
+    console.log(data);
     const getStatusColor = (status) => {
         switch (status) {
             case "pending":
@@ -53,7 +41,7 @@ const Logs = () => {
                         </tr>
                     </thead>
                     <tbody className="text-base-content text-sm font-light">
-                        {data?.result?.map((item) => (
+                        {data?.result.map((item) => (
                             <tr key={item._id} className={`border-b border-base-200 ${getStatusColor(item.status)}`}>
                                 <td className="">
                                     <FontAwesomeIcon

@@ -71,13 +71,16 @@ export async function fetchItems(offset = 1, limit = 20, filter = 'popular', ite
 }
 
 export async function login(body) {
-    const res = await fetch(base + '/login', {
+    const res = await fetch(base + '/auth/signin', {
         method: 'POST',
-        body: body,
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
     if (!res.ok) {
-        console.log(res.ok)
-        throw new Error('Failed to login!');
+        const resData = await res.json();
+        throw new Error(resData?.result?.message || 'Failed to login!');
     }
     const data = await res.json();
     return data;
@@ -234,16 +237,9 @@ export async function postReview(data) {
 
 
 
-export async function getPendingRequests() {
+export async function getPendingRequests(username) {
     // send token
-    const res = await fetch(base + '/pending-requests/',
-        {
-            headers: {
-                "Authorization": getToken(),
-
-            }
-        }
-    );
+    const res = await fetch(base + '/pending-requests/?username=' + username);
     // throw new Error('Failed to fetch data!');
     if (!res.ok) {
         throw new Error('Failed to fetch data!');
@@ -308,7 +304,6 @@ export async function getAllPosts(limit = 5, offset = 1, type = 'all') {
 
 
 export async function getPostDetails(postSlug) {
-    throw new Error('error')
     try {
         const res = await fetch(`${base}/post?postSlug=${postSlug}`);
         const resData = await res.json();
@@ -335,5 +330,29 @@ export async function deletePost(postSlug) {
     catch (err) {
         console.log(err);
         throw new Error(err.message || 'Failed to delete post!');
+    }
+}
+
+
+
+
+
+export async function getFullUserDetails(username) {
+    const url = new URL(base + '/user/get-details');
+    url.searchParams.append('username', username)
+    const res = await fetch(url);
+    if (!res.ok) {
+        console.log("failed")
+        throw new Error('Failed to fetch user data!');
+    }
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+
+    }
+    catch (err) {
+        console.log(err)
+        throw new Error(err.message || 'Failed to fetch user data!');
     }
 }

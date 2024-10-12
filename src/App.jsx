@@ -13,11 +13,13 @@ import Lists from './components/List/Lists'
 import authLoader from './utils/authLoader'
 import AddItem from './components/AddItems/AddItem'
 import ArticleDetails from './components/Article/ArticleDetails'
+import ErrorPage from './components/UI/ErrorPage'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <NavBar />,
+    // errorElement: <ErrorPage/>,
     children: [
       {
         index: true, element: <Feeds />
@@ -53,7 +55,10 @@ const router = createBrowserRouter([
       },
 
       {
-        path: '/profile', element: <Profile />, loader: authLoader
+        path: 'profile', children: [
+          { index: true, element: <Profile />, loader: authLoader },
+          { path: ':username', element: <Profile /> },
+        ]
 
       },
       {

@@ -1,12 +1,12 @@
 import { useCallback } from "react";
 import { getPostDetails } from "../../utils/http";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { formatDate } from "../../utils/helper";
 import Featured from "../Homepage/FeaturedPostSlider/Featured";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFaceFrown } from "@fortawesome/free-solid-svg-icons";
 import ErrorPage from "../UI/ErrorPage";
+import { ImageViewerWithCaption } from "../UI/Image";
+
 
 function ArticleDetails() {
     const params = useParams();
@@ -15,7 +15,7 @@ function ArticleDetails() {
     }, [params.postSlug]);
     const { data, isFetching, error } = useFetch(fetchFn, {});
 
-    if (error) {
+    if (error?.message) {
         return <ErrorPage />
 
     }
@@ -26,18 +26,20 @@ function ArticleDetails() {
                 <div className="flex space-x-2 items-center text-base-content text-opacity-80 my-4">
                     <div>
                         {isFetching ? <div className="skeleton w-[50px] aspect-square rounded-full"></div> :
-                            <img
-                                className="w-[50px] aspect-square rounded-full"
-                                src={`http://localhost:3000/image/${data?.result?.author_id.avatar}`}
-                                alt={`Profile picture of ${data?.result?.author_id.first_name} ${data?.result?.author_id.last_name}`}
-                            />}
+                            <Link to={`/profile/${data?.result?.author_id.username}`}>
+                                <img
+                                    className="w-[50px] aspect-square rounded-full"
+                                    src={`http://localhost:3000/image/${data?.result?.author_id.avatar}`}
+                                    alt={`Profile picture of ${data?.result?.author_id.first_name} ${data?.result?.author_id.last_name}`}
+                                />
+                            </Link>}
                     </div>
                     <div className="w-full">
                         {isFetching
                             ?
                             <div className="skeleton w-32 h-3"></div>
                             :
-                            <p className="text-sm lg:text-md">by <strong>{`${data?.result?.author_id.first_name} ${data?.result?.author_id.last_name}`}</strong></p>
+                            <Link to={`/profile/${data?.result?.author_id.username}`}><p className="text-sm lg:text-md">by <strong>{`${data?.result?.author_id.first_name} ${data?.result?.author_id.last_name}`}</strong></p></Link>
                         }
                         {isFetching ? <div className="skeleton w-48 h-3 mt-2"></div> : <p className="text-sm lg:text-md">Published on <strong>{formatDate(data?.result?.posted_on)}</strong></p>}
 
@@ -48,12 +50,15 @@ function ArticleDetails() {
                 {isFetching ?
                     <div className="skeletonl w-[350px] md:w-[450px] lg:w-[550px] aspect-square"></div>
                     :
-                    <img
-                        className="w-full max-w-[350px] md:max-w-[450px] lg:max-w-[550px] h-full rounded-md"
-                        src={`http://localhost:3000/image/${data?.result?.featured_image}`}
-                        alt={`${data?.result?.title}`}
-                    />}
+                    <ImageViewerWithCaption
+                        classes="w-full max-w-[350px] md:max-w-[450px] lg:max-w-[550px] h-full rounded-md"
+                        imageUrl={`http://localhost:3000/image/${data?.result?.featured_image}`}
+                        caption={`${data?.result?.title}`}
+                    />
+
+                }
             </div>
+
             {isFetching ?
                 <div className="mb-10 ">
                     <div className="skeleton w-full h-8 my-2"></div>

@@ -1,7 +1,7 @@
 import { Form, Link, useNavigate } from "react-router-dom"
 import { authActions } from "../../store/authStore";
 import { useDispatch } from "react-redux";
-import { login } from "../../utils/http";
+import { getMe, login } from "../../utils/http";
 import { useState } from "react";
 
 export default function SignIn() {
@@ -14,11 +14,22 @@ export default function SignIn() {
         e.preventDefault();
         const form = e.target;
         const data = new FormData(form);
+        const formDataObj = Object.fromEntries(data.entries());
         setIsFetching(true);
         try {
-            const res = await login(data);
-            localStorage.setItem('token', res.token);
-            dispatch(authActions.login({ userId: res.id }));
+            const res = await login(formDataObj);
+
+            console.log(res)
+            localStorage.setItem('token', res?.result?.token);
+            const userInfo = await getMe();
+            if (!(userInfo?.result)) {
+                setErrors({
+                    message: "Invalid token!",
+                });
+            }
+            console.log(userInfo?.result)
+
+            dispatch(authActions.login({ userId: userInfo.result }));
             navigate('/');
         }
         catch (err) {
@@ -48,15 +59,15 @@ export default function SignIn() {
                 <Form onSubmit={handleSubmit} method="POST" className="space-y-6">
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-base-content">
-                            Email address
+                            Email address/Username
                         </label>
                         <div className="mt-2">
                             <input
                                 id="email"
                                 name="email"
-                                type="email"
+                                type="text"
                                 required
-                                autoComplete="email"
+                                autoComplete="username"
                                 className="px-3 block w-full rounded-md border-1 border-blue-200  py-1.5 text-base-content shadow-sm ring-1  placeholder:text-base-content  focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6  focus:outline-none"
                             />
                         </div>

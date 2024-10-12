@@ -8,6 +8,8 @@ import { postReview } from "../../utils/http"
 import Modal from "../UI/Modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
+// TODO: check if user has posted a review before 
+
 const NewReview = () => {
     const params = useParams();
     const formRef = useRef();

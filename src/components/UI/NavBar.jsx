@@ -28,6 +28,7 @@ export default function NavBar() {
 
     const dispatcher = useDispatch();
     const [user, setUser] = useState();
+    const [loading, setLoading] = useState();
     let isAuthenticated = useSelector(state => state.auth.isAuthenticated);
     console.log(isAuthenticated, user);
     function handleLogout() {
@@ -39,7 +40,8 @@ export default function NavBar() {
 
     useEffect(() => {
         const fetchUserDetails = async () => {
-            if (isLoggedIn()) {
+            if (isAuthenticated) {
+                setLoading(true);
                 try {
                     const userDetails = await getMe();
                     dispatcher(authActions.login(userDetails));
@@ -49,10 +51,11 @@ export default function NavBar() {
                     // Fallback to default user object if API call fails
                     dispatcher(authActions.login({ userId: 1 }));
                 }
+                setLoading(false);
             }
         };
         fetchUserDetails();
-    }, [dispatcher]);
+    }, [dispatcher, isAuthenticated]);
 
 
 
@@ -136,11 +139,22 @@ export default function NavBar() {
                                     <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                         <span className="absolute -inset-1.5" />
                                         <span className="sr-only">Open user menu</span>
-                                        <img
-                                            alt=""
-                                            src={`http://localhost:3000/image/${user?.result?.avatar}`}
-                                            className="h-8 w-8 rounded-full"
-                                        />
+                                        {loading ? ( // Show spinner while loading
+                                            <div className="animate-spin h-8 w-8 rounded-full border-4 border-white border-t-transparent"></div>
+                                        ) : (
+                                            user?.result?.avatar ? ( // Only render image if avatar exists
+                                                <img
+                                                    alt="User Avatar"
+                                                    src={`http://localhost:3000/image/${user?.result?.avatar}`}
+                                                    className="h-8 w-8 rounded-full"
+                                                />
+                                            ) : (
+                                                <div className="h-8 w-8 rounded-full bg-gray-500 flex items-center justify-center">
+                                                    {/* You can add an icon or initials here for the user avatar */}
+                                                    <span className="text-white">?</span>
+                                                </div>
+                                            )
+                                        )}
                                     </MenuButton>
                                 </div>
                                 <MenuItems
