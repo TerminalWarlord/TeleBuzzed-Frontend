@@ -58,7 +58,7 @@ const MainDetailPage = () => {
                     <Tabs tabContent={tabContent} />
                 </div>
             </div>
-            <SimilarItems category={botData?.result?.category} itemType={botData?.result?.type} currentItemUsername={botData?.result?.username} />
+            <SimilarItems category={botData?.result?.category?.slug} itemType={botData?.result?.type} currentItemUsername={botData?.result?.username} />
         </section>
     )
 }

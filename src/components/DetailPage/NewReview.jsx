@@ -3,10 +3,13 @@ import LineBreak from "../UI/LineBreak"
 import ReviewStars from "./RightSidebar/ReviewStars"
 import PostReviewButton from "./RightSidebar/PostReviewButton"
 import { Form, useParams } from "react-router-dom"
-import { useRef, useState } from "react"
-import { postReview } from "../../utils/http"
+import { useCallback, useRef, useState } from "react"
+import { getReviews, postReview } from "../../utils/http"
 import Modal from "../UI/Modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useSelector } from "react-redux"
+import useFetch from "../../hooks/useFetch"
+import ReviewItem from "./RightSidebar/ReviewItem"
 
 // TODO: check if user has posted a review before 
 
@@ -16,20 +19,38 @@ const NewReview = () => {
     const modalRef = useRef();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState(null);
+    const username = params.username;
+    const user = useSelector(state => state.auth.user);
+    const reviewer = user?.result?.username;
+    const fetchFn = useCallback(async () => {
+        if (!reviewer) {
+            throw new Error('Invalid Reviewer');
+        }
+        return await getReviews(reviewer, username, 1, 1);
+    }, [reviewer, username])
+    const { data: userReview, isFetching: userReviewFetching, error: userReviewError, setData: setUserReview } = useFetch(fetchFn, {
+        result: []
+    })
 
+    let isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    // console.log(reviewer, username, userReview);
+    console.log(userReview, userReview?.result.length, isAuthenticated, userReviewError);
 
     async function handleSubmit(e) {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            await postReview(formRef.current);
+            const newReview = await postReview(formRef.current);
             modalRef.current.showModal();
+            setUserReview({
+                result: [newReview.result.review]
+            })
             setError(null);
         }
         catch (err) {
             console.log(err)
             setError({
-                message: err.message || "Failed to submit data!"
+                message: err.message || "Failed to submit data!",
             });
             modalRef.current.showModal();
         }
@@ -52,7 +73,7 @@ const NewReview = () => {
                     <button className="btn">Close</button>
                 </form>
             </Modal>
-            <Form className="w-full flex items-center flex-col" onSubmit={handleSubmit} ref={formRef} method="POST">
+            {isAuthenticated && userReview?.result.length <= 0 && <Form className="w-full flex items-center flex-col" onSubmit={handleSubmit} ref={formRef} method="POST">
                 <LineBreak icon={faPenToSquare} classes="my-3 text-center" text={"Write a review"} />
                 <textarea
                     placeholder="Feedback"
@@ -68,7 +89,14 @@ const NewReview = () => {
                     <ReviewStars />
                     <PostReviewButton isSubmitting={isSubmitting} />
                 </div>
-            </Form>
+            </Form>}
+            {isAuthenticated && userReview?.result.length > 0 && <>
+                <LineBreak icon={faPenToSquare} classes="my-3 text-center" text={"Your Feedback"} />
+                <ReviewItem
+                    data={userReview?.result[0]}
+                    isFetching={userReviewFetching}
+                />
+            </>}
         </>
     )
 }

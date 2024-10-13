@@ -11,18 +11,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
 const AllReviews = ({ reviewer = null, username }) => {
-    // const fetchReviews = useCallback(() => getReviews(reviewer, username), [reviewer, username]);
     const [currentPage, setCurrentPage] = useState(1);
-    const fetchReviews = useCallback(() => getReviews(reviewer, username, currentPage), [reviewer, username, currentPage]);
+    const fetchReviews = useCallback(async () => {
+        return await getReviews(reviewer, username, currentPage, 10);
+    }, [reviewer, username, currentPage]);
 
 
-    const { data, isFetching, error, handlePagination } = useFetch(fetchReviews, {});
+    const { data, isFetching, error } = useFetch(fetchReviews, {});
     const reviews = data?.result || [];
-
     async function handlePageChange(pageNo) {
-        handlePagination(async () => {
-            await getReviews(reviewer, username, pageNo);
-        });
         setCurrentPage(pageNo);
     }
     return (
@@ -46,7 +43,7 @@ const AllReviews = ({ reviewer = null, username }) => {
                 </>}
 
                 <div className="w-11/12">
-                    <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={reviews.length > 4 ? 2 : 1} />
+                    <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={data?.hasNextPage ? currentPage + 10 : currentPage} />
                 </div>
             </div>
         </>

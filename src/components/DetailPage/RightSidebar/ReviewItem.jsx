@@ -12,11 +12,11 @@ const ReviewItem = ({ data, isFetching = false, reviewer }) => {
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
     return (
         <div className="flex w-11/12 items-start justify-start my-5">
-            {isFetching ? <div className="skeleton min-w-[40px] rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square"></div> : <img src={`http://localhost:3000/image/${reviewer === null ? data.user_id.avatar : data.content_id.avatar}`} alt="Reviewers Image" className="rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square border-2 border-base-200" />}
+            {isFetching ? <div className="skeleton min-w-[40px] rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square"></div> : <img src={`http://localhost:3000/image/${reviewer ? data.content_id.avatar : data.user_id.avatar}`} alt="Reviewers Image" className="rounded-xl w-10 md:w-14 lg:w-14 mr-4 mt-1.5 aspect-square border-2 border-base-200" />}
             <div className="flex flex-col">
                 <div>
-                    {isFetching ? <div className="skeleton h-4 w-24 my-1.5"></div> : <Link to={reviewer === null ? `/profile/${data.user_id.username}` : (`/${data.content_id.type}/${data.content_id.username}`)}>
-                        <h6 className="text-sm md:text-base lg:text-md font-bold">{reviewer === null ? (data.user_id.first_name + " " + data.user_id.last_name) : data.content_id.name}</h6>
+                    {isFetching ? <div className="skeleton h-4 w-24 my-1.5"></div> : <Link to={reviewer ? (`/${data.content_id.type}/${data.content_id.username}`) : `/profile/${data.user_id.username}`}>
+                        <h6 className="text-sm md:text-base lg:text-md font-bold">{reviewer ? data.content_id.name : (data.user_id.first_name + " " + data.user_id.last_name)}</h6>
                     </Link>}
                 </div>
                 <div className="text-xs">

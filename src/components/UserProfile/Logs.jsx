@@ -10,7 +10,7 @@ const Logs = ({ username }) => {
     const fetchFn = useCallback(async () => {
         return getPendingRequests(username);
     }, [username])
-    const { data, isFetching, error } = useFetch(fetchFn, {
+    const { data } = useFetch(fetchFn, {
         result: []
     })
     console.log(data);
