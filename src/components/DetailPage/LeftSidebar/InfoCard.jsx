@@ -1,4 +1,4 @@
-import { faArrowTrendUp, faCalendar, faCircleInfo, faFlag, faLanguage, faList, faMars, faPaperPlane, faRobot, faStar, faUserGroup } from "@fortawesome/free-solid-svg-icons"
+import { faArrowTrendUp, faCalendar, faCircleInfo, faFlag, faLanguage, faList, faMars, faPaperPlane, faPenToSquare, faRobot, faStar, faUserGroup } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import LineBreak from "../../UI/LineBreak"
 import ProfilePicture from "./ProfilePicture"
@@ -9,6 +9,9 @@ import Modal from "../../UI/Modal"
 import InfoSkeleton from "./InfoSkeleton"
 import { calculatePopularity, getYearMonthDifference } from "../../../utils/helper"
 import Stars from '../../UI/Stars';
+import { Form, Link, useParams } from "react-router-dom"
+import { useSelector } from "react-redux"
+import EditProfile from "./EditProfile"
 
 
 // TODO: add submit on report
@@ -17,11 +20,22 @@ import Stars from '../../UI/Stars';
 
 
 const InfoCard = ({ item, isFetching = false, error = null }) => {
-    const modal = useRef();
+    const params = useParams();
+    const modalRef = useRef();
+    const editProfileModalRef = useRef();
     let info;
+
+    const associatedWithProfile = !params.username && item.isUser;
+    const user = useSelector(state => state.auth.user);
+    console.log(user)
     function openModal() {
-        modal.current.showModal();
+        modalRef.current.showModal();
     }
+    function openEditProfile() {
+        editProfileModalRef.current.showModal();
+    }
+
+
     if (!item.isUser) {
         info = <>
             <InfoItem icon={faPaperPlane} fieldName={'Username'} fieldValue={item.username} />
@@ -36,7 +50,7 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
                     <FontAwesomeIcon icon={faFlag} /> Think twice before trusting or using a content. If it infringes your copyright or should be removed from our directory, please click here to report it.
                 </span>
             </div>
-            <Modal ref={modal} >
+            <Modal ref={modalRef} >
                 <h3 className="font-bold text-lg">Report</h3>
                 <form method="dialog" className="flex flex-col w-full items-center justify-center modal-backdrop">
                     <textarea className="textarea w-full mb-4 border-1 border-base-300 focus:outline-none text-base-content" placeholder="Please briefly explain your issue with this content... "></textarea>
@@ -65,8 +79,20 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
         <div className="rounded-md w-11/12 md:w-[200px] lg:w-[300px] flex flex-col shadow-md" >
             <ProfilePicture image={item.avatar} isFetching={isFetching} error={error} />
             {!item.isUser && <LikeState data={item} isFetching={isFetching} error={error} />}
-            <div className="my-3 flex justify-center">
+            <div className="my-3 w-full flex flex-col justify-center items-center space-y-2">
+
                 <a href={`https://t.me/${item.username}`} className="px-4 py-2 bg-[#2AABEE] text-base-200 rounded-md font-bold text-xs">Open <FontAwesomeIcon icon={faPaperPlane} color="white" className="ml-2 text-sm font-normal" /></a>
+                {associatedWithProfile &&
+                    <Link
+                        className="px-4 py-2 bg-black text-white rounded-md font-bold text-xs"
+                        onClick={openEditProfile}
+                    >
+                        Edit Profile <FontAwesomeIcon
+                            icon={faPenToSquare}
+                            color="white"
+                            className="ml-2 text-sm font-normal"
+                        />
+                    </Link>}
             </div>
             <div className="w-full flex justify-center my-3 item">
                 <LineBreak icon={faCircleInfo} text={'Details'} />
@@ -74,6 +100,10 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
 
             {error?.message && <h1 className="text-center text-red-400 italic mb-4">Failed to fetch data!</h1>}
             {!error && (isFetching ? <InfoSkeleton /> : <>{info}</>)}
+
+            <Modal ref={editProfileModalRef} >
+                <EditProfile ref={editProfileModalRef} />
+            </Modal>
 
         </div>
     )
