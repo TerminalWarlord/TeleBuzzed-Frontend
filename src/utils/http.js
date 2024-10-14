@@ -341,3 +341,34 @@ export async function getFullUserDetails(username) {
         throw new Error(err.message || 'Failed to fetch user data!');
     }
 }
+
+
+
+
+
+export async function putEditProfile(data) {
+    const res = await fetch(base + '/user/update', {
+        method: 'PUT',
+        body: data,
+        headers: {
+            'Authorization': getToken()
+        }
+    });
+    if (!res.ok) {
+        console.log("failed")
+        throw new Error('Failed to fetch user data!');
+    }
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+
+    }
+    catch (err) {
+        console.log(err)
+        throw new Error(err.message || 'Failed to fetch user data!');
+    }
+}
+
+
+

@@ -33,7 +33,7 @@ const Profile = () => {
         return null;
     }, [username]);
 
-    const { data, isFetching, error } = useFetch(fetchFn, {
+    const { data, isFetching, error, setData } = useFetch(fetchFn, {
         result: {}
     });
     const [currentPage, setCurrentPage] = useState(1);
@@ -55,6 +55,11 @@ const Profile = () => {
 
     async function handleNext(pageNo) {
         setCurrentPage(pageNo);
+    }
+
+
+    function onUserUpdate(userData) {
+        setData(userData);
     }
 
     const tabContent = [
@@ -130,7 +135,7 @@ const Profile = () => {
                 type="Profile" icon={faUser}
                 isFetching={false} />
             <div className="flex flex-col items-center md:flex-row md:items-start w-full my-4">
-                <InfoCard item={{ isUser: true, ...data.result }} isFetching={false} error={null} />
+                <InfoCard item={{ isUser: true, ...data.result }} isFetching={false} error={null} onUserUpdate={onUserUpdate} />
                 <div className="flex flex-col items-center w-11/12 mt-4 md:w-3/4 md:mt-0">
                     <Tabs tabContent={tabContent} />
                 </div>

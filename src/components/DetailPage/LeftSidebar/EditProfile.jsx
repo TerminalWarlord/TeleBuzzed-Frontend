@@ -1,21 +1,38 @@
-import { forwardRef } from 'react';
-import { useSelector } from 'react-redux';
+import { forwardRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form } from 'react-router-dom';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import LineBreak from '../../UI/LineBreak';
+import { putEditProfile } from '../../../utils/http';
+import { authActions } from '../../../store/authStore';
 
-const EditProfile = forwardRef((props, ref) => {
+const EditProfile = forwardRef(({ onUserUpdate }, ref) => {
+    const [errors, setErrors] = useState(null);
+    const dispatcher = useDispatch();
     const user = useSelector(state => state.auth.user);
 
     function closeEditProfile() {
         ref.current.close();
     }
 
-    function handleEditSubmission(e) {
+    async function handleEditSubmission(e) {
         e.preventDefault();
         const data = new FormData(e.target);
-        const formDataObj = Object.fromEntries(data.entries());
-        console.log(formDataObj);
+        try {
+            const res = await putEditProfile(data);
+            dispatcher(authActions.login(res));
+            setErrors(null);
+            onUserUpdate(res);
+            closeEditProfile();
+            // const
+        }
+        catch (err) {
+            console.log(err);
+            setErrors({
+                message: err.message || 'Failed to update!'
+            })
+        }
+
     }
 
     return (
@@ -23,6 +40,11 @@ const EditProfile = forwardRef((props, ref) => {
             <div className="w-full flex justify-center">
                 <LineBreak icon={faPenToSquare} text="Edit Profile" classes="mb-8 " />
             </div>
+            {
+                errors && <div className='my-4'>
+                    <h4 className='text-sm italic text-red-500'>Failed to update data!</h4>
+                </div>
+            }
             <div role="tablist" className="tabs tabs-lifted">
                 <input type="radio" name="my_tabs_2" role="tab" className="tab whitespace-nowrap" aria-label="User Details"
                     defaultChecked />
@@ -37,7 +59,7 @@ const EditProfile = forwardRef((props, ref) => {
                                 id="first_name"
                                 name="first_name"
                                 className="px-1.5 py-1.5 w-64 border-2 border-base-200 rounded-lg focus:border-base-300 outline-none"
-                                value={user?.result?.first_name}
+                                defaultValue={user?.result?.first_name}
                             />
                         </div>
 
@@ -50,7 +72,7 @@ const EditProfile = forwardRef((props, ref) => {
                                 id="last_name"
                                 name="last_name"
                                 className="px-1.5 py-1.5 w-64 border-2 border-base-200 rounded-lg focus:border-base-300 outline-none"
-                                value={user?.result?.last_name}
+                                defaultValue={user?.result?.last_name}
                             />
                         </div>
 
@@ -63,13 +85,26 @@ const EditProfile = forwardRef((props, ref) => {
                                 id="tg_username"
                                 name="tg_username"
                                 className="px-1.5 py-1.5 w-64 border-2 border-base-200 rounded-lg focus:border-base-300 outline-none"
-                                value={user?.result?.tg_username}
+                                defaultValue={user?.result?.tg_username}
                             />
+                        </div>
+                        <div className='w-full flex justify-start my-4'>
+                            <label htmlFor="tg_username" className="font-semibold text-md text-left flex-auto">
+                                Avatar
+                            </label>
+                            <input
+                                type="file"
+                                name="avatar"
+                                className="file-input file-input-bordered file-input-sm w-64"
+                            />
+                            {/* <input type="file" className="file-input file-input-bordered file-input-sm w-full" /> */}
+
                         </div>
                         <div className="w-full flex justify-end mb-2 mt-6 space-x-2">
                             <button onClick={closeEditProfile} className="px-3 py-1.5 bg-black text-white rounded-md">Close</button>
                             <button type="submit" className="px-3 py-1.5 bg-black text-white rounded-md">Save Changes</button>
                         </div>
+
                     </Form>
                 </div>
 

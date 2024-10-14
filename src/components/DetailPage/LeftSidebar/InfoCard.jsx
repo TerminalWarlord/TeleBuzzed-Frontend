@@ -9,7 +9,7 @@ import Modal from "../../UI/Modal"
 import InfoSkeleton from "./InfoSkeleton"
 import { calculatePopularity, getYearMonthDifference } from "../../../utils/helper"
 import Stars from '../../UI/Stars';
-import { Form, Link, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 import EditProfile from "./EditProfile"
 
@@ -19,7 +19,7 @@ import EditProfile from "./EditProfile"
 
 
 
-const InfoCard = ({ item, isFetching = false, error = null }) => {
+const InfoCard = ({ item, isFetching = false, error = null, onUserUpdate = null }) => {
     const params = useParams();
     const modalRef = useRef();
     const editProfileModalRef = useRef();
@@ -81,7 +81,7 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
             {!item.isUser && <LikeState data={item} isFetching={isFetching} error={error} />}
             <div className="my-3 w-full flex flex-col justify-center items-center space-y-2">
 
-                <a href={`https://t.me/${item.username}`} className="px-4 py-2 bg-[#2AABEE] text-base-200 rounded-md font-bold text-xs">Open <FontAwesomeIcon icon={faPaperPlane} color="white" className="ml-2 text-sm font-normal" /></a>
+                {(!user.isUser || (item.isUser && item.tg_username)) && <a href={`https://t.me/${item.isUser ? item.tg_username : item.username}`} className="px-4 py-2 bg-[#2AABEE] text-base-200 rounded-md font-bold text-xs">Open <FontAwesomeIcon icon={faPaperPlane} color="white" className="ml-2 text-sm font-normal" /></a>}
                 {associatedWithProfile &&
                     <Link
                         className="px-4 py-2 bg-black text-white rounded-md font-bold text-xs"
@@ -102,7 +102,7 @@ const InfoCard = ({ item, isFetching = false, error = null }) => {
             {!error && (isFetching ? <InfoSkeleton /> : <>{info}</>)}
 
             <Modal ref={editProfileModalRef} >
-                <EditProfile ref={editProfileModalRef} />
+                <EditProfile ref={editProfileModalRef} onUserUpdate={onUserUpdate} />
             </Modal>
 
         </div>

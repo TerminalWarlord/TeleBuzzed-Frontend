@@ -23,7 +23,7 @@ const ProfilePicture = ({ image, isFetching = false, error = null }) => {
                     <ImageViewer
                         imageUrl={`http://localhost:3000/image/${image}`}
                         caption='Profile Picture'
-                        classes="border-[5.5px] border-base-200 w-[170px] sm:w-[280px] md:w-[170px] rounded-full"
+                        classes="border-[5.5px] object-cover aspect-square border-base-200 w-[170px] sm:w-[280px] md:w-[170px] rounded-full"
                         onError={(e) => {
                             e.target.style.display = 'none'; // Hide image if it fails to load
                         }}
