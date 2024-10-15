@@ -50,7 +50,7 @@ export default function NavBar() {
                 } catch (error) {
                     console.error("Failed to fetch user details:", error);
                     // Fallback to default user object if API call fails
-                    dispatcher(authActions.login({ userId: 1 }));
+                    dispatcher(authActions.logout());
                 }
                 setLoading(false);
             }
@@ -189,7 +189,7 @@ export default function NavBar() {
                                     </MenuItem>
                                 </MenuItems>
                             </Menu>
-                        </div> : <a href='/auth/login' className='font-bold text-base-content px-4 py-2 bg-base-300 rounded-lg ml-4'>Login</a>}
+                        </div> : <Link to='/auth/login' className='font-bold text-base-content px-4 py-2 bg-base-300 rounded-lg ml-4'>Login</Link>}
                     </div>
                 </div>
 
