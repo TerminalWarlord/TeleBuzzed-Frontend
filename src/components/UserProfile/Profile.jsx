@@ -139,7 +139,7 @@ const Profile = () => {
                     isFetching={false} />
                 <div className="flex flex-col items-center md:flex-row md:items-start w-full my-4">
                     <InfoCard item={{ isUser: true, ...data.result }} isFetching={false} error={null} onUserUpdate={onUserUpdate} />
-                    <div className="flex flex-col items-center w-11/12 mt-4 md:w-3/4 md:mt-0">
+                    <div className="flex flex-col items-center w-full mt-4 md:w-3/4 md:mt-0">
                         <Tabs tabContent={tabContent} />
                     </div>
                 </div>

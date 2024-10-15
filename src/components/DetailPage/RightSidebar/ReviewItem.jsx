@@ -32,7 +32,7 @@ const ReviewItem = ({ data, isFetching = false, reviewer }) => {
                             ))}
                         </>}
                 </div>
-                <div className="leading-5 text-xs lg:text-sm xl:text-base w-[20rem] md:w-[20rem]  lg:w-[25rem]  xl:w-[35rem]  2xl:w-[45rem] pr-2 md:pr-4">
+                <div className="leading-5 text-xs lg:text-sm xl:text-base w-[12rem] sm:w-[15rem] md:w-[18rem]  lg:w-[25rem]  xl:w-[35rem]  2xl:w-[45rem] pr-2 md:pr-4">
                     {isFetching ? (
                         <div className="skeleton h-16 w-[10rem] sm:w-[14rem] md:w-[18rem] lg:w-[24rem] xl:w-[30rem]"></div>
                     ) : (
