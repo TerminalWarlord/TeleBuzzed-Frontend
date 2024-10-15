@@ -20,10 +20,10 @@ const ThemeController = () => {
     }
 
     return (
-        <label className="flex items-center cursor-pointer gap-2 md:gap-4 p-2">
+        <label className="flex items-center cursor-pointer gap-0 lg:gap-1 p-2">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 md:w-6 md:h-6"
+                className="w-5 h-5"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="gray"
@@ -36,13 +36,13 @@ const ThemeController = () => {
             </svg>
             <input
                 type="checkbox"
-                className="toggle theme-controller scale-75 md:scale-100"
+                className="toggle theme-controller scale-75 lg:scale-90"
                 onChange={toggleTheme}
                 checked={theme === 'dark'}
             />
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 md:w-6 md:h-6"
+                className="w-5 h-5"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="gray"

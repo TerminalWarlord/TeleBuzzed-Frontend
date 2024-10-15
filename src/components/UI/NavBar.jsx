@@ -11,6 +11,7 @@ import { faBullhorn, faRobot, faUserGroup } from '@fortawesome/free-solid-svg-ic
 import { getMe } from '../../utils/http'
 import { isLoggedIn } from '../../utils/auth'
 
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const navigation = [
@@ -88,9 +89,9 @@ export default function NavBar() {
 
                                 <Link to={'/'}>
                                     <img
-                                        alt="TeleBuzzed"
-                                        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-                                        className="h-8 w-auto"
+                                        alt="TeleBuzzed Logo"
+                                        src="/telebuzzed-logo.png"
+                                        className="h-6 sm:h-8 lg:h-10 w-auto"
                                     />
                                 </Link>
 
@@ -125,7 +126,9 @@ export default function NavBar() {
                                             <li><Link to="/add/group"><FontAwesomeIcon icon={faUserGroup} /> Add a group</Link></li>
                                         </ul>
                                     </div>
-                                    <ThemeController />
+                                    <div className='hidden md:block'>
+                                        <ThemeController />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +192,7 @@ export default function NavBar() {
                                     </MenuItem>
                                 </MenuItems>
                             </Menu>
-                        </div> : <Link to='/auth/login' className='font-bold text-base-content px-4 py-2 bg-base-300 rounded-lg ml-4'>Login</Link>}
+                        </div> : <Link to='/auth/login' className='font-bold text-base-content px-2.5 py-1.5 bg-base-300 rounded-lg ml-4'>Login</Link>}
                     </div>
                 </div>
 
