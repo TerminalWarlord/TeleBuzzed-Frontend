@@ -13,6 +13,7 @@ import { Fragment, useCallback, useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import MetaTags from "../UI/MetaTags";
 
 const Profile = () => {
     const params = useParams();
@@ -129,18 +130,22 @@ const Profile = () => {
     }
 
     return (
-        <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center overflow-hidden">
-            <Intro
-                title={`${data.result.first_name} ${data.result.last_name}`}
-                type="Profile" icon={faUser}
-                isFetching={false} />
-            <div className="flex flex-col items-center md:flex-row md:items-start w-full my-4">
-                <InfoCard item={{ isUser: true, ...data.result }} isFetching={false} error={null} onUserUpdate={onUserUpdate} />
-                <div className="flex flex-col items-center w-11/12 mt-4 md:w-3/4 md:mt-0">
-                    <Tabs tabContent={tabContent} />
+        <>
+            <MetaTags title={`${data.result.first_name} ${data.result.last_name} | TeleBuzzed.Com`} />
+            <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center overflow-hidden">
+                <Intro
+                    title={`${data.result.first_name} ${data.result.last_name}`}
+                    type="Profile" icon={faUser}
+                    isFetching={false} />
+                <div className="flex flex-col items-center md:flex-row md:items-start w-full my-4">
+                    <InfoCard item={{ isUser: true, ...data.result }} isFetching={false} error={null} onUserUpdate={onUserUpdate} />
+                    <div className="flex flex-col items-center w-11/12 mt-4 md:w-3/4 md:mt-0">
+                        <Tabs tabContent={tabContent} />
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
+
     )
 }
 

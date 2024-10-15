@@ -16,7 +16,7 @@ const Footer = () => {
                 </svg>
                 <p>
 
-                    Copyright &copy; 2024 TeleIgnite.
+                    Copyright &copy; 2024 TeleBuzz.
                 </p>
             </aside>
             <nav>

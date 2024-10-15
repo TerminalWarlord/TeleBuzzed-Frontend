@@ -11,6 +11,7 @@ import useFetch from "../../hooks/useFetch"
 import { getItemDetails } from "../../utils/http"
 import { useParams } from "react-router-dom"
 import { useCallback } from "react"
+import MetaTags from "../UI/MetaTags"
 
 
 const iconMap = {
@@ -48,18 +49,21 @@ const MainDetailPage = () => {
     ]
     let icon = iconMap[botData?.result?.type];
     return (
-        <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center">
-            <Intro title={botData?.result?.name} type={botData?.result?.type} icon={icon} isFetching={isFetching} />
-            <div className="flex flex-col items-center md:flex-row md:items-start w-full my-4">
-                <InfoCard item={{ isUser: false, ...botData?.result }} isFetching={isFetching} error={error} />
-                <div className="flex flex-col items-center w-11/12 mt-4 md:w-3/4 md:mt-0">
-                    {/* <MainContent /> */}
-                    {/* <AllReviews /> */}
-                    <Tabs tabContent={tabContent} />
+        <>
+            <MetaTags title={`${botData?.result?.name || 'Telegram Directory'} | TeleBuzzed.Com`} />
+            <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center">
+                <Intro title={botData?.result?.name} type={botData?.result?.type} icon={icon} isFetching={isFetching} />
+                <div className="flex flex-col items-center md:flex-row md:items-start w-full my-4">
+                    <InfoCard item={{ isUser: false, ...botData?.result }} isFetching={isFetching} error={error} />
+                    <div className="flex flex-col items-center w-11/12 mt-4 md:w-3/4 md:mt-0">
+                        {/* <MainContent /> */}
+                        {/* <AllReviews /> */}
+                        <Tabs tabContent={tabContent} />
+                    </div>
                 </div>
-            </div>
-            <SimilarItems category={botData?.result?.category?.slug} itemType={botData?.result?.type} currentItemUsername={botData?.result?.username} />
-        </section>
+                <SimilarItems category={botData?.result?.category?.slug} itemType={botData?.result?.type} currentItemUsername={botData?.result?.username} />
+            </section>
+        </>
     )
 }
 

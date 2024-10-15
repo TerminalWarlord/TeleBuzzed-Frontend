@@ -37,7 +37,7 @@ const AllPost = () => {
             // Clear the state after fetching to prevent unnecessary re-fetches
             navigate(location.pathname, { replace: true, state: {} });
         }
-    }, [location.state, fetchData, navigate, location.pathname]);
+    }, [location.state, fetchData, navigate, location.pathname, params.pageNo]);
 
     useEffect(() => {
         fetchData();

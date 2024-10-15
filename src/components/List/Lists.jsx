@@ -8,6 +8,7 @@ import useFetch from '../../hooks/useFetch';
 import { fetchItems } from '../../utils/http';
 import { faFaceFrown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import MetaTags from '../UI/MetaTags';
 
 const Lists = ({ dirType }) => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -44,31 +45,34 @@ const Lists = ({ dirType }) => {
     }
 
     return (
-        <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center">
-            <Header
-                dirType={dirType}
-                onSearch={setSearchTerm}
-                onSelectSort={setSortBy}
-                onSelectCategory={setCategory}
-            />
-            {data?.result.length < 1 && <div className={`w-full flex flex-col items-center justify-center space-y-4 my-6`}>
-                <FontAwesomeIcon icon={faFaceFrown} className="text-5xl" />
-                <h2 className="text-lg">Nothing to show!</h2>
-            </div>}
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-5 sm:gap-x-4 md:gap-x-5'>
-
-                {data?.result?.map(bot => (
-                    <Card key={bot._id} {...bot} classes='max-h-60' isFetching={isFetching} error={error} />
-                ))}
-            </div>
-            <div className='mx-5'>
-                <Pagination
-                    currentPage={currentPage}
-                    totalPages={data?.hasNextPage ? currentPage + 1 : currentPage}
-                    onPageChange={handlePageChange}
+        <>
+            <MetaTags title={`Telegram ${dirType.slice(0, 1).toUpperCase() + dirType.slice(1)} Directory | TeleBuzzed.Com`} />
+            <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center">
+                <Header
+                    dirType={dirType}
+                    onSearch={setSearchTerm}
+                    onSelectSort={setSortBy}
+                    onSelectCategory={setCategory}
                 />
-            </div>
-        </section>
+                {data?.result.length < 1 && <div className={`w-full flex flex-col items-center justify-center space-y-4 my-6`}>
+                    <FontAwesomeIcon icon={faFaceFrown} className="text-5xl" />
+                    <h2 className="text-lg">Nothing to show!</h2>
+                </div>}
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-5 sm:gap-x-4 md:gap-x-5'>
+
+                    {data?.result?.map(bot => (
+                        <Card key={bot._id} {...bot} classes='max-h-60' isFetching={isFetching} error={error} />
+                    ))}
+                </div>
+                <div className='mx-5'>
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={data?.hasNextPage ? currentPage + 1 : currentPage}
+                        onPageChange={handlePageChange}
+                    />
+                </div>
+            </section>
+        </>
     );
 };
 
