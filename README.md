@@ -1,8 +1,8 @@
-# TeleBuzz
+# TeleBuzzed
 
 ## Overview
 
-TeleBuzz is a React-based web application that serves as a comprehensive directory for Telegram bots, channels, and groups. Designed to help users easily discover and connect with various Telegram resources, TeleBuzz provides an intuitive interface and seamless navigation.
+TeleBuzzed is a React-based web application that serves as a comprehensive directory for Telegram bots, channels, and groups. Designed to help users easily discover and connect with various Telegram resources, TeleBuzzed provides an intuitive interface and seamless navigation.
 
 ## Features
 
@@ -13,7 +13,7 @@ TeleBuzz is a React-based web application that serves as a comprehensive directo
 
 ## UI Flow (Under Development)
 
-![image](docs/telebuzzed_frontend.png)
+![image](docs/TeleBuzzeded_frontend.png)
 
 ## Installation
 
@@ -22,13 +22,13 @@ To run the project locally, follow these steps:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/TerminalWarlord/TeleBuzz-Frontend.git
+   git clone https://github.com/TerminalWarlord/TeleBuzzed-Frontend.git
    ```
 
 2. **Navigate to the project directory**:
 
    ```bash
-   cd TeleBuzz-Frontend
+   cd TeleBuzzed-Frontend
    ```
 
 3. **Install dependencies**:
@@ -71,4 +71,4 @@ For any inquiries or support, feel free to reach out to me at jaybee.dev@proton.
 
 ---
 
-Thank you for checking out TeleBuzz!
+Thank you for checking out TeleBuzzed!
