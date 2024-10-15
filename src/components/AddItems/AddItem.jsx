@@ -27,7 +27,6 @@ const ICONS = {
 
 const AddItem = () => {
     const params = useParams();
-    console.log(params.type)
     const type = params.type || 'bot';
     return (
         <>

@@ -1,6 +1,7 @@
 import { ImageViewer } from '../../UI/Image';
 
 // TODO: update host
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const ProfilePicture = ({ image, isFetching = false, error = null }) => {
     console.log(error);
@@ -9,7 +10,7 @@ const ProfilePicture = ({ image, isFetching = false, error = null }) => {
         <div className="w-full mb-1">
             <div
                 className="rounded-md bg-contain bg-center aspect-square flex justify-center items-center"
-                style={{ backgroundImage: "url('http://localhost:3000/image/bg_avatar.png')" }}
+                style={{ backgroundImage: `url('${apiUrl}/image/bg_avatar.png')` }}
             >
                 {error?.message && (
                     <div className="bg-base-100 flex justify-center items-center aspect-square w-[170px] sm:w-[280px] md:w-[170px] rounded-full">
@@ -21,7 +22,7 @@ const ProfilePicture = ({ image, isFetching = false, error = null }) => {
                 )}
                 {!error && !isFetching && image && (
                     <ImageViewer
-                        imageUrl={`http://localhost:3000/image/${image}`}
+                        imageUrl={`${apiUrl}/image/${image}`}
                         caption='Profile Picture'
                         classes="border-[5.5px] object-cover aspect-square border-base-200 w-[170px] sm:w-[280px] md:w-[170px] rounded-full"
                         onError={(e) => {

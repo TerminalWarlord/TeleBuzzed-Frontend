@@ -12,7 +12,6 @@ export default function Register() {
         const form = e.target;
         const data = new FormData(form);
         const formDataObj = Object.fromEntries(data.entries());
-        console.log(formDataObj)
         setIsSubmitting(true);
         try {
             await signup(formDataObj);
@@ -106,6 +105,20 @@ export default function Register() {
                                 <option value={'female'}>Female</option>
                                 <option value={'non_binary'}>Non-Binary</option>
                             </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label htmlFor="tg_username" className="block text-sm font-medium leading-6 text-base-content">
+                            Telegram Username
+                        </label>
+                        <div className="mt-2">
+                            <input
+                                id="tg_username"
+                                name="tg_username"
+                                type="text"
+                                required
+                                className="px-3 block w-full rounded-md border-1 border-blue-200  py-1.5 text-base-content shadow-sm ring-1  placeholder:text-base-content  focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6  focus:outline-none"
+                            />
                         </div>
                     </div>
                     <div>

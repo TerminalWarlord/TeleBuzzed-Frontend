@@ -13,7 +13,6 @@ import useFetch from '../../hooks/useFetch'
 const AddItemForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     let user = useSelector(state => state.auth.user);
-    console.log(user)
 
     const fetchFn = useCallback(async () => {
         return await getCategories();

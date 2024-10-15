@@ -13,7 +13,6 @@ const Logs = ({ username }) => {
     const { data } = useFetch(fetchFn, {
         result: []
     })
-    console.log(data);
     const getStatusColor = (status) => {
         switch (status) {
             case "pending":

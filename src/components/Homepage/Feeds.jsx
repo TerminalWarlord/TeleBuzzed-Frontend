@@ -36,7 +36,6 @@ const Feeds = () => {
     const { data: groups, isFetching: isGroupsFetching, error: groupsFetchingError } = useFetch(fetchGroups, {
         result: []
     });
-    console.log(channels);
     const popularBots = bots?.result?.map((bot, index) => (
         <SwiperSlide key={index}>
             <Card {...bot} />

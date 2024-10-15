@@ -33,8 +33,6 @@ const NewReview = () => {
     })
 
     let isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-    // console.log(reviewer, username, userReview);
-    console.log(userReview, userReview?.result.length, isAuthenticated, userReviewError);
 
     async function handleSubmit(e) {
         e.preventDefault();

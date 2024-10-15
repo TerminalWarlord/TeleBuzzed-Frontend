@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Stars from './Stars';
 
 // TODO: update host
-
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const Card = ({
     username: id,
@@ -40,7 +40,7 @@ const Card = ({
                             <div className="skeleton h-full w-full"></div>
                         ) : (
                             <Link to={`/${type}/${id}`}>
-                                <img src={`http://localhost:3000/image/${image}`} alt="" className='w-full h-full object-cover' />
+                                <img src={`${apiUrl}/image/${image}`} alt="" className='w-full h-full object-cover' />
                             </Link>
                         )}
                     </div>

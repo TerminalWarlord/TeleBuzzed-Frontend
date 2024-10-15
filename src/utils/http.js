@@ -1,10 +1,11 @@
 import { getToken } from "./auth";
 
-const base = 'http://localhost:3000';
+const apiUrl = import.meta.env.VITE_API_URL;
+// const apiUrl = import.meta.env.VITE_API_URL;
 
 
 export async function signup(body) {
-    const res = await fetch(base + '/auth/signup', {
+    const res = await fetch(apiUrl + '/auth/signup', {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
@@ -20,7 +21,7 @@ export async function signup(body) {
 }
 
 export async function login(body) {
-    const res = await fetch(base + '/auth/signin', {
+    const res = await fetch(apiUrl + '/auth/signin', {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
@@ -38,7 +39,7 @@ export async function login(body) {
 
 export async function getMe() {
     const userId = localStorage.getItem("token");
-    const res = await fetch(base + '/auth/me', {
+    const res = await fetch(apiUrl + '/auth/me', {
         headers: {
             'Authorization': userId
         }
@@ -49,7 +50,6 @@ export async function getMe() {
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
 
     }
@@ -61,7 +61,7 @@ export async function getMe() {
 
 
 export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'all', searchTerm = null, category = null, username = null) {
-    const url = new URL(`${base}/list`);
+    const url = new URL(`${apiUrl}/list`);
 
     // Append query parameters to the URL
     url.searchParams.append('offset', offset);
@@ -90,14 +90,13 @@ export async function fetchItems(offset = 1, limit = 20, filter = 'popular', ite
     }
 
     const data = await res.json();
-    console.log(data);
     return data;
 }
 
 
 
 export async function getReviews(reviewer, username = null, offset = 1, limit = 10) {
-    const url = new URL(`${base}/reviews`);
+    const url = new URL(`${apiUrl}/reviews`);
     await sleep(1000)
     // Append query parameters to the URL
     url.searchParams.append('offset', offset);
@@ -117,7 +116,6 @@ export async function getReviews(reviewer, username = null, offset = 1, limit = 
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
     }
     catch (err) {
@@ -129,13 +127,12 @@ export async function getReviews(reviewer, username = null, offset = 1, limit = 
 
 
 export async function getItemDetails(username) {
-    const res = await fetch(base + '/details/' + username,);
+    const res = await fetch(apiUrl + '/details/' + username,);
     if (!res.ok) {
         throw new Error('Failed to fetch data!');
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
     }
     catch (err) {
@@ -147,7 +144,7 @@ export async function getItemDetails(username) {
 export async function postSubmitContent(data) {
     const formData = new FormData(data);
 
-    const res = await fetch(base + '/user/request/', {
+    const res = await fetch(apiUrl + '/user/request/', {
         method: 'POST',
         body: formData,
         headers: {
@@ -160,7 +157,6 @@ export async function postSubmitContent(data) {
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
     }
     catch (err) {
@@ -172,7 +168,7 @@ export async function postSubmitContent(data) {
 
 export async function getUserRequests() {
     // send token
-    const res = await fetch(base + '/admin/requests/',
+    const res = await fetch(apiUrl + '/admin/requests/',
         {
             headers: {
                 "Authorization": getToken(),
@@ -186,7 +182,6 @@ export async function getUserRequests() {
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
     }
     catch (err) {
@@ -200,7 +195,7 @@ function sleep(ms) {
 
 export async function postReview(data) {
     const formData = new FormData(data);
-    const res = await fetch('http://localhost:3000/user/review', {
+    const res = await fetch(`${apiUrl}/user/review`, {
         method: 'POST',
         headers: {
             'Authorization': getToken()
@@ -212,7 +207,6 @@ export async function postReview(data) {
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
     }
     catch (err) {
@@ -224,14 +218,13 @@ export async function postReview(data) {
 
 export async function getPendingRequests(username) {
     // send token
-    const res = await fetch(base + '/pending-requests/?username=' + username);
+    const res = await fetch(apiUrl + '/pending-requests/?username=' + username);
     // throw new Error('Failed to fetch data!');
     if (!res.ok) {
         throw new Error('Failed to fetch data!');
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
     }
     catch (err) {
@@ -244,7 +237,7 @@ export async function getPendingRequests(username) {
 
 
 export async function getCategories() {
-    const res = await fetch(base + '/categories', {
+    const res = await fetch(apiUrl + '/categories', {
         headers: {
             'Authorization': getToken()
         }
@@ -255,7 +248,6 @@ export async function getCategories() {
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
 
     }
@@ -267,7 +259,7 @@ export async function getCategories() {
 
 
 export async function getAllPosts(limit = 5, offset = 1, type = 'all') {
-    const url = new URL(`${base}/all_posts`);
+    const url = new URL(`${apiUrl}/all_posts`);
     // Append query parameters to the URL
     url.searchParams.append('offset', offset);
     url.searchParams.append('limit', limit);
@@ -290,7 +282,7 @@ export async function getAllPosts(limit = 5, offset = 1, type = 'all') {
 
 export async function getPostDetails(postSlug) {
     try {
-        const res = await fetch(`${base}/post?postSlug=${postSlug}`);
+        const res = await fetch(`${apiUrl}/post?postSlug=${postSlug}`);
         const resData = await res.json();
         return resData;
     }
@@ -303,7 +295,7 @@ export async function getPostDetails(postSlug) {
 
 export async function deletePost(postSlug) {
     try {
-        const res = await fetch(base + '/post/delete/' + postSlug, {
+        const res = await fetch(apiUrl + '/post/delete/' + postSlug, {
             method: 'DELETE',
             headers: {
                 'Authorization': getToken()
@@ -323,7 +315,7 @@ export async function deletePost(postSlug) {
 
 
 export async function getFullUserDetails(username) {
-    const url = new URL(base + '/user/get-details');
+    const url = new URL(apiUrl + '/user/get-details');
     url.searchParams.append('username', username)
     const res = await fetch(url);
     if (!res.ok) {
@@ -332,7 +324,6 @@ export async function getFullUserDetails(username) {
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
 
     }
@@ -347,7 +338,7 @@ export async function getFullUserDetails(username) {
 
 
 export async function putEditProfile(data) {
-    const res = await fetch(base + '/user/update', {
+    const res = await fetch(apiUrl + '/user/update', {
         method: 'PUT',
         body: data,
         headers: {
@@ -360,7 +351,6 @@ export async function putEditProfile(data) {
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
 
     }
@@ -375,7 +365,7 @@ export async function putEditProfile(data) {
 
 
 export async function putChangePassword(data) {
-    const res = await fetch(base + '/user/change-password', {
+    const res = await fetch(apiUrl + '/user/change-password', {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
@@ -390,7 +380,6 @@ export async function putChangePassword(data) {
     }
     try {
         const data = await res.json();
-        console.log(data);
         return data;
 
     }

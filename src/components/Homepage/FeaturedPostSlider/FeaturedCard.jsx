@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const FeaturedCard = ({ title, longDescription, image, postSlug }) => {
     const [isHovering, setIsHovering] = useState(false);
 
@@ -22,7 +25,7 @@ const FeaturedCard = ({ title, longDescription, image, postSlug }) => {
             <div className="relative my-5 sm:mx-2 overflow-hidden">
                 <div
                     className="rounded-2xl transition-all duration-300 hover:brightness-50 w-full h-[12rem] bg-cover bg-center"
-                    style={{ backgroundImage: `url(http://localhost:3000/image/${image})` }}
+                    style={{ backgroundImage: `url(${apiUrl}/image/${image})` }}
 
                 >
                 </div>

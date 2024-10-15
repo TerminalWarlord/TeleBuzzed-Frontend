@@ -35,8 +35,6 @@ const Lists = ({ dirType }) => {
     });
 
     useEffect(() => {
-        console.log('Category:', category);
-        console.log('Params categorySlug:', params.categorySlug);
     }, [category, params.categorySlug]);
 
     function handlePageChange(pageNo) {

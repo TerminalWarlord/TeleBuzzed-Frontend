@@ -38,9 +38,6 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: 'article/:postSlug', element: <ArticleDetails />
-      },
-      {
         path: 'channels', children: [
           { index: true, element: <Lists dirType="channel" /> },
           { path: ':categorySlug', element: <Lists dirType="channel" /> },
@@ -91,9 +88,13 @@ const router = createBrowserRouter([
         ]
       },
 
-      // {
-      //   path: '/reviews/:botId/', element: <MainDetailPage />
-      // }
+      {
+        path: 'article/:postSlug', element: <ArticleDetails />
+      },
+      {
+        path: 'page/:postSlug', element: <ArticleDetails />
+      },
+
     ]
   }
 ])

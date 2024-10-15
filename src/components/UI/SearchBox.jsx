@@ -6,7 +6,6 @@ const SearchBox = ({ onSearch, searchValue }) => {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         if (searchTerm.trim() !== "") {
-            console.log("search", searchTerm);
             onSearch(searchTerm);
             setSearchTerm('');
         }

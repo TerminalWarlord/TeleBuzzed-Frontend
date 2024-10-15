@@ -24,11 +24,9 @@ const InfoCard = ({ item, isFetching = false, error = null, onUserUpdate = null 
     const modalRef = useRef();
     const editProfileModalRef = useRef();
     let info;
-    console.log(item)
 
     const associatedWithProfile = !params.username && item.isUser;
     const user = useSelector(state => state.auth.user);
-    console.log(user)
     function openModal() {
         modalRef.current.showModal();
     }
@@ -40,7 +38,7 @@ const InfoCard = ({ item, isFetching = false, error = null, onUserUpdate = null 
     if (!item.isUser) {
         info = <>
             <InfoItem icon={faPaperPlane} fieldName={'Username'} fieldValue={item.username} />
-            <InfoItem icon={faLanguage} fieldName={'Language'} fieldValue={item.language} />
+            <InfoItem icon={faLanguage} fieldName={'Language'} fieldValue={item?.language?.slice(0, 1).toUpperCase() + item?.language?.slice(1)} />
             <InfoItem icon={faList} fieldName={'Category'} fieldValue={item.category.name} />
             {item.type !== 'bot' && <InfoItem icon={faUserGroup} fieldName={item.type === 'channel' ? 'Subscribers' : 'Members'} fieldValue={item.type === 'channel' ? item.subscribers : item.members} />}
             <InfoItem icon={faCalendar} fieldName={'Added'} fieldValue={`${getYearMonthDifference(item.added_on)} ago`} />
@@ -70,12 +68,11 @@ const InfoCard = ({ item, isFetching = false, error = null, onUserUpdate = null 
             <InfoItem icon={faRobot} fieldName={'Bots Added'} fieldValue={item.bots_added} />
             <InfoItem icon={faCalendar} fieldName={'Channels Added'} fieldValue={item.channels_added} />
             <InfoItem icon={faUserGroup} fieldName={'Groups Added'} fieldValue={item.groups_added} />
-            <InfoItem icon={faMars} fieldName={'Gender'} fieldValue={item.gender} />
+            <InfoItem icon={faMars} fieldName={'Gender'} fieldValue={item?.gender?.slice(0, 1).toUpperCase() + item?.gender?.slice(1)} />
             <InfoItem icon={faCalendar} fieldName={'Joined'} fieldValue={getYearMonthDifference(item.registered_on)} />
             <div className="my-2"></div>
         </>
     }
-    console.log(item);
     return (
         <div className="rounded-md w-11/12 md:w-[200px] lg:w-[300px] flex flex-col shadow-md" >
             <ProfilePicture image={item.avatar} isFetching={isFetching} error={error} />

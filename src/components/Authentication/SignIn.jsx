@@ -19,7 +19,6 @@ export default function SignIn() {
         try {
             const res = await login(formDataObj);
 
-            console.log(res)
             localStorage.setItem('token', res?.result?.token);
             const userInfo = await getMe();
             if (!(userInfo?.result)) {
@@ -27,7 +26,6 @@ export default function SignIn() {
                     message: "Invalid token!",
                 });
             }
-            console.log(userInfo?.result)
 
             dispatch(authActions.login({ userId: userInfo.result }));
             navigate('/');

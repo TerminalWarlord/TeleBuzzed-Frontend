@@ -32,7 +32,6 @@ const MainDetailPage = () => {
             isUser: true
         }
     })
-    console.log(botData);
     const tabContent = [
         {
             tabName: 'About',

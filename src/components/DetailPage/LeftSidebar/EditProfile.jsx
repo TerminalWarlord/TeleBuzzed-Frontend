@@ -40,7 +40,6 @@ const EditProfile = forwardRef(({ onUserUpdate }, ref) => {
         e.preventDefault();
         const data = new FormData(e.target);
         const formDataObj = Object.fromEntries(data.entries());
-        console.log(formDataObj)
         if (formDataObj.new_password !== formDataObj.confirm_password) {
             setPasswordChangeErrors({
                 message: 'New password doesn\'t match!'

@@ -4,7 +4,6 @@ export default function useFetch(fetchFn, initialValue) {
     const [isFetching, setIsFetching] = useState(false);
     const [data, setData] = useState(initialValue);
     const [error, setError] = useState();
-    console.log(data);
 
 
     const fetchData = useCallback(async () => {

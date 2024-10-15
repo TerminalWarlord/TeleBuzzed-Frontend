@@ -11,6 +11,8 @@ import { faBullhorn, faRobot, faUserGroup } from '@fortawesome/free-solid-svg-ic
 import { getMe } from '../../utils/http'
 import { isLoggedIn } from '../../utils/auth'
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const navigation = [
     { name: 'Home', to: '/', current: true },
     { name: 'Bots', to: '/bots', current: false },
@@ -30,7 +32,6 @@ export default function NavBar() {
     const [user, setUser] = useState();
     const [loading, setLoading] = useState();
     let isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-    console.log(isAuthenticated, user);
     function handleLogout() {
         dispatcher(authActions.logout());
         localStorage.removeItem('token');
@@ -153,7 +154,7 @@ export default function NavBar() {
                                             user?.result?.avatar ? ( // Only render image if avatar exists
                                                 <img
                                                     alt="User Avatar"
-                                                    src={`http://localhost:3000/image/${user?.result?.avatar}`}
+                                                    src={`${apiUrl}/image/${user?.result?.avatar}`}
                                                     className="h-8 w-8 rounded-full"
                                                 />
                                             ) : (

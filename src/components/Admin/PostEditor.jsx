@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getPostDetails } from '../../utils/http';
 import { useQuill } from '../../hooks/useQuill';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const PostEditor = () => {
     const params = useParams();
     const navigate = useNavigate();
@@ -27,7 +29,7 @@ const PostEditor = () => {
                 setTitle(res.result.title);
                 setIsPost(res.result.is_post);
                 setPostContent(res.result.content);
-                setImagePreview('http://localhost:3000/image/' + res.result.featured_image);
+                setImagePreview(`${apiUrl}/image/` + res.result.featured_image);
             } catch (err) {
                 console.error(err);
             }
@@ -51,7 +53,7 @@ const PostEditor = () => {
         try {
             if (!quill) throw new Error("Editor not initialized");
             if (!title.trim()) throw new Error("Title is required");
-            if (!file && !postSlug && !imagePreview) throw new Error("Featured image is required for new posts");
+            // if (!file && !postSlug && !imagePreview) throw new Error("Featured image is required for new posts");
 
             const content = quill.root.innerHTML;
 
@@ -60,10 +62,10 @@ const PostEditor = () => {
             formData.append('content', content);
             if (file) formData.append('file', file);
             formData.append('isPost', isPost.toString());
-
+            const apiUrl = import.meta.env.VITE_API_URL;
             const url = postSlug
-                ? `http://localhost:3000/post/edit/${postSlug}`
-                : 'http://localhost:3000/post';
+                ? `${apiUrl}/post/edit/${postSlug}`
+                : `${apiUrl}/post`;
 
             const method = postSlug ? 'PUT' : 'POST';
 
@@ -125,7 +127,6 @@ const PostEditor = () => {
                     className="file-input file-input-bordered file-input-sm w-full max-w-xs"
                     name='featured_image'
                     onChange={handleFileChange}
-                    required={!postSlug && !imagePreview}
                 />
             </div>
             <div className='flex space-x-1.5 items-center my-4'>

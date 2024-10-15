@@ -67,13 +67,14 @@ const AllPost = () => {
     }
     async function deletePostModal() {
         try {
-            const res = await deletePost(selectedItem);
+            await deletePost(selectedItem);
             navigate('/dashboard/posts', { state: { postUpdated: true } });
             setDeletionError(null);
             setSelectedItem(null);
             modalRef.current.close();
         }
         catch (err) {
+            console.log(err)
             setDeletionError({
                 message: "Failed to delete!"
             });
@@ -136,7 +137,7 @@ const AllPost = () => {
                                     </td>
                                     <td className="pl-6 pr-2  py-4 whitespace-nowrap">
                                         <div className="flex-shrink-0 h-10 w-10">
-                                            <img className="h-10 w-10 rounded-full" src={`http://localhost:3000/image/${post.featured_image}`} alt="" />
+                                            <img className="h-10 w-10 rounded-full" src={`${import.meta.env.VITE_API_URL}/image/${post.featured_image}`} alt="" />
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">

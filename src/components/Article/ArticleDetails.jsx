@@ -6,7 +6,9 @@ import { formatDate } from "../../utils/helper";
 import Featured from "../Homepage/FeaturedPostSlider/Featured";
 import ErrorPage from "../UI/ErrorPage";
 import { ImageViewerWithCaption } from "../UI/Image";
+import MetaTags from "../UI/MetaTags";
 
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function ArticleDetails() {
     const params = useParams();
@@ -21,6 +23,7 @@ function ArticleDetails() {
     }
     return (
         <div className="container mx-auto p-16 bg-base-200-lg rounded-lg my-8 border-2 border-base-300 shadow-sm">
+            <MetaTags title={`${data?.result?.title ? data?.result?.title + ' | ' : ''}TeleBuzzed.Com`} />
             <header className="mb-4">
                 {isFetching ? <div className="skeleton w-80 h-8"></div> : <h1 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-base-content">{data?.result?.title}</h1>}
                 <div className="flex space-x-2 items-center text-base-content text-opacity-80 my-4">
@@ -29,7 +32,7 @@ function ArticleDetails() {
                             <Link to={`/profile/${data?.result?.author_id.username}`}>
                                 <img
                                     className="w-[50px] aspect-square rounded-full"
-                                    src={`http://localhost:3000/image/${data?.result?.author_id.avatar}`}
+                                    src={`${apiUrl}/image/${data?.result?.author_id.avatar}`}
                                     alt={`Profile picture of ${data?.result?.author_id.first_name} ${data?.result?.author_id.last_name}`}
                                 />
                             </Link>}
@@ -47,14 +50,14 @@ function ArticleDetails() {
                 </div>
             </header >
             <div className="w-full flex items-center justify-center my-10">
-                {isFetching ?
+                {isFetching && data?.result?.is_post ?
                     <div className="skeletonl w-[350px] md:w-[450px] lg:w-[550px] aspect-square"></div>
                     :
-                    <ImageViewerWithCaption
+                    (data?.result?.is_post && <ImageViewerWithCaption
                         classes="w-full max-w-[350px] md:max-w-[450px] lg:max-w-[550px] h-full rounded-md"
-                        imageUrl={`http://localhost:3000/image/${data?.result?.featured_image}`}
+                        imageUrl={`${apiUrl}/image/${data?.result?.featured_image}`}
                         caption={`${data?.result?.title}`}
-                    />
+                    />)
 
                 }
             </div>

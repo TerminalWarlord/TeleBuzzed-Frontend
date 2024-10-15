@@ -8,6 +8,9 @@ import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import Modal from "../UI/Modal";
 
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const Dashboard = () => {
     const modalRef = useRef();
     const [selectedItem, setSelectedItem] = useState(null);
@@ -15,10 +18,9 @@ const Dashboard = () => {
     const [action, setAction] = useState('approve');
     const [reason, setReason] = useState('');
 
-    const { data, error, isFetching, fetchData } = useFetch(getUserRequests, {
+    const { data, error, fetchData } = useFetch(getUserRequests, {
         result: []
     });
-    console.log(isFetching);
     const fetchFn = useCallback(async () => {
         return await getCategories();
     }, []);
@@ -34,7 +36,7 @@ const Dashboard = () => {
         formData.append('action', action);
         formData.append('reason', reason);
 
-        const res = await fetch('http://localhost:3000/admin/requests', {
+        const res = await fetch(`${apiUrl}/admin/requests`, {
             method: 'POST',
             body: formData,
             headers: {
@@ -42,8 +44,7 @@ const Dashboard = () => {
             }
         });
         if (res.ok) {
-            const resData = await res.json();
-            console.log(resData);
+            await res.json();
         }
         fetchData();
         closeModal();
@@ -72,7 +73,6 @@ const Dashboard = () => {
         setCategoryId(item.category_id || '');
         setAction('approve');
         setReason('');
-        console.log(item);
         modalRef.current.showModal();
     }
 
@@ -121,7 +121,7 @@ const Dashboard = () => {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex-shrink-0 h-10 w-10">
-                                        <img className="h-10 w-10 rounded-full" src={`http://localhost:3000/image/${request.avatar}`} alt="" />
+                                        <img className="h-10 w-10 rounded-full" src={`${apiUrl}/image/${request.avatar}`} alt="" />
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -149,7 +149,7 @@ const Dashboard = () => {
                         <div className="flex w-full items-center justify-center">
                             <div className="mask mask-squircle h-16 w-16">
                                 <img
-                                    src={`http://localhost:3000/image/${selectedItem.avatar}`}
+                                    src={`${apiUrl}/image/${selectedItem.avatar}`}
                                     alt="Avatar"
                                     className="rounded-full"
                                 />
