@@ -13,7 +13,7 @@ TeleBuzzed is a React-based web application that serves as a comprehensive direc
 
 ## UI Flow (Under Development)
 
-![image](docs/TeleBuzzeded_frontend.png)
+![image](docs/telebuzzed_frontend.png)
 
 ## Installation
 
