@@ -356,7 +356,37 @@ export async function putEditProfile(data) {
     });
     if (!res.ok) {
         console.log("failed")
-        throw new Error('Failed to fetch user data!');
+        throw new Error('Failed to update user data!');
+    }
+    try {
+        const data = await res.json();
+        console.log(data);
+        return data;
+
+    }
+    catch (err) {
+        console.log(err)
+        throw new Error(err.message || 'Failed to update user data!');
+    }
+}
+
+
+
+
+
+export async function putChangePassword(data) {
+    const res = await fetch(base + '/user/change-password', {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Authorization': getToken(),
+            'Content-Type': 'application/json',
+        }
+    });
+    if (!res.ok) {
+        console.log("failed")
+        const resData = await res.json();
+        throw new Error(resData.result.message || 'Failed to change!');
     }
     try {
         const data = await res.json();

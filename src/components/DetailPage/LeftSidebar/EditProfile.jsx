@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form } from 'react-router-dom';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import LineBreak from '../../UI/LineBreak';
-import { putEditProfile } from '../../../utils/http';
+import { putChangePassword, putEditProfile } from '../../../utils/http';
 import { authActions } from '../../../store/authStore';
 
 const EditProfile = forwardRef(({ onUserUpdate }, ref) => {
     const [errors, setErrors] = useState(null);
+    const [passwordChangeErrors, setPasswordChangeErrors] = useState(null);
     const dispatcher = useDispatch();
     const user = useSelector(state => state.auth.user);
 
@@ -15,7 +16,7 @@ const EditProfile = forwardRef(({ onUserUpdate }, ref) => {
         ref.current.close();
     }
 
-    async function handleEditSubmission(e) {
+    async function handleProfileUpdate(e) {
         e.preventDefault();
         const data = new FormData(e.target);
         try {
@@ -35,21 +36,46 @@ const EditProfile = forwardRef(({ onUserUpdate }, ref) => {
 
     }
 
+    async function handlePasswordChange(e) {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        const formDataObj = Object.fromEntries(data.entries());
+        console.log(formDataObj)
+        if (formDataObj.new_password !== formDataObj.confirm_password) {
+            setPasswordChangeErrors({
+                message: 'New password doesn\'t match!'
+            })
+            return;
+        }
+        try {
+            await putChangePassword(formDataObj);
+            setPasswordChangeErrors(null);
+            closeEditProfile();
+        }
+        catch (err) {
+            console.log(err);
+            setPasswordChangeErrors({
+                message: err.message || 'Failed to update!'
+            })
+        }
+    }
+
+
     return (
         <>
             <div className="w-full flex justify-center">
                 <LineBreak icon={faPenToSquare} text="Edit Profile" classes="mb-8 " />
             </div>
             {
-                errors && <div className='my-4'>
-                    <h4 className='text-sm italic text-red-500'>Failed to update data!</h4>
+                (errors || passwordChangeErrors) && <div className='mb-4'>
+                    <h4 className='text-sm italic text-red-500'>{passwordChangeErrors.message}</h4>
                 </div>
             }
             <div role="tablist" className="tabs tabs-lifted">
                 <input type="radio" name="my_tabs_2" role="tab" className="tab whitespace-nowrap" aria-label="User Details"
                     defaultChecked />
                 <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                    <Form onSubmit={handleEditSubmission} className="my-2">
+                    <Form onSubmit={handleProfileUpdate} className="my-2">
                         <div className="w-full flex space-x-2 items-center my-2">
                             <label htmlFor="first_name" className="font-semibold text-md text-left flex-auto">
                                 First Name
@@ -116,15 +142,16 @@ const EditProfile = forwardRef(({ onUserUpdate }, ref) => {
                     aria-label="Change Password"
                 />
                 <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                    <Form onSubmit={handleEditSubmission} className="my-2">
+                    <Form onSubmit={handlePasswordChange} className="my-2">
                         <div className="w-full flex space-x-2 items-center my-2 justify-start">
-                            <label htmlFor="current_password" className="font-semibold text-md flex-grow text-left">
+                            <label htmlFor="old_password" className="font-semibold text-md flex-grow text-left">
                                 Current Password
                             </label>
                             <input
                                 type="password"
-                                id="current_password"
-                                name="current_password"
+                                id="old_password"
+                                name="old_password"
+                                autoComplete='current-password'
                                 className="px-1.5 py-1.5 w-56 border-2 border-base-200 rounded-lg focus:border-base-300 outline-none"
                             />
                         </div>
