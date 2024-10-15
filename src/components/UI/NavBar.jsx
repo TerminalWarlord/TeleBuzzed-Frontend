@@ -175,7 +175,7 @@ export default function NavBar() {
                                             Your Profile
                                         </Link>
                                     </MenuItem>
-                                    {user && <>
+                                    {user && user?.result?.role === 'admin' && <>
                                         <MenuItem>
                                             <Link to="/dashboard" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
                                                 Dashboard

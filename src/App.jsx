@@ -9,7 +9,7 @@ import Profile from './components/UserProfile/Profile'
 import Menu from './components/Admin/Menu';
 
 import Lists from './components/List/Lists'
-import authLoader from './utils/authLoader'
+import authLoader, { dashboardAuthLoader } from './utils/authLoader'
 import AddItem from './components/AddItems/AddItem'
 import ArticleDetails from './components/Article/ArticleDetails'
 import ErrorPage from './components/UI/ErrorPage'
@@ -30,7 +30,9 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: 'dashboard', children: [
+        path: 'dashboard',
+        loader: dashboardAuthLoader,
+        children: [
           { index: true, element: <Menu />, },
           { path: ':menu', element: <Menu />, },
           { path: 'posts/:pageNo', element: <Menu />, },
