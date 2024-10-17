@@ -14,7 +14,7 @@ const PostCard = ({ featured_image: image, isFetching = false, content, title, s
     const description = plainTextDescription.length > 100 ? plainTextDescription.slice(0, 100) + '...' : plainTextDescription;
 
     return (
-        <div className="w-96 sm:w-56 md:w-52 lg:w-72 xl:w-80">
+        <div className="w-full sm:w-56 md:w-52 lg:w-72 xl:w-80">
             {isFetching ? (
                 <div className="skeleton h-48 w-full"></div>
             ) : (
@@ -35,7 +35,7 @@ const PostCard = ({ featured_image: image, isFetching = false, content, title, s
                     <div className="skeleton w-full h-6 mb-1 mt-3"></div>
                 ) : (
                     <Link to={'/article/' + slug} className="hover:text-blue-600">
-                        <h1 className="font-bold text-2xl mb-1 mt-4">{title}</h1>
+                        <h1 className="font-bold text-xl md:text-2xl mb-1 mt-4">{title}</h1>
                     </Link>
                 )}
                 {isFetching ? (
