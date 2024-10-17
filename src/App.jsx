@@ -11,8 +11,9 @@ import Menu from './components/Admin/Menu';
 import Lists from './components/List/Lists'
 import authLoader, { dashboardAuthLoader } from './utils/authLoader'
 import AddItem from './components/AddItems/AddItem'
-import ArticleDetails from './components/Article/ArticleDetails'
+import ArticleDetails from './components/Blog/ArticleDetails'
 import ErrorPage from './components/UI/ErrorPage'
+import BlogPosts from './components/Blog/BlogPosts'
 
 const router = createBrowserRouter([
   {
@@ -28,16 +29,6 @@ const router = createBrowserRouter([
           { index: true, element: <Lists dirType="bot" /> },
           { path: ':categorySlug', element: <Lists dirType="bot" /> },
         ],
-      },
-      {
-        path: 'dashboard',
-        loader: dashboardAuthLoader,
-        children: [
-          { index: true, element: <Menu />, },
-          { path: ':menu', element: <Menu />, },
-          { path: 'posts/:pageNo', element: <Menu />, },
-          { path: 'edit/:postSlug', element: <Menu />, },
-        ]
       },
       {
         path: 'channels', children: [
@@ -89,14 +80,28 @@ const router = createBrowserRouter([
           { path: 'register', element: <Register /> },
         ]
       },
-
+      {
+        path: 'dashboard',
+        loader: dashboardAuthLoader,
+        children: [
+          { index: true, element: <Menu />, },
+          { path: ':menu', element: <Menu />, },
+          { path: 'posts/:pageNo', element: <Menu />, },
+          { path: 'edit/:postSlug', element: <Menu />, },
+        ]
+      },
       {
         path: 'article/:postSlug', element: <ArticleDetails />
       },
       {
         path: 'page/:postSlug', element: <ArticleDetails />
       },
-
+      {
+        path: 'blog', children: [
+          { index: true, element: <BlogPosts /> },
+          { path: ':pageNo', element: <BlogPosts /> }
+        ]
+      }
     ]
   }
 ])

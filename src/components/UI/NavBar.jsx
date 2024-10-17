@@ -15,7 +15,7 @@ import { isLoggedIn } from '../../utils/auth'
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const navigation = [
-    { name: 'Home', to: '/', current: true },
+    { name: 'Blog', to: '/blog', current: true },
     { name: 'Bots', to: '/bots', current: false },
     { name: 'Channels', to: '/channels', current: false },
     { name: 'Groups', to: '/groups', current: false },
