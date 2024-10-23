@@ -13,12 +13,12 @@ import ReviewItem from "./RightSidebar/ReviewItem"
 
 // TODO: check if user has posted a review before 
 
-const NewReview = () => {
+const NewReview = ({ error: contentError = null }) => {
     const params = useParams();
     const formRef = useRef();
     const modalRef = useRef();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState(contentError);
     const username = params.username;
     const user = useSelector(state => state.auth.user);
     const reviewer = user?.result?.username;
@@ -71,7 +71,7 @@ const NewReview = () => {
                     <button className="btn">Close</button>
                 </form>
             </Modal>
-            {isAuthenticated && userReview?.result.length <= 0 && <Form className="w-full flex items-center flex-col" onSubmit={handleSubmit} ref={formRef} method="POST">
+            {isAuthenticated && !error && userReview?.result.length <= 0 && <Form className="w-full flex items-center flex-col" onSubmit={handleSubmit} ref={formRef} method="POST">
                 <LineBreak icon={faPenToSquare} classes="my-3 text-center" text={"Write a review"} />
                 <textarea
                     placeholder="Feedback"
@@ -88,7 +88,7 @@ const NewReview = () => {
                     <PostReviewButton isSubmitting={isSubmitting} />
                 </div>
             </Form>}
-            {isAuthenticated && userReview?.result.length > 0 && <>
+            {isAuthenticated && !error && userReview?.result.length > 0 && <>
                 <LineBreak icon={faPenToSquare} classes="my-3 text-center" text={"Your Feedback"} />
                 <ReviewItem
                     data={userReview?.result[0]}

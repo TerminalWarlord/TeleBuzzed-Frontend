@@ -2,8 +2,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import ThemeController from './ThemeController'
 import { useEffect, useState } from 'react'
-import { Link, Outlet, useLocation } from 'react-router-dom'
-import Footer from './Footer'
+import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../store/authStore'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -228,8 +227,6 @@ export default function NavBar() {
                     </div>
                 </DisclosurePanel>
             </Disclosure>
-            <Outlet />
-            <Footer />
         </>
     )
 }

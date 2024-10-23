@@ -40,7 +40,7 @@ const Card = ({
                             <div className="skeleton h-full w-full"></div>
                         ) : (
                             <Link to={`/${type}/${id}`}>
-                                <img src={`${apiUrl}/image/${image}`} alt="" className='w-full h-full object-cover' />
+                                <img src={`${apiUrl}/image/${image}`} alt={`${title} Avatar`} className='w-full h-full object-cover' />
                             </Link>
                         )}
                     </div>
@@ -91,7 +91,7 @@ const Card = ({
                         <Link to={`/${type}/${id}`}>
                             <img
                                 src={`${apiUrl}/image/tg_icon.svg`}
-                                alt=""
+                                alt="Paper Plane Icon"
                                 className="w-[18px]"
                             />
                         </Link>

@@ -1,5 +1,5 @@
 import './App.css'
-import NavBar from './components/UI/NavBar'
+import RootElement from './components/UI/RootElement'
 import Feeds from './components/Homepage/Feeds'
 import MainDetailPage from './components/DetailPage/MainDetailPage'
 import Register from './components/Authentication/SignUp'
@@ -18,7 +18,7 @@ import BlogPosts from './components/Blog/BlogPosts'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <NavBar />,
+    element: <RootElement />,
     errorElement: <ErrorPage />,
     children: [
       {

@@ -17,7 +17,7 @@ import MetaTags from "../UI/MetaTags";
 
 const Profile = () => {
     const params = useParams();
-    const limit = 5;
+    const limit = 10;
     let user = useSelector(state => state.auth.user);
     const [username, setUsername] = useState(null);
 

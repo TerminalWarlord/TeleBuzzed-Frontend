@@ -13,7 +13,7 @@ import MetaTags from '../UI/MetaTags'
 const Feeds = () => {
 
     const fetchBots = useCallback(async () => {
-        const res = await fetchItems(1, 20, 'popular', 'bot');
+        const res = await fetchItems(1, 10, 'popular', 'bot');
         return res;
     }, [])
     const { data: bots, isFetching: isBotsFetching, error: botsFetchingError } = useFetch(fetchBots, {
@@ -22,7 +22,7 @@ const Feeds = () => {
 
 
     const fetchChannels = useCallback(async () => {
-        const res = await fetchItems(1, 20, 'popular', 'channel');
+        const res = await fetchItems(1, 10, 'popular', 'channel');
         return res;
     }, [])
     const { data: channels, isFetching: isChannelsFetching, error: channelsFetchingError } = useFetch(fetchChannels, {
@@ -30,7 +30,7 @@ const Feeds = () => {
     });
 
     const fetchGroups = useCallback(async () => {
-        const res = await fetchItems(1, 20, 'popular', 'group');
+        const res = await fetchItems(1, 10, 'popular', 'group');
         return res;
     }, [])
     const { data: groups, isFetching: isGroupsFetching, error: groupsFetchingError } = useFetch(fetchGroups, {

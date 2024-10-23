@@ -5,7 +5,7 @@ const MainContent = ({ isFetching = false, error = null, data }) => {
     return (
         <>
             <About description={data?.result?.description} isFetching={isFetching} error={error} />
-            {!isFetching && <NewReview />}
+            {!isFetching && <NewReview error={error} />}
         </>
     )
 }
