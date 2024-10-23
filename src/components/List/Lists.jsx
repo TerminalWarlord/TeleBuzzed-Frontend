@@ -15,7 +15,7 @@ const Lists = ({ dirType }) => {
     const params = useParams();
     const page = parseInt(searchParams.get('page') || '1', 10);
     const [currentPage, setCurrentPage] = useState(page);
-    const limit = 3;
+    const limit = 15;
     const [searchTerm, setSearchTerm] = useState('');
     const [category, setCategory] = useState(params.categorySlug || '');
     const [sortBy, setSortBy] = useState("popular");
