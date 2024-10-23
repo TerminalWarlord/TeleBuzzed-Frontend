@@ -1,0 +1,10 @@
+# Allow all web crawlers access to the site
+User-agent: *
+Allow: /
+
+# Disallow crawling of certain sections (e.g., admin, API, etc.)
+Disallow: /dashboard/
+
+
+# Specify the location of the sitemap
+Sitemap: https://telebuzzed.com/sitemap.xml

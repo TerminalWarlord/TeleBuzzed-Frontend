@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://telebuzzed.com/</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/page/about-us</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/page/contact-us</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/page/terms-of-use</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/page/privacy-policy</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/page/cookie-policy</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/blog</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/bots</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/channels</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/groups</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/auth/login</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/auth/register</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://telebuzzed.com/auth</loc>
+	<lastmod>2024-10-23T18:22:38+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+</urlset>

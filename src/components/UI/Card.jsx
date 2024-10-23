@@ -90,7 +90,7 @@ const Card = ({
                     <div className="py-1.5 px-4 border-2 border-blue-500 dark:border-base-300 rounded-lg">
                         <Link to={`/${type}/${id}`}>
                             <img
-                                src="https://www.svgrepo.com/show/343522/telegram-communication-chat-interaction-network-connection.svg"
+                                src={`${apiUrl}/image/tg_icon.svg`}
                                 alt=""
                                 className="w-[18px]"
                             />
