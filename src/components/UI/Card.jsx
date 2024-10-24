@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Stars from './Stars';
 
-// TODO: update host
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Card = ({
@@ -22,84 +21,122 @@ const Card = ({
 
     if (error) {
         return (
-            <div className={`py-2 border-2 border-base-200 w-full rounded-lg relative my-4 ${classes}`}>
-                <div className='flex flex-col items-center justify-center py-6'>
-                    <h1 className='text-red-500 font-semibold'>Error</h1>
-                    <p className='text-red-400'>{error.message}</p>
-                </div>
+            <div className="border-2 border-base-200 rounded-lg p-4 my-4 shadow-sm">
+                <p className="text-red-500 font-semibold">Error: {error.message}</p>
             </div>
         );
     }
 
+    const Skeleton = ({ className }) => (
+        <div className={`skeleton animate-pulse bg-base-200 ${className}`} />
+    );
+
     return (
-        <div className={`py-2 border-2 border-base-300 w-full rounded-lg relative my-4 ${classes}`}>
-            <div className='flex px-4 py-2'>
-                <div className='flex-shrink-0 w-[60px]'>
-                    <div className='w-full aspect-square overflow-hidden rounded-full mb-2'>
-                        {isFetching ? (
-                            <div className="skeleton h-full w-full"></div>
-                        ) : (
-                            <Link to={`/${type}/${id}`}>
-                                <img src={`${apiUrl}/image/${image}`} alt={`${title} Avatar`} className='w-full h-full object-cover' />
-                            </Link>
-                        )}
-                    </div>
+        <article className={`
+            border-2 
+            border-base-300 
+            rounded-lg 
+            p-4 
+            my-4
+            hover:shadow-md 
+            hover:border-base-400
+            transition-all 
+            duration-200 
+            ${classes}
+        `}>
+            <div className="flex gap-4">
+                {/* Avatar and Category Section */}
+                <div className="w-[60px] flex-shrink-0">
                     {isFetching ? (
-                        <div className="skeleton h-4 w-full"></div>
+                        <Skeleton className="w-full aspect-square rounded-full" />
                     ) : (
-                        <Link to={`/${type}s/${category?.slug}`} className='text-xs block text-center truncate'>{category?.name}</Link>
-                    )}
-                </div>
-                <div className='ml-4 flex-grow min-w-0'>
-                    {isFetching ? (
-                        <div className="skeleton h-4 w-3/4 mb-2"></div>
-                    ) : (
-                        <Link to={`/${type}/${id}`}>
-                            <h1 className='font-semibold text-sm md:text-md truncate'>{title}</h1>
-                        </Link>
-                    )}
-                    {isFetching ? (
-                        <div className="skeleton h-16 w-full"></div>
-                    ) : (
-                        <h2 className='text-xs overflow-hidden text-ellipsis line-clamp-3'>{description}</h2>
-                    )}
-                </div>
-            </div>
-            <div className='mt-4 h-0.5 w-full bg-base-200'></div>
-            <div className='flex justify-between items-center px-4 mt-2'>
-                <div className='relative'>
-                    {isFetching ? (
-                        <div className="skeleton h-4 w-20"></div>
-                    ) : (
-                        <h3
-                            onMouseEnter={() => setIsHovering(true)}
-                            onMouseLeave={() => setIsHovering(false)}
-                        >
-                            <Stars data={averageRating} classes='text-xs'></Stars>
-                        </h3>
-                    )}
-                    {isHovering && (
-                        <div className='absolute w-24 left-0 mt-1 bg-slate-700 px-2 py-1 text-white rounded-md text-xs'>
-                            Total votes {totalReviews}
-                        </div>
-                    )}
-                </div>
-                {isFetching ? (
-                    <div className="skeleton h-8 w-20"></div>
-                ) : (
-                    <div className="py-1.5 px-4 border-2 border-blue-500 dark:border-base-300 rounded-lg">
-                        <Link to={`/${type}/${id}`}>
+                        <Link to={`/${type}/${id}`} className="block">
                             <img
-                                src={`${apiUrl}/image/tg_icon.svg`}
-                                alt="Paper Plane Icon"
-                                className="w-[18px]"
+                                src={`${apiUrl}/image/${image}`}
+                                alt={title}
+                                className="w-full aspect-square rounded-full object-cover hover:scale-110 transition-transform duration-300"
+                                loading="lazy"
                             />
                         </Link>
-                    </div>
+                    )}
+
+                    {isFetching ? (
+                        <Skeleton className="h-4 w-full mt-2" />
+                    ) : (
+                        <Link
+                            to={`/${type}s/${category?.slug}`}
+                            className="text-xs block text-center truncate hover:text-blue-500 transition-colors mt-2"
+                        >
+                            {category?.name}
+                        </Link>
+                    )}
+                </div>
+
+                {/* Content Section */}
+                <div className="flex-grow min-w-0">
+                    {isFetching ? (
+                        <Skeleton className="h-4 w-3/4 mb-2" />
+                    ) : (
+                        <Link
+                            to={`/${type}/${id}`}
+                            className="font-semibold text-sm md:text-md block truncate hover:text-blue-500 transition-colors"
+                        >
+                            {title}
+                        </Link>
+                    )}
+
+                    {isFetching ? (
+                        <Skeleton className="h-16 w-full mt-2" />
+                    ) : (
+                        <p className="text-xs line-clamp-3 text-gray-600 dark:text-gray-300 mt-2">
+                            {description}
+                        </p>
+                    )}
+                </div>
+            </div>
+
+            <hr className="my-4 border-base-200" />
+
+            {/* Footer Section */}
+            <div className="flex justify-between items-center">
+                <div className="relative w-full">
+                    {isFetching ? (
+                        <Skeleton className="h-4 w-20" />
+                    ) : (
+                        <>
+                            <div
+                                onMouseEnter={() => setIsHovering(true)}
+                                onMouseLeave={() => setIsHovering(false)}
+                                className="cursor-help"
+                            >
+                                <Stars data={averageRating} classes="text-xs" />
+                            </div>
+                            {isHovering && (
+                                <p className="absolute left-0 mt-1 px-2 py-1 bg-slate-700 text-white rounded-md text-xs shadow-lg z-10">
+                                    Total votes {totalReviews}
+                                </p>
+                            )}
+                        </>
+                    )}
+                </div>
+
+                {isFetching ? (
+                    <Skeleton className="h-8 w-20" />
+                ) : (
+                    <Link
+                        to={`/${type}/${id}`}
+                        className="p-1.5 border-2 border-blue-500 dark:border-base-300 rounded-lg hover:bg-blue-50 dark:hover:bg-base-200 transition-colors"
+                    >
+                        <img
+                            src="/tg_icon.svg"
+                            alt="View Details"
+                            className="w-[18px] hover:scale-110 transition-transform"
+                        />
+                    </Link>
                 )}
             </div>
-        </div>
+        </article>
     );
-}
+};
 
 export default Card;

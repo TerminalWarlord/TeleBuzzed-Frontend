@@ -59,22 +59,20 @@ const Feeds = () => {
                 <Featured />
 
                 <div className='flex flex-col my-8 px-4 sm:px-6 md:px-10 lg:px-20  w-full'>
-                    <div className=''>
-                        <div className="flex justify-center items-center mx-10">
-                            <div className="relative w-full my-4">
-                                <div className="h-[1.5px] bg-base-200 rounded-lg" />
-                                <h2 className="absolute left-1/2 transform -translate-x-1/2 -bottom-3 bg-base-100 px-4 text-center uppercase font-semibold">
-                                    <FontAwesomeIcon icon={faRobot} className="mr-2" />
-                                    Popular Bots
-                                </h2>
-                            </div>
+                    <section className="flex justify-center items-center mx-10">
+                        <div className="relative w-full my-4">
+                            <div className="h-[1.5px] bg-base-200 rounded-lg" />
+                            <h2 className="absolute left-1/2 transform -translate-x-1/2 -bottom-3 bg-base-100 px-4 text-center uppercase font-semibold">
+                                <FontAwesomeIcon icon={faRobot} className="mr-2" />
+                                Popular Bots
+                            </h2>
                         </div>
-                        {/* {botsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>} */}
-                        {(!botsFetchingError && isBotsFetching) && <Slider items={dummyData} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
-                        {!isBotsFetching && <Slider items={popularBots} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
-                    </div>
+                    </section>
+                    {/* {botsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>} */}
+                    {(!botsFetchingError && isBotsFetching) && <Slider items={dummyData} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
+                    {!isBotsFetching && <Slider items={popularBots} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
 
-                    <div className='my-8'>
+                    <section className='my-8'>
                         <div className="flex justify-center items-center mx-10">
                             <div className="relative w-full my-4">
                                 <div className="h-[1.5px] bg-base-200 rounded-lg" />
@@ -88,9 +86,9 @@ const Feeds = () => {
                         {/* {channelsFetchingError && <h1 className='text-center my-10'>Failed to load!</h1>} */}
                         {(!channelsFetchingError && isChannelsFetching) && <Slider items={dummyData} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
                         {!isChannelsFetching && <Slider items={popularChannels} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
-                    </div>
+                    </section>
 
-                    <div className='my-8'>
+                    <section className='my-8'>
                         <div className="flex justify-center items-center mx-10">
                             <div className="relative w-full my-4">
                                 <div className="h-[1.5px] bg-base-200 rounded-lg" />
@@ -102,7 +100,7 @@ const Feeds = () => {
                         </div>
                         {(!groupsFetchingError && isGroupsFetching) && <Slider items={dummyData} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
                         {!isGroupsFetching && <Slider items={popularGroups} defaultSlides={1} smSlides={1} mdSlides={2} lgSlides={3} xlSlides={5} spacing={20} />}
-                    </div>
+                    </section>
                 </div>
             </div>
         </>

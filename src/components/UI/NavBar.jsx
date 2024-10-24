@@ -91,6 +91,9 @@ export default function NavBar() {
                                         alt="TeleBuzzed Logo"
                                         src="/telebuzzed-logo.png"
                                         className="h-6 sm:h-8 lg:h-10 w-auto"
+                                        loading='lazy'
+                                        width="973"
+                                        height="205"
                                     />
                                 </Link>
 
