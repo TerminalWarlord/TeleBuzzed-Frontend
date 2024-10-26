@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Stars from './Stars';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -81,16 +83,16 @@ const Card = ({
                             to={`/${type}/${id}`}
                             className="font-semibold text-sm md:text-md block truncate hover:text-blue-500 transition-colors"
                         >
-                            {title}
+                            <h2>{title}</h2>
                         </Link>
                     )}
 
                     {isFetching ? (
                         <Skeleton className="h-16 w-full mt-2" />
                     ) : (
-                        <p className="text-xs line-clamp-3 text-gray-600 dark:text-gray-300 mt-2">
+                        <h4 className="text-xs line-clamp-3 text-gray-600 dark:text-gray-300 mt-2">
                             {description}
-                        </p>
+                        </h4>
                     )}
                 </div>
             </div>
@@ -125,13 +127,9 @@ const Card = ({
                 ) : (
                     <Link
                         to={`/${type}/${id}`}
-                        className="p-1.5 border-2 border-blue-500 dark:border-base-300 rounded-lg hover:bg-blue-50 dark:hover:bg-base-200 transition-colors"
+                        className="py-0.5 px-3 border-2 border-blue-500 dark:border-base-300 rounded-lg hover:bg-blue-50 dark:hover:bg-base-200 transition-colors"
                     >
-                        <img
-                            src="/tg_icon.svg"
-                            alt="View Details"
-                            className="w-[18px] hover:scale-110 transition-transform"
-                        />
+                        <FontAwesomeIcon icon={faPaperPlane} className="w-[18px] text-blue-500 hover:scale-110 transition-transform" />
                     </Link>
                 )}
             </div>

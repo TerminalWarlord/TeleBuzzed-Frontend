@@ -15,6 +15,10 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import MetaTags from "../UI/MetaTags";
 
+
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const Profile = () => {
     const params = useParams();
     const limit = 10;
@@ -132,6 +136,11 @@ const Profile = () => {
     return (
         <>
             <MetaTags title={`${data.result.first_name} ${data.result.last_name} | TeleBuzzed.Com`} />
+            <MetaTags
+                title={`${data.result.first_name} ${data.result.last_name} | TeleBuzzed.Com`}
+                description={`Profile of ${data.result.first_name} ${data.result.last_name}. Check out all the contributions and reviews made by ${data.result.first_name} ${data.result.last_name}`}
+                image={`${apiUrl}/image/${data?.result?.avatar}`}
+            />
             <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center overflow-hidden">
                 <Intro
                     title={`${data.result.first_name} ${data.result.last_name}`}

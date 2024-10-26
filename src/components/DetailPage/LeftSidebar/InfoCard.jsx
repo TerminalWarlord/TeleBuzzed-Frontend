@@ -10,7 +10,7 @@ import InfoSkeleton from "./InfoSkeleton"
 import { calculatePopularity, getYearMonthDifference } from "../../../utils/helper"
 import Stars from '../../UI/Stars';
 import { Link, useParams } from "react-router-dom"
-import { useSelector } from "react-redux"
+// import { useSelector } from "react-redux"
 import EditProfile from "./EditProfile"
 
 
@@ -26,7 +26,7 @@ const InfoCard = ({ item, isFetching = false, error = null, onUserUpdate = null 
     let info;
 
     const associatedWithProfile = !params.username && item.isUser;
-    const user = useSelector(state => state.auth.user);
+    // const user = useSelector(state => state.auth.user);
     function openModal() {
         modalRef.current.showModal();
     }

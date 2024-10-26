@@ -14,6 +14,10 @@ import { useCallback } from "react"
 import MetaTags from "../UI/MetaTags"
 
 
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
+
 const iconMap = {
     bot: faRobot,
     channel: faBullhorn,
@@ -49,7 +53,11 @@ const MainDetailPage = () => {
     let icon = iconMap[botData?.result?.type];
     return (
         <>
-            <MetaTags title={`${botData?.result?.name || 'Telegram Directory'} | TeleBuzzed.Com`} />
+            <MetaTags
+                title={`${botData?.result?.name || 'Telegram Directory'} | TeleBuzzed.Com`}
+                description={botData?.result?.description}
+                image={`${apiUrl}/image/${botData?.result?.avatar}`}
+            />
             <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center">
                 <Intro title={botData?.result?.name} type={botData?.result?.type} icon={icon} isFetching={isFetching} />
                 <div className="flex flex-col items-center md:flex-row md:items-start w-full my-4">

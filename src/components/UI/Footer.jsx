@@ -21,6 +21,9 @@ const Footer = () => {
                         className="w-72 h-auto"
                     />
                 </Link>
+                <h2 className="text-xs mb-3">
+                    TeleBuzzed is a directory of Telegram bots, channels, and groups.
+                </h2>
                 <p>
 
                     Copyright &copy; 2024 <Link to={'/'} className="font-bold">TeleBuzzed</Link>.
@@ -30,6 +33,7 @@ const Footer = () => {
                     Made with <span className="text-red-500">❤</span> by <a href="https://github.com/TerminalWarlord" target="_blank" rel="noopener noreferrer">
                         <b>TerminalWarlord</b>
                     </a>.
+
                 </p>
 
             </aside>

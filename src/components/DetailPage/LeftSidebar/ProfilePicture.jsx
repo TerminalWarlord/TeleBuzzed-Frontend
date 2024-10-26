@@ -1,6 +1,5 @@
 import { ImageViewer } from '../../UI/Image';
 
-// TODO: update host
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const ProfilePicture = ({ image, isFetching = false, error = null }) => {
