@@ -79,7 +79,10 @@ const InfoCard = ({ item, isFetching = false, error = null, onUserUpdate = null 
             {!item.isUser && <LikeState data={item} isFetching={isFetching} error={error} />}
             <div className="my-3 w-full flex flex-col justify-center items-center space-y-2">
 
-                {(!item.isUser || (item.isUser && item.tg_username)) && <a href={`https://t.me/${item.isUser ? item.tg_username : item.username}`} className="px-4 py-2 bg-[#2AABEE] text-base-200 rounded-md font-bold text-xs">Open <FontAwesomeIcon icon={faPaperPlane} color="white" className="ml-2 text-sm font-normal" /></a>}
+                {(!item.isUser || (item.isUser && item.tg_username)) && <a
+                    href={`https://t.me/${item.isUser ? item.tg_username : item.username}`}
+                    target="_blank" rel="noopener noreferrer"
+                    className="px-4 py-2 bg-[#2AABEE] text-base-200 rounded-md font-bold text-xs">Open <FontAwesomeIcon icon={faPaperPlane} color="white" className="ml-2 text-sm font-normal" /></a>}
                 {associatedWithProfile &&
                     <Link
                         className="px-4 py-2 bg-black text-white rounded-md font-bold text-xs"
