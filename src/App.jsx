@@ -14,6 +14,7 @@ import AddItem from './components/AddItems/AddItem'
 import ArticleDetails from './components/Blog/ArticleDetails'
 import ErrorPage from './components/UI/ErrorPage'
 import BlogPosts from './components/Blog/BlogPosts'
+import { HelmetProvider } from 'react-helmet-async'
 
 const router = createBrowserRouter([
   {
@@ -109,7 +110,9 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <RouterProvider router={router} />
+    <HelmetProvider>
+      <RouterProvider router={router} />
+    </HelmetProvider>
   )
 }
 
