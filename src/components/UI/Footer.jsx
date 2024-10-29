@@ -19,6 +19,9 @@ const Footer = () => {
                     <img src="/telebuzzed-logo-black.png"
                         alt="TeleBuzzed Logo"
                         className="w-72 h-auto"
+                        loading='lazy'
+                        width="973"
+                        height="205"
                     />
                 </Link>
                 <h2 className="text-xs mb-3">

@@ -3,13 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="preload"
-      href="https://fonts.gstatic.com/s/poppins/v12/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
-      as="font"
-      type="font/ttf"
-      crossorigin="anonymous"
-    />
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
       rel="preload"
       href="https://fonts.gstatic.com/s/lato/v11/S6uyw4BMUTPHjx4wWw.ttf"
@@ -17,6 +14,21 @@
       type="font/ttf"
       crossorigin="anonymous"
     />
+
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+
+    <!-- Fallback if the preloaded stylesheets fail to load -->
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- <script
       type="text/javascript"
