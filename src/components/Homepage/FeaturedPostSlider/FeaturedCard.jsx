@@ -1,47 +1,71 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import React, { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
 const FeaturedCard = ({ title, longDescription, image, postSlug }) => {
     const [isHovering, setIsHovering] = useState(false);
 
-    // Function to strip HTML tags from the longDescription
+    // Memoize the event handlers to prevent unnecessary re-renders
+    const handleMouseEnter = useCallback(() => setIsHovering(true), []);
+    const handleMouseLeave = useCallback(() => setIsHovering(false), []);
+
+    // Strip HTML tags - moved outside component if possible
     const stripHtml = (html) => {
+        if (!html) return '';
         const div = document.createElement("div");
         div.innerHTML = html;
         return div.textContent || div.innerText || "";
     };
-    const plainTextDescription = stripHtml(longDescription);
 
-    const description = plainTextDescription.length > 70 ? `${plainTextDescription.slice(0, 70)}...` : plainTextDescription;
+    const description = stripHtml(longDescription);
+    const truncatedDescription = description.length > 70
+        ? `${description.slice(0, 70)}...`
+        : description;
+
     return (
         <Link
-            to={'/article/' + postSlug}
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
+            to={`/article/${postSlug}`}
+            className="block"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
-            <div className="relative my-5 sm:mx-2 overflow-hidden">
-                <div
-                    className="rounded-2xl transition-all duration-300 hover:brightness-50 w-full h-[12rem] bg-cover bg-center"
-                    style={{ backgroundImage: `url(${apiUrl}/image/${image})` }}
-
-                >
+            <div className="relative my-5 sm:mx-2 overflow-hidden h-48">
+                {/* Image container with explicit width/height for LCP optimization */}
+                <div className="absolute inset-0">
+                    <img
+                        src={`${import.meta.env.VITE_API_URL}/image/${image}`}
+                        alt={title}
+                        className={`w-full h-full object-cover rounded-2xl transition-all duration-300 ${isHovering ? 'brightness-50' : 'brightness-100'
+                            }`}
+                        loading="eager"
+                        decoding="async"
+                        fetchPriority="high"
+                    />
                 </div>
-                <h1 className={`transition-all duration-300 absolute bottom-0 left-0 text-xl font-bold px-4 py-4 text-white w-full ${isHovering ? 'bottom-7' : 'bottom-0'}`}>
-                    <span className="line-clamp-2 overflow-hidden break-words">{title}</span>
-                </h1>
 
+                {/* Title overlay with better positioning */}
+                <div
+                    className={`absolute left-0 right-0 px-4 py-4 transition-transform duration-300 ${isHovering ? 'translate-y-[-28px]' : 'translate-y-0'
+                        }`}
+                    style={{ bottom: 0 }}
+                >
+                    <h1 className="text-xl font-bold text-white line-clamp-2 break-words">
+                        {title}
+                    </h1>
+                </div>
 
-                <h2 className={`transition-all duration-300 absolute left-0 w-full text-xs text-white px-4 ${isHovering ? 'bottom-3' : '-bottom-10 opacity-0'}`}>
-                    <span className="block truncate overflow-hidden break-words whitespace-normal">{description}</span>
-                </h2>
-
-
+                {/* Description overlay with improved transition */}
+                <div
+                    className={`absolute left-0 right-0 px-4 transition-all duration-300 ${isHovering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                        }`}
+                    style={{ bottom: '12px' }}
+                >
+                    <p className="text-xs text-white line-clamp-2 break-words">
+                        {truncatedDescription}
+                    </p>
+                </div>
             </div>
         </Link>
     );
 };
 
-export default FeaturedCard;
+export default React.memo(FeaturedCard);
