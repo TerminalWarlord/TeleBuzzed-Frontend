@@ -1,6 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import ThemeController from './ThemeController'
+import ThemeController from '../UI/ThemeController'
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -91,9 +91,8 @@ export default function NavBar() {
                                         alt="TeleBuzzed Logo"
                                         src="/telebuzzed-logo.png"
                                         className="h-6 sm:h-8 lg:h-10 w-auto"
-                                        loading='lazy'
-                                        width="973"
-                                        height="205"
+                                        width="auto"
+                                        height="6"
                                     />
                                 </Link>
 

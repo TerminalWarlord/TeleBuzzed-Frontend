@@ -57,7 +57,6 @@ const Card = ({
                                 src={`${apiUrl}/image/${image}`}
                                 alt={title}
                                 className="w-full aspect-square rounded-full object-cover hover:scale-110 transition-transform duration-300"
-                                loading="lazy"
                                 width="60"
                                 height="60"
                             />

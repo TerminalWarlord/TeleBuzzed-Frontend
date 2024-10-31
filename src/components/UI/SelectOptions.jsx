@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const SelectOptions = ({ name, options, onSelectOption }) => {
     const [selected, setSelected] = useState("");
     const params = useParams();
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const currentPath = pathname.split('/')[1]
 
     useEffect(() => {
         if (params.categorySlug) {
@@ -18,6 +21,9 @@ const SelectOptions = ({ name, options, onSelectOption }) => {
         const value = e.target.value;
         onSelectOption(value);
         setSelected(value);
+        if (value != 'All') {
+            navigate(`/${currentPath}/${value}`);
+        }
     }
 
     return (

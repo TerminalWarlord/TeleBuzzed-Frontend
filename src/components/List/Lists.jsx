@@ -19,7 +19,6 @@ const Lists = ({ dirType }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [category, setCategory] = useState(params.categorySlug || '');
     const [sortBy, setSortBy] = useState("popular");
-
     useEffect(() => {
         setCategory(params.categorySlug || '');
     }, [params.categorySlug]);
@@ -41,10 +40,10 @@ const Lists = ({ dirType }) => {
         setCurrentPage(pageNo);
         setSearchParams({ page: pageNo });
     }
-
+    const title = `Telegram ${dirType.slice(0, 1).toUpperCase() + dirType.slice(1)} Directory | ${(category != '' && category != 'all') && data?.result && data?.result[0]?.category ? data.result[0].category.name : 'TeleBuzzed.Com'}`;
     return (
         <>
-            <MetaTags title={`Telegram ${dirType.slice(0, 1).toUpperCase() + dirType.slice(1)} Directory | TeleBuzzed.Com`} />
+            <MetaTags title={title} />
             <section className="mx-3 md:mx-20 my-5 flex flex-col justify-center">
                 <Header
                     dirType={dirType}

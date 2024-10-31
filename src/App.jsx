@@ -1,5 +1,5 @@
 import './App.css'
-import RootElement from './components/UI/RootElement'
+import RootElement from './components/Layouts/RootElement'
 import Feeds from './components/Homepage/Feeds'
 import MainDetailPage from './components/DetailPage/MainDetailPage'
 import Register from './components/Authentication/SignUp'

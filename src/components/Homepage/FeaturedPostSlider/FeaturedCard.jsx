@@ -38,7 +38,6 @@ const FeaturedCard = ({ title, longDescription, image, postSlug }) => {
                             }`}
                         loading="eager"
                         decoding="async"
-                        fetchPriority="high"
                     />
                 </div>
 

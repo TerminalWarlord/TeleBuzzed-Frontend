@@ -1,7 +1,7 @@
 import { faFaceFrown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import NavBar from './NavBar';
-import Footer from "./Footer";
+import NavBar from "../Layouts/NavBar";
+import Footer from "../Layouts/Footer";
 
 const ErrorPage = () => {
     return (
