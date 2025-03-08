@@ -7,7 +7,8 @@ import AllReviews from "../DetailPage/AllReviews";
 import LineBreak from "../UI/LineBreak";
 import Logs from "./Logs";
 import Pagination from "../UI/Pagination";
-import { fetchItems, getFullUserDetails } from "../../utils/http";
+import { fetchItems } from "../../utils/tgData";
+import { getFullUserDetails } from "../../utils/user"
 import useFetch from "../../hooks/useFetch";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';

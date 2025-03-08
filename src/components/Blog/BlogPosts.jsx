@@ -1,9 +1,9 @@
 import Pagination from "../UI/Pagination"
 import PostCard from "./PostCard"
 import useFetch from "../../hooks/useFetch";
-import { getAllPosts } from "../../utils/http";
 import { useCallback, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getAllPosts } from "../../utils/posts";
 
 const BlogPosts = () => {
     const params = useParams();

@@ -1,6 +1,6 @@
 import { Form, Link, useNavigate } from "react-router-dom";
-import { signup } from "../../utils/http";
 import { useState } from "react";
+import { signup } from "../../utils/auth";
 
 export default function Register() {
     const [errors, setErrors] = useState();

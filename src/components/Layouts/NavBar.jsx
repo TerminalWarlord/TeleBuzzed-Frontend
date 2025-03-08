@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../store/authStore'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBullhorn, faRobot, faUserGroup } from '@fortawesome/free-solid-svg-icons'
-import { getMe } from '../../utils/http'
-import { isLoggedIn } from '../../utils/auth'
+import { getMe, isLoggedIn } from '../../utils/auth'
 
 
 const apiUrl = import.meta.env.VITE_API_URL;

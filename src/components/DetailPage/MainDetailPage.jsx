@@ -8,10 +8,10 @@ import { faBullhorn, faRobot, faUser, faUserGroup } from "@fortawesome/free-soli
 import AllReviews from "./AllReviews"
 import Tabs from "../UI/Tabs"
 import useFetch from "../../hooks/useFetch"
-import { getItemDetails } from "../../utils/http"
 import { useParams } from "react-router-dom"
 import { useCallback } from "react"
 import MetaTags from "../UI/MetaTags"
+import { getItemDetails } from "../../utils/tgData"
 
 
 

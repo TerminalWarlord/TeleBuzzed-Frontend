@@ -6,9 +6,9 @@ import 'swiper/css/pagination';
 
 import FeaturedCard from './FeaturedCard'
 import Slider from "../../UI/Slider";
-import { getAllPosts } from "../../../utils/http";
 import useFetch from '../../../hooks/useFetch';
 import { useCallback } from "react";
+import { getAllPosts } from "../../../utils/posts";
 
 
 // TODO: HANDLE ERRORS

@@ -1,6 +1,5 @@
 import { redirect } from "react-router-dom";
-import { isLoggedIn } from "./auth";
-import { getMe } from "./http";
+import { getMe, isLoggedIn } from "./auth";
 
 export default async function authLoader() {
     const isAuthed = await isLoggedIn();

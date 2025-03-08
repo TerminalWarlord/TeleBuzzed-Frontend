@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form } from 'react-router-dom';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import LineBreak from '../../UI/LineBreak';
-import { putChangePassword, putEditProfile } from '../../../utils/http';
+import { putChangePassword, putEditProfile } from '../../../utils/user';
 import { authActions } from '../../../store/authStore';
 
 const EditProfile = forwardRef(({ onUserUpdate }, ref) => {

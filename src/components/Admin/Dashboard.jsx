@@ -1,12 +1,13 @@
 import { useCallback, useRef, useState } from 'react';
 import { Form } from "react-router-dom";
 import useFetch from '../../hooks/useFetch';
-import { getCategories, getUserRequests } from "../../utils/http";
+import { getUserRequests } from "../../utils/http";
 import { getToken } from "../../utils/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import Modal from "../UI/Modal";
+import { getCategories } from '../../utils/tgData';
 
 
 const apiUrl = import.meta.env.VITE_API_URL;

@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import 'quill/dist/quill.snow.css';
 import { getToken } from '../../utils/auth';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getPostDetails } from '../../utils/http';
 import { useQuill } from '../../hooks/useQuill';
+import { getPostDetails } from '../../utils/posts';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 

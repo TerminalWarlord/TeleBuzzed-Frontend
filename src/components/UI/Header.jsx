@@ -4,7 +4,7 @@ import SelectOptions from './SelectOptions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useFetch from '../../hooks/useFetch';
 import { useCallback } from 'react';
-import { getCategories } from '../../utils/http';
+import { getCategories } from '../../utils/tgData';
 
 const SORTFILTERS = [
     {

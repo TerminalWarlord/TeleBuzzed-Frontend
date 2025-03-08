@@ -4,9 +4,9 @@ import { faAward, faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-s
 import { Form, Link, useParams } from 'react-router-dom'
 import InputField from './InputField'
 import Modal from '../UI/Modal'
-import { getCategories, postSubmitContent } from '../../utils/http'
 import { useSelector } from 'react-redux'
 import useFetch from '../../hooks/useFetch'
+import { getCategories, postSubmitContent } from '../../utils/tgData'
 
 
 

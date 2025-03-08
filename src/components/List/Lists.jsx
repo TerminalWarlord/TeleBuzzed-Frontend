@@ -5,7 +5,7 @@ import Pagination from '../UI/Pagination';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
-import { fetchItems } from '../../utils/http';
+import { fetchItems } from '../../utils/tgData';
 import { faFaceFrown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MetaTags from '../UI/MetaTags';

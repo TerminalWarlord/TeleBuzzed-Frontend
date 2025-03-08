@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import { getPostDetails } from "../../utils/http";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { formatDate } from "../../utils/helper";
@@ -7,6 +6,7 @@ import Featured from "../Homepage/FeaturedPostSlider/Featured";
 import ErrorPage from "../UI/ErrorPage";
 import { ImageViewerWithCaption } from "../UI/Image";
 import MetaTags from "../UI/MetaTags";
+import { getPostDetails } from "../../utils/posts";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 

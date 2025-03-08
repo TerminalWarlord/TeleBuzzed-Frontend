@@ -5,7 +5,7 @@ import Card from '../UI/Card'
 import Slider from '../UI/Slider';
 import LineBreak from '../UI/LineBreak';
 import useFetch from '../../hooks/useFetch';
-import { fetchItems } from '../../utils/http';
+import { fetchItems } from '../../utils/tgData';
 import { useCallback } from 'react';
 
 

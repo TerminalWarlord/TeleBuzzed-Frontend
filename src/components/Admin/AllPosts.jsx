@@ -4,11 +4,10 @@ import useFetch from '../../hooks/useFetch';
 import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import Modal from '../UI/Modal';
-import { getAllPosts, deletePost } from "../../utils/http";
 import Pagination from '../UI/Pagination';
 import PostEditor from './PostEditor';
+import { getAllPosts, deletePost } from '../../utils/posts';
 
 const AllPost = () => {
     const [currentPage, setCurrentPage] = useState(1);

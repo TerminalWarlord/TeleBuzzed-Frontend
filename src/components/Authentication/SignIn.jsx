@@ -1,8 +1,8 @@
 import { Form, Link, useNavigate } from "react-router-dom"
 import { authActions } from "../../store/authStore";
 import { useDispatch } from "react-redux";
-import { getMe, login } from "../../utils/http";
 import { useState } from "react";
+import { getMe, login } from "../../utils/auth";
 
 export default function SignIn() {
     const [errors, setErrors] = useState();

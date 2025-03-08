@@ -3,7 +3,7 @@ import { faFaceFrown, faSquarePollVertical } from "@fortawesome/free-solid-svg-i
 import ReviewItem from "./RightSidebar/ReviewItem"
 import Pagination from "../UI/Pagination"
 import useFetch from "../../hooks/useFetch"
-import { getReviews } from "../../utils/http"
+import { getReviews } from "../../utils/review"
 import { useCallback, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
