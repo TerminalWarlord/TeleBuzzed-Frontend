@@ -4,7 +4,7 @@ import Feeds from './components/Homepage/Feeds'
 import MainDetailPage from './components/DetailPage/MainDetailPage'
 import Register from './components/Authentication/SignUp'
 import SignIn from './components/Authentication/SignIn'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Profile from './components/UserProfile/Profile'
 import Menu from './components/Admin/Menu';
 
@@ -102,7 +102,11 @@ const router = createBrowserRouter([
           { index: true, element: <BlogPosts /> },
           { path: ':pageNo', element: <BlogPosts /> }
         ]
-      }
+      },
+      // {
+      //   path: '*',
+      //   element: <ErrorPage /> 
+      // }
     ]
   }
 ])
