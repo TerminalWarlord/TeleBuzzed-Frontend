@@ -1,14 +1,7 @@
-# Name of your project on Cloudflare Pages
 name = "telebuzzed-frontend"
 
-# The build output directory that will be deployed
-# This should match where your build process outputs files
 compatibility_date = "2023-10-30"
 
 [site]
 bucket = "./dist"
-entry-point = "."
 
-[build]
-command = "npm run build"
-output_dir = "dist"
