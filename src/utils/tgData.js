@@ -1,6 +1,6 @@
+import { getToken } from "./auth";
 
 const apiUrl = import.meta.env.VITE_API_URL;
-
 
 
 export async function fetchItems(offset = 1, limit = 20, filter = 'popular', itemType = 'all', searchTerm = null, category = null, username = null) {
